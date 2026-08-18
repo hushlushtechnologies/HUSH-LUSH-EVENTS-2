@@ -1,26 +1,337 @@
-@import "tailwindcss";
+ @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* =========================================================
+   HUSH LUSH EVENTS — DESIGN SYSTEM
+   Tailwind CSS v4
+   ========================================================= */
+
+/* =========================================================
+   FONTS
+   Loaded via next/font in app/layout.tsx — these vars are
+   populated by Next (--font-primary / --font-secondary),
+   NOT redeclared here as raw font-family strings.
+   ========================================================= */
+
+@theme {
+  --font-primary: var(--font-lora), serif;
+  --font-secondary: var(--font-inter), sans-serif;
+   --font-accent: "Julee", cursive;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* =========================================================
+   COLORS
+   ========================================================= */
+
+@theme {
+  /* -------------------------------------------------------
+     DARK VISUAL SYSTEM
+     ------------------------------------------------------- */
+
+  --color-dark-bg: #080605;
+  --color-dark-card: #120e0b;
+  --color-dark-surface: #1a1510;
+  --color-dark-border: #8b7863;
+
+  --color-dark-primary: #d8630a;
+  --color-dark-secondary: #945d0e;
+
+  --color-dark-text-primary: #faf5f2;
+  --color-dark-text-secondary: #e7dcd9;
+  --color-dark-text-muted: #817872;
+  --color-dark-text-subtle: #b7ada5;
+  --color-dark-background: #352002;
+
+  /* -------------------------------------------------------
+     LIGHT VISUAL SYSTEM
+     ------------------------------------------------------- */
+
+  --color-light-bg: #ffffff;
+  --color-light-card: #fff1ea;
+  --color-light-surface: #eadcd3;
+  --color-light-border: #ddd0c3;
+
+  --color-light-primary: #d86e0a;
+
+  --color-light-text-primary: #181818;
+  --color-light-text-secondary: #414141;
+  --color-light-text-muted: #817b72;
+  --color-light-text-subtle: #b7aca5;
+  --color-section: #FFEBDC;
+  --color-brand-gold: #E9E02A;
+
+  /* -------------------------------------------------------
+     DARK BLUR COLORS
+     ------------------------------------------------------- */
+
+  --color-dark-burgundy-blur: rgba(255, 155, 119, 0.4);
+  --color-dark-yellow-blur: rgba(255, 230, 119, 0.3);
+  --color-dark-blue-blur: rgba(119, 140, 255, 0.3);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* =========================================================
+   GRADIENTS
+   ========================================================= */
+
+   @utility bg-dot-gradient {
+  background: linear-gradient(90deg, #EBE411 0%, #D68306 100%);
+}
+
+@utility bg-card-gradient {
+  background: linear-gradient(180deg, #FFFFFF 28.87%, #FFEBDC 100.85%);
+}
+
+@utility bg-light-primary-gradient {
+  background: linear-gradient(90deg, #d86e0a 0%, #dcba23 50%, #e0e03d 100%);
+}
+
+@utility bg-dark-primary-gradient {
+  background: linear-gradient(90deg, #ebe411 0%, #d68306 100%);
+}
+
+@utility bg-dark-button-gradient {
+  background: radial-gradient(
+    121.09% 55.13% at 48.2% 100%,
+    #d68306 0%,
+    #ebe411 100%
+  );
+}
+
+@utility font-accent {
+  font-family: var(--font-accent);
+}
+
+@utility bg-dark-ball-gradient {
+  background:
+    linear-gradient(270deg, #482052 0%, #713047 46.15%, #b56c73 100%), #d9d9d9;
+}
+
+/* =========================================================
+   LIGHT INNER SHADOW
+   ========================================================= */
+
+@utility shadow-light-inner {
+  box-shadow:
+    inset -5px -5px 10px 0 rgba(255, 255, 255, 0.5),
+    inset 5px 5px 10px 0 rgba(204, 185, 170, 0.25),
+    inset 10px 10px 20px 0 rgba(204, 193, 170, 0.5);
+}
+
+/* =========================================================
+   BLUR / GLOW UTILITIES
+   ========================================================= */
+
+@utility dark-burgundy-glow {
+  background: rgba(255, 155, 119, 0.4);
+  filter: blur(200px);
+}
+
+@utility dark-yellow-glow {
+  background: rgba(255, 230, 119, 0.3);
+  filter: blur(200px);
+}
+
+@utility dark-blue-glow {
+  background: rgba(119, 140, 255, 0.3);
+  filter: blur(200px);
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-light-bg);
+    color: var(--color-light-text-primary);
+    font-family: var(--font-secondary);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-primary);
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font-family: inherit;
+  }
+
+  ::selection {
+    background: var(--color-light-primary);
+    color: #ffffff;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* =========================================================
+   REUSABLE TYPOGRAPHY
+   ========================================================= */
+
+@utility font-display {
+  font-family: var(--font-primary);
+}
+
+@utility font-body {
+  font-family: var(--font-secondary);
+}
+
+/* =========================================================
+   SECTION VISUAL HELPERS
+   These are intentionally NOT dark/light themes.
+   They allow individual sections to choose their visual
+   treatment independently.
+   ========================================================= */
+
+@utility section-light {
+  background: var(--color-light-bg);
+  color: var(--color-light-text-primary);
+}
+
+@utility section-dark {
+  background: var(--color-dark-bg);
+  color: var(--color-dark-text-primary);
+}
+
+/* =========================================================
+   DARK TEXT HELPERS
+   ========================================================= */
+
+@utility text-dark-primary {
+  color: var(--color-dark-text-primary);
+}
+
+@utility text-dark-secondary {
+  color: var(--color-dark-text-secondary);
+}
+
+@utility text-dark-muted {
+  color: var(--color-dark-text-muted);
+}
+
+@utility text-dark-subtle {
+  color: var(--color-dark-text-subtle);
+}
+
+/* =========================================================
+   LIGHT TEXT HELPERS
+   ========================================================= */
+
+@utility text-light-primary {
+  color: var(--color-light-text-primary);
+}
+
+@utility text-light-secondary {
+  color: var(--color-light-text-secondary);
+}
+
+@utility text-light-muted {
+  color: var(--color-light-text-muted);
+}
+
+@utility text-light-subtle {
+  color: var(--color-light-text-subtle);
+}
+
+/* =========================================================
+   DARK BACKGROUND HELPERS
+   ========================================================= */
+
+@utility bg-dark {
+  background: var(--color-dark-bg);
+}
+
+@utility bg-dark-card {
+  background: var(--color-dark-card);
+}
+
+@utility bg-dark-surface {
+  background: var(--color-dark-surface);
+}
+
+/* =========================================================
+   LIGHT BACKGROUND HELPERS
+   ========================================================= */
+
+@utility bg-light {
+  background: var(--color-light-bg);
+}
+
+@utility bg-light-card {
+  background: var(--color-light-card);
+}
+
+@utility bg-light-surface {
+  background: var(--color-light-surface);
+}
+
+/* =========================================================
+   BORDER HELPERS
+   ========================================================= */
+
+@utility border-dark {
+  border-color: var(--color-dark-border);
+}
+
+@utility border-light {
+  border-color: var(--color-light-border);
+}
+
+/* =========================================================
+   BRAND ACCENT HELPERS
+   ========================================================= */
+
+@utility text-dark-brand {
+  color: var(--color-dark-primary);
+}
+
+@utility text-light-brand {
+  color: var(--color-light-primary);
+}
+
+@utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes hero-progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@utility animate-hero-progress {
+  animation: hero-progress linear forwards;
 }
