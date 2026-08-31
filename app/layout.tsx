@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Lora, Inter,Julee  } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
+import { SiteHeader } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
  
 
@@ -67,7 +67,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${lora.variable} ${inter.variable} ${julee.variable}`}>
       <body className="antialiased">
-        <Navbar />
+        <SiteHeader />
         <main>{children}</main>
           <Footer/>
       </body>

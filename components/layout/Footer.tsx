@@ -42,6 +42,7 @@ export function Footer() {
     <footer className="relative isolate overflow-hidden bg-dark">
       <ConcentricRings />
       <FloatingDots />
+      
 
       {/* CTA block */}
       <div className="relative pt-28">

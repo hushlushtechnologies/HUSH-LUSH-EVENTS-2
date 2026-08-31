@@ -40,15 +40,16 @@ export const extraSteps: ProcessStepItem[] = [
     id: "coordinate",
     title: "Coordinate",
     description: "We manage the moving parts, keeping everything on track behind the scenes.",
-    icon: "/images/icons/belief-coordinate.svg",
+     icon: "/images/icons/belief-celebrate.svg",
+  
   },
   {
     id: "celebrate",
     title: "Celebrate",
     description: "You step into the moment while we take care of everything around it.",
-    icon: "/images/icons/belief-celebrate.svg",
+     icon: "/images/icons/belief-coordinate.svg",
   },
 ];
 
 export const verticalBadgeText = "HUSH LUSH EVENTS";
-export const verticalBadgeImage = "/images/about/process-florals.jpg";
+export const verticalBadgeImage = "/images/about/process-florals.png";

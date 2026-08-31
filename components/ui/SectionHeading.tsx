@@ -1,7 +1,8 @@
- "use client";
+"use client";
 
 import { useId } from "react";
 import Image from "next/image";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 
 interface SectionHeadingProps {
   headingLines: string[];
@@ -12,6 +13,54 @@ interface SectionHeadingProps {
   headingClassName?: string;
   className?: string;
 }
+
+const EASE = [0.76, 0, 0.24, 1] as const;
+
+const containerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.12, delayChildren: 0.05 },
+  },
+};
+
+const decorationVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.88, filter: "blur(8px)" },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: { duration: 0.9, ease: EASE },
+  },
+};
+
+const linesVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.15, delayChildren: 0.15 },
+  },
+};
+
+// Each line sits inside an overflow-hidden mask; the line itself wipes
+// up from fully below the mask into place — a classic cinematic reveal,
+// not a fade.
+const lineVariants: Variants = {
+  hidden: { y: "115%" },
+  visible: { y: "0%", transition: { duration: 0.9, ease: EASE } },
+};
+
+const underlineVariants: Variants = {
+  hidden: { pathLength: 0, opacity: 0 },
+  visible: {
+    pathLength: 1,
+    opacity: 0.9,
+    transition: { duration: 0.9, ease: EASE, delay: 0.2 },
+  },
+};
+
+const descriptionVariants: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+};
 
 export function SectionHeading({
   headingLines,
@@ -24,30 +73,47 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   const gradientId = useId();
   const lastIndex = headingLines.length - 1;
+  const reducedMotion = useReducedMotion();
 
   const alignment =
     align === "center" ? "items-center text-center mx-auto" : "items-start text-left";
 
   return (
-    <div className={`relative isolate flex flex-col ${alignment} ${className}`}>
+    <motion.div
+      initial={reducedMotion ? false : "hidden"}
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.5 }}
+      variants={containerVariants}
+      className={`relative isolate flex flex-col ${alignment} ${className}`}
+    >
       <div className="relative flex min-h-[180px] w-full flex-col items-center justify-center sm:min-h-[220px] md:min-h-[260px]">
         {decoration && (
-          <div
+          <motion.div
+            variants={decorationVariants}
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center"
           >
             <div className="relative h-[180px] w-[165px] sm:h-[220px] sm:w-[205px] md:h-[260px] md:w-[245px]">
               <Image src={decoration} alt="" fill className="object-contain" sizes="260px" />
             </div>
-          </div>
+          </motion.div>
         )}
 
-        <h2
+        <motion.h2
+          variants={linesVariants}
           className={`font-display relative z-10 text-[32px] font-medium leading-[1.15] sm:text-[38px] md:text-[46px] lg:text-[52px] ${headingClassName}`}
         >
           {headingLines.map((line, index) => (
+            // Outer span: positioning context for the underline (NOT
+            // clipped). Inner span: the actual reveal mask, scoped to
+            // just the text so it doesn't clip anything below it.
             <span key={line} className="relative block">
-              {line}
+              <span className="block overflow-hidden">
+                <motion.span variants={lineVariants} className="block">
+                  {line}
+                </motion.span>
+              </span>
+
               {underline && index === lastIndex && (
                 <svg
                   width="280"
@@ -55,9 +121,10 @@ export function SectionHeading({
                   viewBox="0 0 280 20"
                   fill="none"
                   aria-hidden="true"
-                  className="pointer-events-none absolute right-0 top-full mt-0.5 w-[75%] max-w-[240px] min-w-[150px] opacity-90"
+                  className="pointer-events-none absolute right-0 top-full mt-0.5 w-[75%] max-w-[240px] min-w-[150px]"
                 >
-                  <path
+                  <motion.path
+                    variants={underlineVariants}
                     d="M2 9C75 2 205 2 278 9"
                     stroke={`url(#${gradientId})`}
                     strokeWidth="2"
@@ -81,14 +148,17 @@ export function SectionHeading({
               )}
             </span>
           ))}
-        </h2>
+        </motion.h2>
 
         {description && (
-          <p className="font-body font-medium relative z-10 mt-5 max-w-[500px] text-[13px] leading-relaxed text-light-secondary sm:text-sm">
+          <motion.p
+            variants={descriptionVariants}
+            className="font-body font-medium relative z-10 mt-5 max-w-[500px] text-[13px] leading-relaxed text-light-secondary sm:text-sm"
+          >
             {description}
-          </p>
+          </motion.p>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

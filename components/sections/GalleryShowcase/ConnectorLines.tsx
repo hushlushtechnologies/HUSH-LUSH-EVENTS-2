@@ -1,12 +1,13 @@
- export function ConnectorLines() {
+export function ConnectorLines() {
   return (
     <svg
       className="pointer-events-none absolute inset-0 h-full w-full"
       viewBox="0 0 1000 1000"
+      preserveAspectRatio="none"
       fill="none"
       aria-hidden="true"
     >
-      {/* NW — your corrected version, unchanged */}
+      {/* NW — unchanged */}
       <path
         d="M420 420 C 300 260, 170 180, 80 200"
         stroke="var(--color-dark-border)"
@@ -26,65 +27,65 @@
         strokeLinecap="round"
       />
 
-      {/* NE — your corrected version, unchanged */}
+      {/* NE — unchanged */}
       <path
-        d="M595 420 C 700 260, 790 170, 860 230"
+        d="M595 420 C 715 260, 845 180, 935 200"
         stroke="var(--color-dark-border)"
         strokeWidth="1"
         strokeLinecap="round"
       />
       <path
-        d="M575 410 C 680 230, 740 130, 800 175"
+        d="M575 410 C 695 230, 795 130, 865 130"
         stroke="var(--color-dark-border)"
         strokeWidth="1"
         strokeLinecap="round"
       />
       <path
-        d="M555 405 C 640 230, 680 150, 715 195"
-        stroke="var(--color-dark-border)"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-
-      {/* SW — same arch style as NW, mirrored vertically (arching down instead of up) */}
-      <path
-        d="M420 580 C 300 740, 170 820, 80 800"
-        stroke="var(--color-dark-border)"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-      <path
-        d="M440 590 C 320 770, 220 870, 150 870"
-        stroke="var(--color-dark-border)"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-      <path
-        d="M460 595 C 360 770, 290 850, 245 840"
+        d="M555 405 C 655 230, 725 150, 770 160"
         stroke="var(--color-dark-border)"
         strokeWidth="1"
         strokeLinecap="round"
       />
 
-      {/* SE — same arch style as NE, mirrored vertically */}
-      <path
-        d="M595 580 C 700 740, 790 830, 860 770"
-        stroke="var(--color-dark-border)"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-      <path
-        d="M575 590 C 680 770, 740 870, 800 825"
-        stroke="var(--color-dark-border)"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-      <path
-        d="M555 595 C 640 770, 680 850, 715 805"
-        stroke="var(--color-dark-border)"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
+  {/* SW */}
+<path
+  d="M421 564 C 340 610, 220 640, 90 650"
+  stroke="var(--color-dark-border)"
+  strokeWidth="1"
+  strokeLinecap="round"
+/>
+<path
+  d="M429 579 C 410 650, 320 690, 250 700"
+  stroke="var(--color-dark-border)"
+  strokeWidth="1"
+  strokeLinecap="round"
+/>
+<path
+  d="M454 580 C 515 360, 420 720, 300 760"
+  stroke="var(--color-dark-border)"
+  strokeWidth="1"
+  strokeLinecap="round"
+/>
+
+{/* SE — exact mirror of SW (x' = 1015 - x, y unchanged) */}
+<path
+  d="M594 564 C 675 610, 795 640, 925 650"
+  stroke="var(--color-dark-border)"
+  strokeWidth="1"
+  strokeLinecap="round"
+/>
+<path
+  d="M586 579 C 605 650, 695 690, 765 700"
+  stroke="var(--color-dark-border)"
+  strokeWidth="1"
+  strokeLinecap="round"
+/>
+<path
+  d="M561 580 C 500 360, 595 720, 715 760"
+  stroke="var(--color-dark-border)"
+  strokeWidth="1"
+  strokeLinecap="round"
+/>
     </svg>
   );
 }

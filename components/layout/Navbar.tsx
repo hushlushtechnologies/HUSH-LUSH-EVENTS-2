@@ -11,7 +11,7 @@ import { ServicesMegaMenu } from "@/components/layout/ServicesMegaMenu";
 import { primaryNav, ctaLink } from "@/data/navigation";
 import { services } from "@/data/services";
 
-export function Navbar() {
+export function SiteHeader() {
   const pathname = usePathname();
   const shouldReduceMotion = useReducedMotion();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -19,6 +19,7 @@ export function Navbar() {
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
 
   const t = { duration: shouldReduceMotion ? 0 : 0.25, ease: [0.22, 1, 0.36, 1] as const };
+  const rollT = { duration: shouldReduceMotion ? 0 : 0.35, ease: [0.76, 0, 0.24, 1] as const };
 
   return (
     <header className="sticky top-0 z-50 border-b border-light bg-light">
@@ -59,7 +60,26 @@ export function Navbar() {
                       : "text-light-text-primary hover:text-dark-secondary"
                   }`}
                 >
-                  {link.label.toUpperCase()}
+                  {/* Vertical rolling text: two stacked identical labels
+                      inside an overflow-hidden mask. On hover the stack
+                      translates up by exactly one line height, revealing
+                      the duplicate (accent-colored) label from below. */}
+                  <span className="relative block h-[1em] overflow-hidden">
+                    <motion.span
+                      className="flex flex-col"
+                      initial={{ y: 0 }}
+                      whileHover={{ y: "-50%" }}
+                      transition={rollT}
+                    >
+                      <span className="block h-[1em] leading-[1em]">
+                        {link.label.toUpperCase()}
+                      </span>
+                      <span className="block h-[1em] leading-[1em] text-dark-secondary">
+                        {link.label.toUpperCase()}
+                      </span>
+                    </motion.span>
+                  </span>
+
                   {isServices && (
                     <motion.svg
                       width="10"

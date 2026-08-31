@@ -2,23 +2,34 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SocialIcon } from "@/components/icons/SocialIcon";
 import { BrowserMockup } from "./BrowserMockup";
 import {
-  browserTabs,
-  addressBarText,
-  experienceContent,
+  browserTabs as defaultTabs,
+  addressBarText as defaultAddressText,
+  experienceContent as defaultContent,
 } from "@/data/browser-mockup";
 import { socialLinks } from "@/data/socials";
-import Image from "next/image";
+import type { BrowserTab } from "@/data/browser-mockup";
 
-export function ExperienceSection() {
+interface ExperienceSectionProps {
+  tabs?: BrowserTab[];
+  addressText?: string;
+  content?: typeof defaultContent;
+}
+
+export function ExperienceSection({
+  tabs = defaultTabs,
+  addressText = defaultAddressText,
+  content = defaultContent,
+}: ExperienceSectionProps) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const { headingLines, description, videoPoster, testimonial } =
-    experienceContent;
+  const { headingLines, description, videoPoster, testimonial } = content;
+  const hasTestimonialHeading = Boolean(testimonial.prefix || testimonial.highlight || testimonial.suffix);
 
   return (
     <section className="section-light py-20 md:py-28">
@@ -28,7 +39,7 @@ export function ExperienceSection() {
           headingLines={headingLines}
           description={description}
           underline
-           headingClassName="mt-16"
+          headingClassName="mt-16"
         />
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.96 }}
@@ -54,10 +65,10 @@ export function ExperienceSection() {
           </div>
 
           <BrowserMockup
-            tabs={browserTabs}
-            addressText={addressBarText}
+            tabs={tabs}
+            addressText={addressText}
             image={videoPoster}
-            imageAlt="Bride and groom sharing an intimate moment at a candlelit reception table"
+            imageAlt="Event venue decorated with floral chandelier and draped ceiling"
             isPlaying={isPlaying}
             onPlay={() => setIsPlaying(true)}
           />
@@ -69,14 +80,18 @@ export function ExperienceSection() {
                 <Image src={testimonial.icon} alt="" width={28} height={28} />
               </div>
               <div>
-                <p className="font-display text-md leading-snug ">
-                  {testimonial.prefix}{" "}
-                  <span className="text-light-brand">
-                    {testimonial.highlight}
-                  </span>{" "}
-                  {testimonial.suffix} 💖
-                </p>
-                <p className="font-body mt-1 text-[10px] leading-relaxed text-light-secondary">
+                {hasTestimonialHeading && (
+                  <p className="font-display text-md leading-snug">
+                    {testimonial.prefix}{" "}
+                    <span className="text-light-brand">{testimonial.highlight}</span>{" "}
+                    {testimonial.suffix} 💖
+                  </p>
+                )}
+                <p
+                  className={`font-body text-[10px] leading-relaxed text-light-secondary ${
+                    hasTestimonialHeading ? "mt-1" : ""
+                  }`}
+                >
                   {testimonial.description}
                 </p>
                 <div className="mt-2 flex items-center gap-1.5">
@@ -91,9 +106,7 @@ export function ExperienceSection() {
                       />
                     </div>
                   </div>
-                  <span className="font-body text-[9px] text-light-muted">
-                    {testimonial.reviewLabel}
-                  </span>
+                  <span className="font-body text-[9px] text-light-muted">{testimonial.reviewLabel}</span>
                 </div>
               </div>
             </div>
