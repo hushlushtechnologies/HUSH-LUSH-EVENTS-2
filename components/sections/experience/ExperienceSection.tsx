@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -8,6 +8,8 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SocialIcon } from "@/components/icons/SocialIcon";
 import { BrowserMockup } from "./BrowserMockup";
+import { ConcentricRings } from "@/components/layout/decorative/ConcentricRings";
+import { FloatingDots } from "@/components/layout/decorative/FloatingDots";
 import {
   browserTabs as defaultTabs,
   addressBarText as defaultAddressText,
@@ -20,15 +22,22 @@ interface ExperienceSectionProps {
   tabs?: BrowserTab[];
   addressText?: string;
   content?: typeof defaultContent;
-  /** Section background. Accepts an existing design-system class (e.g. "section-light", "bg-dark", "bg-light-card") or a raw CSS color/gradient. Defaults to "section-light", matching current behavior. */
   bgColor?: string;
+  /** Reuses the Footer's exact background treatment (concentric rings +
+      floating dots) behind the heading/content. Defaults to false, so
+      every existing usage of this section is unaffected. */
+  decorative?: boolean;
+  /** Heading/description text color. Defaults to "dark" (white text)
+      when `decorative` is true, "light" (dark text) otherwise — since
+      `decorative` implies a dark background. Override if a future page
+      needs a different combination. */
+  headingTone?: "light" | "dark";
+  /** Whether SectionHeading shows its small heart-orbit icon. Defaults
+      to false when `decorative` is true (the rings already provide
+      decoration, the icon would be redundant), true otherwise. */
+  showHeadingDecoration?: boolean;
 }
 
-// Design-system utility classes this component already knows about —
-// if bgColor matches one of these, apply it as a className (so it
-// picks up whatever that token actually resolves to, including any
-// paired text-color rules section-light/section-dark define). Anything
-// else is treated as a raw CSS color/gradient value via inline style.
 const KNOWN_BG_CLASSES = new Set([
   "section-light",
   "section-dark",
@@ -45,26 +54,40 @@ export function ExperienceSection({
   addressText = defaultAddressText,
   content = defaultContent,
   bgColor = "section-light",
+  decorative = false,
+  headingTone,
+  showHeadingDecoration,
 }: ExperienceSectionProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const { headingLines, description, videoPoster, testimonial } = content;
   const hasTestimonialHeading = Boolean(testimonial.prefix || testimonial.highlight || testimonial.suffix);
 
   const isKnownClass = KNOWN_BG_CLASSES.has(bgColor);
+  const resolvedHeadingTone = headingTone ?? (decorative ? "dark" : "light");
+  const resolvedShowDecoration = showHeadingDecoration ?? !decorative;
 
   return (
     <section
-      className={`py-20 md:py-28 ${isKnownClass ? bgColor : ""}`}
+      className={`relative py-20 md:py-28 ${decorative ? "isolate overflow-hidden" : ""} ${
+        isKnownClass ? bgColor : ""
+      }`}
       style={isKnownClass ? undefined : { background: bgColor }}
     >
-      <Container>
+      {decorative && (
+        <>
+          <ConcentricRings />
+          <FloatingDots />
+        </>
+      )}
+
+      <Container className="relative z-10">
         <SectionHeading
-          decoration="/images/decorations/heart-orbit.png"
+          decoration={resolvedShowDecoration ? "/images/decorations/heart-orbit.png" : undefined}
           headingLines={headingLines}
           description={description}
           underline
           headingClassName="mt-16"
-          
+          tone={resolvedHeadingTone}
         />
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.96 }}

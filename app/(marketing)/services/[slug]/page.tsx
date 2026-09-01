@@ -107,6 +107,7 @@ import {
   specialExperienceProcessImage,
   specialExperienceProcessSteps,
 } from "@/data/services/special-experience";
+import { entertainmentAddressText, entertainmentBrowserTabs, entertainmentExperienceContent, entertainmentFeatureItems, entertainmentFeaturesFooterLabel, entertainmentFeaturesHeading } from "@/data/services/entertainment-production";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -255,6 +256,19 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
   "entertainment-production": () => (
     <>
       <EntertainmentProductionHero />
+      <ExperienceSection
+  tabs={entertainmentBrowserTabs}
+  addressText={entertainmentAddressText}
+  content={entertainmentExperienceContent}
+  bgColor="bg-dark"
+  decorative
+/>
+<ServiceFeatures
+  headingLines={entertainmentFeaturesHeading}
+  items={entertainmentFeatureItems}
+  footerLabel={entertainmentFeaturesFooterLabel}
+  tone="dark"
+/>
     </>
   ),
   "invitation-print": () => (
