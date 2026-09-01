@@ -126,7 +126,7 @@ export function AboutHero() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col items-end text-right"
+            className="flex flex-col items-end text-right pt-28  "
           >
             <p className="font-display text-2xl text-light-brand">
               {galleryLabel}
@@ -137,7 +137,7 @@ export function AboutHero() {
 
             <div className="mt-6 flex gap-3">
               {galleryVideos.map((video) => (
-                <div key={video.id} className="w-[140px]">
+                <div key={video.id} className="w-[80px]">
                   <GalleryThumb {...video} />
                 </div>
               ))}

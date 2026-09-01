@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +11,19 @@ import { galleryClusters, galleryStats } from "@/data/gallery-showcase";
 
 export function GalleryShowcase() {
   return (
-    <section className=" bg-dark py-20 md:py-28">
+    <section className="relative isolate overflow-hidden bg-dark py-20 md:py-28">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-[15%] top-[30%] -z-10 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-gold opacity-40 blur-[140px]"
+      />
+                  <div
+  className="absolute bottom-[70%] right-[10%] h-[380px] w-[380px] rounded-full opacity-40 blur-[140px] bg-brand-gold "
+  
+/>
+            <div
+  className="absolute bottom-[25%] right-[10%] h-[380px] w-[380px] rounded-full opacity-60 blur-[140px]"
+  style={{ background: "rgba(255, 155, 119, 0.4)" }}
+/>
       <Container>
         {/* Canvas increased to 1000px tall (was 900) to give the lower
             clusters room without overflowing the section. */}

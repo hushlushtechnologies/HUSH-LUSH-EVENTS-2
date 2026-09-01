@@ -4,6 +4,8 @@ import { useId } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 
+type HeadingTone = "light" | "dark";
+
 interface SectionHeadingProps {
   headingLines: string[];
   description?: string;
@@ -12,6 +14,8 @@ interface SectionHeadingProps {
   underline?: boolean;
   headingClassName?: string;
   className?: string;
+  /** "light" (default): dark heading text, light-secondary description — matches every existing usage. "dark": white heading + description, for sections on a dark background. */
+  tone?: HeadingTone;
 }
 
 const EASE = [0.76, 0, 0.24, 1] as const;
@@ -62,6 +66,11 @@ const descriptionVariants: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
 };
 
+const TONE_STYLES: Record<HeadingTone, { heading: string; description: string }> = {
+  light: { heading: "", description: "text-light-secondary" },
+  dark: { heading: "text-white", description: "text-white/80" },
+};
+
 export function SectionHeading({
   headingLines,
   description,
@@ -70,10 +79,12 @@ export function SectionHeading({
   underline = false,
   headingClassName = "",
   className = "",
+  tone = "light",
 }: SectionHeadingProps) {
   const gradientId = useId();
   const lastIndex = headingLines.length - 1;
   const reducedMotion = useReducedMotion();
+  const toneStyles = TONE_STYLES[tone];
 
   const alignment =
     align === "center" ? "items-center text-center mx-auto" : "items-start text-left";
@@ -86,7 +97,11 @@ export function SectionHeading({
       variants={containerVariants}
       className={`relative isolate flex flex-col ${alignment} ${className}`}
     >
-      <div className="relative flex min-h-[180px] w-full flex-col items-center justify-center sm:min-h-[220px] md:min-h-[260px]">
+      <div
+        className={`relative flex w-full flex-col items-center justify-center ${
+          decoration ? "min-h-[180px] sm:min-h-[220px] md:min-h-[260px]" : ""
+        }`}
+      >
         {decoration && (
           <motion.div
             variants={decorationVariants}
@@ -101,7 +116,7 @@ export function SectionHeading({
 
         <motion.h2
           variants={linesVariants}
-          className={`font-display relative z-10 text-[32px] font-medium leading-[1.15] sm:text-[38px] md:text-[46px] lg:text-[52px] ${headingClassName}`}
+          className={`font-display relative z-10 text-[32px] font-medium leading-[1.15] sm:text-[38px] md:text-[46px] lg:text-[52px] ${toneStyles.heading} ${headingClassName}`}
         >
           {headingLines.map((line, index) => (
             // Outer span: positioning context for the underline (NOT
@@ -153,7 +168,7 @@ export function SectionHeading({
         {description && (
           <motion.p
             variants={descriptionVariants}
-            className="font-body font-medium relative z-10 mt-5 max-w-[500px] text-[13px] leading-relaxed text-light-secondary sm:text-sm"
+            className={`font-body font-medium relative z-10 mt-5 max-w-[500px] text-[13px] leading-relaxed sm:text-sm ${toneStyles.description}`}
           >
             {description}
           </motion.p>

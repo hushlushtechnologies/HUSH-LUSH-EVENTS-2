@@ -25,7 +25,7 @@ export const galleryTiles: GalleryTile[] = [
   { id: "t6", src: "/images/our-work/gallery-6.jpg", top: "62%", left: "34%", width: "180px", height: "220px" },
   { id: "t7", src: "/images/our-work/gallery-7.jpg", top: "0%", left: "94%", width: "220px", height: "290px" },
   { id: "t8", src: "/images/our-work/gallery-8.jpg", top: "76%", left: "72%", width: "220px", height: "150px" },
-  { id: "t9", src: "/images/our-work/gallery-9.jpg", top: "72%", left: "0%", width: "220px", height: "150px" },
-  { id: "t10", src: "/images/our-work/gallery-10.jpg", top: "88%", left: "22%", width: "220px", height: "150px" },
-  { id: "t11", src: "/images/our-work/gallery-11.jpg", top: "70%", left: "108%", width: "220px", height: "290px" },
+  { id: "t9", src: "/images/our-work/gallery-4.jpg", top: "72%", left: "0%", width: "220px", height: "150px" },
+  { id: "t10", src: "/images/our-work/gallery-1.jpg", top: "88%", left: "22%", width: "220px", height: "150px" },
+  { id: "t11", src: "/images/our-work/gallery-3.jpg", top: "70%", left: "108%", width: "220px", height: "290px" },
 ];

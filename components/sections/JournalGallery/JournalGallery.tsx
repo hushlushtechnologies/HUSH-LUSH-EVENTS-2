@@ -15,6 +15,7 @@ export function JournalGallery() {
           decoration="/images/decorations/heart-orbit.png"
           headingLines={journalGalleryIntro.headingLines}
           description={journalGalleryIntro.description}
+          headingClassName="mt-16"
           underline
         />
       </Container>

@@ -1,4 +1,4 @@
-import Image from "next/image";
+ import Image from "next/image";
 import type { PortfolioItem } from "@/data/portfolio";
 
 const spanClasses: Record<string, string> = {
@@ -8,9 +8,14 @@ const spanClasses: Record<string, string> = {
   half: "aspect-[16/9]",
 };
 
-export function PortfolioCard({ title, subtitle, image, span }: PortfolioItem) {
+interface PortfolioCardProps extends PortfolioItem {
+  /** Overrides the default aspect-ratio class for this span value (e.g. a taller reel row). */
+  className?: string;
+}
+
+export function PortfolioCard({ title, subtitle, image, span, className }: PortfolioCardProps) {
   return (
-    <div className={`group relative w-full overflow-hidden rounded-2xl ${spanClasses[span]}`}>
+    <div className={`group relative w-full overflow-hidden rounded-2xl ${className ?? spanClasses[span]}`}>
       <Image
         src={image}
         alt={title}

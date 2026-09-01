@@ -100,7 +100,7 @@ export function OurWorkHero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex shrink-0 flex-col items-center gap-2"
+            className="flex shrink-0 flex-col items-start gap-2"
           >
             <div className="relative h-12 w-12">
               <Image
@@ -119,9 +119,7 @@ export function OurWorkHero() {
               className="h-auto w-[220px]"
             />
 
-            <p className="font-display text-center text-lg text-light-primary">
-              Some Experience
-            </p>
+            <p className="font-display text-left text-lg  ">Some Experience</p>
           </motion.div>
 
           {/* Card strip */}

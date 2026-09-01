@@ -121,7 +121,7 @@
 // }
 
 
-"use client";
+ "use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -201,7 +201,7 @@ export function MobileNav({ open, navLinks, ctaLink, pathname, onNavigate }: Mob
                           {link.children!.map((child: NavLink) => (
                             <li key={child.href}>
                               <Link
-                                href={child.href}
+                                href={child.href!}
                                 onClick={onNavigate}
                                 className="block py-1.5 font-body text-xs text-light-muted transition-colors duration-200 hover:text-light-brand"
                               >
@@ -220,7 +220,7 @@ export function MobileNav({ open, navLinks, ctaLink, pathname, onNavigate }: Mob
               return (
                 <motion.li key={link.href} variants={mobileItemVariants}>
                   <Link
-                    href={link.href}
+                    href={link.href!}
                     onClick={onNavigate}
                     className={`block py-3 font-body text-sm uppercase tracking-wide transition-colors duration-200 hover:text-light-brand ${
                       isActive ? "text-light-brand" : "text-light-secondary"

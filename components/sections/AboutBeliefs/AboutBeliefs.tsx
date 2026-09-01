@@ -1,16 +1,25 @@
- "use client";
+"use client";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { BeliefCard } from "./BeliefCard";
 import { beliefs, beliefIntro } from "@/data/about-beliefs";
+import { FloatingDots } from "@/components/layout/decorative/FloatingDots";
 
 export function AboutBeliefs() {
   const { eyebrow, headingLines, description, image } = beliefIntro;
 
   return (
-    <section className="bg-dark py-20 md:py-28">
+    <section className="relative isolate overflow-hidden  bg-dark py-20 md:py-28">
+      <div className="absolute  left-20 top-[30%] h-[220px] w-[220px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-gold opacity-40 blur-[90px]" />
+      <div
+        className="absolute bottom-[25%] right-[5%] h-[380px] w-[380px] rounded-full opacity-40 blur-[180px]"
+        style={{ background: "rgba(255, 155, 119, 0.4)" }}
+      />
+
+      <FloatingDots />
+
       <Container>
         <div className="grid grid-cols-1 items-stretch gap-12 lg:grid-cols-2">
           {/* Left: pill image + label + heading + description */}

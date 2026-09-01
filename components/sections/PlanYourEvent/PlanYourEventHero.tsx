@@ -1,10 +1,11 @@
-"use client";
+ "use client";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { ContactInfoCard } from "./ContactInfoCard";
 import { ContactForm } from "./ContactForm";
+import { CinematicBackdrop } from "./CinematicBackdrop";
 import { planYourEventContent, contactInfo, mapImage } from "@/data/plan-your-event";
 
 function MailIcon() {
@@ -50,19 +51,7 @@ export function PlanYourEventHero() {
 
   return (
     <section className="relative isolate overflow-hidden bg-dark pb-20 pt-24 md:pb-28 md:pt-32">
-      {/* Giant faded background word — same gradient-text technique used
-          on the About page's "VISION.MOMENT.STORY." wordmark */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-0 top-16 w-full select-none overflow-hidden text-center"
-      >
-        <span
-          className="font-display bg-clip-text text-[14vw] font-bold leading-none text-transparent"
-          style={{ backgroundImage: "linear-gradient(180deg, #3a2f1a 0%, #0a0805 100%)" }}
-        >
-          {backgroundWord}
-        </span>
-      </div>
+      <CinematicBackdrop word={backgroundWord} />
 
       <Container className="relative z-10">
         <motion.div
@@ -72,7 +61,7 @@ export function PlanYourEventHero() {
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-md text-center"
         >
-          <span className="font-body inline-block rounded-full border border-dark-primary/50 px-4 py-1.5 text-sm text-dark-primary">
+          <span className="font-body inline-block rounded-full border border-brand-gold px-4 py-1.5 text-sm text-brand-gold">
             {eyebrow}
           </span>
 
@@ -104,15 +93,22 @@ export function PlanYourEventHero() {
           <ContactForm />
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
-          className="relative mx-auto mt-10 aspect-[16/9] w-full max-w-3xl overflow-hidden rounded-2xl"
-        >
-          <Image src={mapImage} alt="Map showing our office location in Dubai" fill className="object-cover" sizes="(min-width: 1024px) 768px, 100vw" />
-        </motion.div>
+       <motion.div
+  initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+  viewport={{ once: true, amount: 0.2 }}
+  transition={{ duration: 0.6 }}
+  className="relative mx-auto mt-10 aspect-[16/9] w-full max-w-3xl overflow-hidden rounded-2xl border border-dark-border/40"
+>
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3612.779746221838!2d55.181216976392825!3d25.109316077767605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5b129a3b9c23%3A0x611d3e8b1335256b!2sHushlush%20Events!5e0!3m2!1sen!2sin!4v1788182479871!5m2!1sen!2sin"
+    title="Hushlush Events office location"
+    loading="lazy"
+    referrerPolicy="no-referrer-when-downgrade"
+    allowFullScreen
+    className="h-full w-full grayscale-[40%] invert-[92%] contrast-[90%]"
+  />
+</motion.div>
       </Container>
     </section>
   );

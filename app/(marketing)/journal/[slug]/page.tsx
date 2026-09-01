@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+ import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { ArticleDetailHeader } from "@/components/sections/JournalArticleDetail/ArticleDetailHeader";
 import { ArticleDetailBody } from "@/components/sections/JournalArticleDetail/ArticleDetailBody";
@@ -29,13 +29,11 @@ export default async function JournalArticlePage({ params }: PageProps) {
     <>
       <section className="section-light py-16 md:py-24">
         <Container>
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_320px]">
-            <div>
-              <ArticleDetailHeader {...article} />
-              <ArticleDetailBody {...article} />
-            </div>
+          {/* Full width — direct child of Container, not inside the grid below */}
+          <ArticleDetailHeader {...article} />
 
-            <JournalSidebar />
+          <div className="mt-12 grid grid-cols-1 gap-12  ">
+            <ArticleDetailBody {...article} />
           </div>
         </Container>
       </section>

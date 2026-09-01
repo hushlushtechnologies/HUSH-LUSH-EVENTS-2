@@ -19,7 +19,7 @@ export const eventPlanningHero = {
     "/images/services/event-planning/photo-3.jpg",
     "/images/services/event-planning/photo-4.jpg",
     "/images/services/event-planning/photo-5.jpg",
-    "/images/services/event-planning/photo-6.jpg",
+    "/images/services/event-planning/photo-9.jpg",
     "/images/services/event-planning/photo-7.jpg",
     "/images/services/event-planning/photo-8.jpg",
     "/images/services/event-planning/photo-9.jpg",

@@ -5,9 +5,7 @@ export const primaryNav: NavLink[] = [
   { label: "About", href: "/about" },
   {
     label: "Services",
-    href: "/services",
     children: [
-      // fill these in once the individual service pages are named
       { label: "Weddings", href: "/services/weddings" },
       { label: "Corporate Events", href: "/services/corporate-events" },
     ],

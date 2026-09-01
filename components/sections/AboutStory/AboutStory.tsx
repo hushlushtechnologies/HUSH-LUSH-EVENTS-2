@@ -4,12 +4,14 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { storyContent } from "@/data/about-story";
+import { FloatingDots } from "@/components/layout/decorative/FloatingDots";
 
 export function AboutStory() {
   const { eyebrow, headingLines, paragraph1, paragraph2, largeImage, smallImage } = storyContent;
 
   return (
     <section className="bg-light-card py-16 md:py-24">
+      
       <Container>
         {/* Eyebrow + line, right-aligned */}
         <motion.div

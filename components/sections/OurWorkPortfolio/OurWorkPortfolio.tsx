@@ -41,7 +41,7 @@ export function OurWorkPortfolio() {
   const rows = useMemo(() => chunkIntoRows(filteredItems), [filteredItems]);
 
   return (
-    <section className="section-light py-20 md:py-28">
+    <section className="section-light py-20 md:py-28 bg-light-card">
       <Container>
         <SectionHeading
           decoration="/images/decorations/heart-orbit.png"

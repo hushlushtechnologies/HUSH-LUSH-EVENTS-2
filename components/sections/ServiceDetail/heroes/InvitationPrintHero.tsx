@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -11,7 +11,7 @@ export function InvitationPrintHero() {
     invitationPrintHero;
 
   return (
-    <section className="relative isolate overflow-hidden bg-light py-20 md:py-28">
+    <section className="relative isolate overflow-hidden bg-light py-20 md:py-28 bg-light-card">
       <Container className="relative">
         {/* Centered top text block */}
         <motion.div
@@ -24,10 +24,9 @@ export function InvitationPrintHero() {
             <span className="font-body whitespace-nowrap text-sm font-semibold tracking-[0.2em] text-light-brand">
               {number} / {label.toUpperCase()}
             </span>
-            <span className="h-px w-24 bg-light-primary" />
-            <svg width="12" height="10" viewBox="0 0 12 10" fill="none" aria-hidden="true" className="shrink-0 text-light-primary">
-              <path d="M0 5H10M10 5L6 1M10 5L6 9" stroke="currentColor" strokeWidth="1.2" />
-            </svg>
+            <div className="relative h-[10px] w-24">
+              <Image src="/images/icons/arrow-line.svg" alt="" fill className="object-contain" />
+            </div>
           </div>
 
           <h1 className="font-display mt-4 text-4xl uppercase leading-[1.2] tracking-wide md:text-5xl">
@@ -55,17 +54,18 @@ export function InvitationPrintHero() {
         </motion.div>
 
         {/* Circular invitation-card arrangement, centered below the text */}
-        <div className="relative mx-auto mt-16 aspect-square w-full max-w-2xl">
+        <div className="relative mx-auto mt-16 aspect-square w-full max-w-3xl">
           <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
             <svg viewBox="0 0 700 700" className="h-full w-full" fill="none" aria-hidden="true">
               <circle cx="350" cy="350" r="340" stroke="var(--color-light-border)" strokeWidth="1" opacity="0.5" />
               <circle cx="350" cy="350" r="260" stroke="var(--color-light-border)" strokeWidth="1" opacity="0.4" />
+              <circle cx="350" cy="350" r="180" stroke="var(--color-light-border)" strokeWidth="1" opacity="0.3" />
             </svg>
           </div>
 
           {/* Center logo mark — full color, no ring wrapper */}
           <div className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2">
-            <Image src="/images/logo-mark-color.svg" alt="" fill className="object-contain" />
+            <Image src="/images/logo-mark.svg" alt="" fill className="object-contain" />
           </div>
 
           {images.map((img, index) => (

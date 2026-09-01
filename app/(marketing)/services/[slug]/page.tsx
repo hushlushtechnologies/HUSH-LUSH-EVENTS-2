@@ -65,10 +65,26 @@ import {
   decorStylingPortfolioItems,
 } from "@/data/services/decor-styling";
 import { CorporateEventsHero } from "@/components/sections/ServiceDetail/heroes/CorporateEventsHero";
-import { corporateEventsAddressText, corporateEventsBrowserTabs, corporateEventsExperienceContent, corporateEventsPortfolioDescription, corporateEventsPortfolioHeading, corporateEventsPortfolioItems } from "@/data/services/corporate-events";
+import {
+  corporateEventsAddressText,
+  corporateEventsBrowserTabs,
+  corporateEventsExperienceContent,
+  corporateEventsFaqItems,
+  corporateEventsFeatureItems,
+  corporateEventsFeaturesFooterLabel,
+  corporateEventsFeaturesHeading,
+  corporateEventsPortfolioDescription,
+  corporateEventsPortfolioHeading,
+  corporateEventsPortfolioItems,
+  corporateEventsProcessEyebrow,
+  corporateEventsProcessHeading,
+  corporateEventsProcessImage,
+  corporateEventsProcessSteps,
+} from "@/data/services/corporate-events";
 import { EntertainmentProductionHero } from "@/components/sections/ServiceDetail/heroes/EntertainmentProductionHero";
 import { InvitationPrintHero } from "@/components/sections/ServiceDetail/heroes/InvitationPrintHero";
 import { SpecialExperienceHero } from "@/components/sections/ServiceDetail/heroes/SpecialExperienceHero";
+import { invitationPrintFeatureItems, invitationPrintFeaturesFooterLabel, invitationPrintFeaturesHeading, invitationPrintProcessEyebrow, invitationPrintProcessHeading, invitationPrintProcessImage, invitationPrintProcessSteps } from "@/data/services/invitation-print";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -82,11 +98,17 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         tabs={eventPlanningBrowserTabs}
         addressText={eventPlanningAddressText}
         content={eventPlanningExperienceContent}
+        bgColor="bg-light-card"
       />
       <ServiceFeatures
         headingLines={eventPlanningFeaturesHeading}
         items={eventPlanningFeatureItems}
         footerLabel={eventPlanningFeaturesFooterLabel}
+      />
+      <ServicePortfolio
+        headingLines={venueHospitalityPortfolioHeading}
+        description={venueHospitalityPortfolioDescription}
+        items={venueHospitalityPortfolioItems}
       />
       <FAQSection items={eventPlanningFaqItems} />
       <ServiceProcessSteps
@@ -104,6 +126,7 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         tabs={venueHospitalityBrowserTabs}
         addressText={venueHospitalityAddressText}
         content={venueHospitalityExperienceContent}
+        bgColor="bg-light-card"
       />
       <ServiceFeatures
         headingLines={venueHospitalityFeaturesHeading}
@@ -138,70 +161,114 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         footerLabel={weddingPlanningFeaturesFooterLabel}
       />
       <ServicePortfolio
-        headingLines={weddingPlanningPortfolioHeading}
-        description={weddingPlanningPortfolioDescription}
-        items={weddingPlanningPortfolioItems}
+        headingLines={venueHospitalityPortfolioHeading}
+        description={venueHospitalityPortfolioDescription}
+        items={venueHospitalityPortfolioItems}
       />
       <FAQSection items={weddingPlanningFaqItems} />
-    <ServiceProcessSteps
-      image={weddingPlanningProcessImage}
-      eyebrow={weddingPlanningProcessEyebrow}
-      heading={weddingPlanningProcessHeading}
-      steps={weddingPlanningProcessSteps}
-    />
+      <ServiceProcessSteps
+        image={weddingPlanningProcessImage}
+        eyebrow={weddingPlanningProcessEyebrow}
+        heading={weddingPlanningProcessHeading}
+        steps={weddingPlanningProcessSteps}
+      />
     </>
   ),
   "decor-styling": () => (
-  <>
-    <DecorStylingHero />
-    <ExperienceSection
-      tabs={decorStylingBrowserTabs}
-      addressText={decorStylingAddressText}
-      content={decorStylingExperienceContent}
-    />
-       <ServiceFeatures
-      headingLines={decorStylingFeaturesHeading}
-      items={decorStylingFeatureItems}
-      footerLabel={decorStylingFeaturesFooterLabel}
-    />
+    <>
+      <DecorStylingHero />
+      <ExperienceSection
+        tabs={decorStylingBrowserTabs}
+        addressText={decorStylingAddressText}
+        content={decorStylingExperienceContent}
+        bgColor="bg-light-card"
+      />
+      <ServiceFeatures
+        headingLines={decorStylingFeaturesHeading}
+        items={decorStylingFeatureItems}
+        footerLabel={decorStylingFeaturesFooterLabel}
+      />
       <ServicePortfolio
-      headingLines={decorStylingPortfolioHeading}
-      description={decorStylingPortfolioDescription}
-      items={decorStylingPortfolioItems}
-    />
-  </>
+        headingLines={venueHospitalityPortfolioHeading}
+        description={venueHospitalityPortfolioDescription}
+        items={venueHospitalityPortfolioItems}
+      />
+      <FAQSection items={weddingPlanningFaqItems} />
+      <ServiceProcessSteps
+        image={weddingPlanningProcessImage}
+        eyebrow={weddingPlanningProcessEyebrow}
+        heading={weddingPlanningProcessHeading}
+        steps={weddingPlanningProcessSteps}
+      />
+    </>
   ),
   "corporate-events": () => (
-  <>
-    <CorporateEventsHero />
-       <ExperienceSection
-      tabs={corporateEventsBrowserTabs}
-      addressText={corporateEventsAddressText}
-      content={corporateEventsExperienceContent}
-    />
-       <ServicePortfolio
-      headingLines={corporateEventsPortfolioHeading}
-      description={corporateEventsPortfolioDescription}
-      items={corporateEventsPortfolioItems}
-    />
-  </>
+    <>
+      <CorporateEventsHero />
+      <ExperienceSection
+        tabs={corporateEventsBrowserTabs}
+        addressText={corporateEventsAddressText}
+        content={corporateEventsExperienceContent}
+        bgColor="bg-light-card"
+      />
+      <ServiceFeatures
+        headingLines={corporateEventsFeaturesHeading}
+        items={corporateEventsFeatureItems}
+        footerLabel={corporateEventsFeaturesFooterLabel}
+      />
+      <ServicePortfolio
+        headingLines={venueHospitalityPortfolioHeading}
+        description={venueHospitalityPortfolioDescription}
+        items={venueHospitalityPortfolioItems}
+      />
+      <FAQSection items={corporateEventsFaqItems} />
+      <ServiceProcessSteps
+        image={corporateEventsProcessImage}
+        eyebrow={corporateEventsProcessEyebrow}
+        heading={corporateEventsProcessHeading}
+        steps={corporateEventsProcessSteps}
+      />
+    </>
   ),
   "entertainment-production": () => (
-  <>
-    <EntertainmentProductionHero />
-  </>
-),
-"invitation-print": () => (
-  <>
-    <InvitationPrintHero />
-
-  </>
-),
-"special-experience": () => (
-  <>
-    <SpecialExperienceHero/>
-  </>
-),
+    <>
+      <EntertainmentProductionHero />
+    </>
+  ),
+  "invitation-print": () => (
+    <>
+      <InvitationPrintHero />
+      <ServiceFeatures
+        headingLines={invitationPrintFeaturesHeading}
+        items={invitationPrintFeatureItems}
+        footerLabel={invitationPrintFeaturesFooterLabel}
+      />
+       <FAQSection items={corporateEventsFaqItems} />
+<ServiceProcessSteps
+  image={invitationPrintProcessImage}
+  eyebrow={invitationPrintProcessEyebrow}
+  heading={invitationPrintProcessHeading}
+  steps={invitationPrintProcessSteps}
+/>
+    </>
+  ),
+  "special-experience": () => (
+    <>
+      <SpecialExperienceHero />
+      <ServiceFeatures
+        headingLines={invitationPrintFeaturesHeading}
+        items={invitationPrintFeatureItems}
+        footerLabel={invitationPrintFeaturesFooterLabel}
+      />
+       <FAQSection items={corporateEventsFaqItems} />
+<ServiceProcessSteps
+  image={invitationPrintProcessImage}
+  eyebrow={invitationPrintProcessEyebrow}
+  heading={invitationPrintProcessHeading}
+  steps={invitationPrintProcessSteps}
+/>
+    </>
+  ),
 };
 
 export function generateStaticParams() {

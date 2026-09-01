@@ -8,7 +8,7 @@ export function ExperienceCard({ thumbnail }: ExperienceCardType) {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <div className="relative h-[330px] w-[220px] shrink-0 overflow-hidden rounded-t-full border-2 border-light-primary">
+    <div className="relative h-[330px] w-[180px] shrink-0 overflow-hidden rounded-t-full border-2 border-light-primary">
       <Image src={thumbnail} alt="" fill className="object-cover" sizes="220px" />
 
       {!isPlaying && (

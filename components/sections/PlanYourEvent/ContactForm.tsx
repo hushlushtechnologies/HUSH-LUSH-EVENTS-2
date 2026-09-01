@@ -140,7 +140,7 @@ export function ContactForm() {
             onChange={update("message")}
             placeholder="Write Something..."
             rows={5}
-            className={`${inputClasses} mt-2 rounded-2xl`}
+            className={`${inputClasses} mt-2 rounded-xl`}
           />
         </div>
 

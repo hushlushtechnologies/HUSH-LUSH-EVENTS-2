@@ -14,7 +14,7 @@ export function JournalFilters({ search, onSearchChange, activeFilter, onFilterC
     <div className="rounded-2xl border border-light-border">
       <div className="flex flex-col divide-y divide-light-border sm:flex-row sm:divide-x sm:divide-y-0">
         <div className="flex flex-1 items-center px-6 py-4">
-          <span className="font-display text-lg text-light-primary">Events News</span>
+          <span className="font-display text-lg  text-center">Events News</span>
         </div>
         <div className="flex flex-1 items-center gap-3 px-6 py-4">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" className="text-light-muted">
@@ -32,7 +32,7 @@ export function JournalFilters({ search, onSearchChange, activeFilter, onFilterC
       </div>
 
       <div className="scrollbar-hide flex items-center gap-2 overflow-x-auto border-t border-light-border px-6 py-4">
-        <span className="font-body shrink-0 text-sm font-medium text-light-primary">Filters</span>
+        <span className="font-body shrink-0 text-sm font-medium  border-r px-3">Filters</span>
         {articleFilters.map((filter, index) => (
           <div key={filter.id} className="flex shrink-0 items-center gap-2">
             {index === 2 && <span className="mx-1 h-5 w-px bg-light-border" />}

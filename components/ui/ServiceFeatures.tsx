@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -14,7 +14,7 @@ export interface FeatureGridItem {
   colSpan: number;
   rowStart: number;
   rowSpan: number;
-   aspect?: string;
+  aspect?: string;
 }
 
 interface ServiceFeaturesProps {
@@ -23,9 +23,69 @@ interface ServiceFeaturesProps {
   footerLabel?: string;
 }
 
-export function ServiceFeatures({ headingLines, items, footerLabel }: ServiceFeaturesProps) {
+function FeatureCard({
+  item,
+  index,
+}: {
+  item: FeatureGridItem;
+  index: number;
+}) {
   return (
-    <section className="section-light py-20 md:py-28">
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.06,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      className="flex flex-col"
+      style={{
+        gridColumn: `${item.colStart} / span ${item.colSpan}`,
+        gridRow: `${item.rowStart} / span ${item.rowSpan}`,
+      }}
+    >
+      <div
+        className={`relative w-full overflow-hidden rounded-2xl ${
+          item.rowSpan > 1 ? "h-full" : (item.aspect ?? "aspect-square")
+        }`}
+      >
+        <Image
+          src={item.image}
+          alt={item.title ?? ""}
+          fill
+          className="object-cover"
+          sizes="(min-width: 768px) 320px, 45vw"
+        />
+      </div>
+
+      {item.title && (
+        <div className="mt-4">
+          <p className="font-display text-xl text-light-brand">{item.title}</p>
+          {item.description && (
+            <p className="font-body mt-1 text-sm leading-relaxed text-light-secondary">
+              {item.description}
+            </p>
+          )}
+        </div>
+      )}
+    </motion.div>
+  );
+}
+
+export function ServiceFeatures({
+  headingLines,
+  items,
+  footerLabel,
+}: ServiceFeaturesProps) {
+  const leftItems = items.filter((item) => item.colStart <= 2);
+  const rightItems = items
+    .filter((item) => item.colStart >= 3)
+    .map((item) => ({ ...item, colStart: item.colStart - 2 }));
+
+  return (
+    <section className="section-light py-20 md:py-28 bg-light-card">
       <Container>
         <SectionHeading
           decoration="/images/decorations/heart-orbit.png"
@@ -33,67 +93,46 @@ export function ServiceFeatures({ headingLines, items, footerLabel }: ServiceFea
           underline
         />
 
-        <div
-          className="mt-16 grid grid-cols-2 gap-6 md:grid-cols-4"
-          style={{ gridAutoRows: "minmax(0, 1fr)" }}
-        >
-          {items.map((item, index) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-col"
-              style={{
-                gridColumn: `${item.colStart} / span ${item.colSpan}`,
-                gridRow: `${item.rowStart} / span ${item.rowSpan}`,
-              }}
-            >
-<div
-  className={`relative w-full overflow-hidden rounded-2xl ${
-    item.rowSpan > 1 ? "h-full" : "aspect-square"
-  }`}
->
-  <Image
-    src={item.image}
-    alt={item.title ?? ""}
-    fill
-    className="object-cover"
-    sizes="(min-width: 768px) 320px, 45vw"
-  />
-</div>
+        <div className="mt-16 grid grid-cols-2 gap-6 lg:grid-cols-2">
+          <div className="grid grid-cols-2 gap-6">
+            {leftItems.map((item, index) => (
+              <FeatureCard key={item.id} item={item} index={index} />
+            ))}
+          </div>
 
-              {item.title && (
-                <div className="mt-4">
-                  <p className="font-display text-xl text-light-brand">{item.title}</p>
-                  {item.description && (
-                    <p className="font-body mt-1 text-sm leading-relaxed text-light-secondary">
-                      {item.description}
-                    </p>
-                  )}
+          <div className="flex h-full flex-col justify-between">
+            <div className="grid grid-cols-2 gap-6">
+              {rightItems.map((item, index) => (
+                <FeatureCard
+                  key={item.id}
+                  item={item}
+                  index={leftItems.length + index}
+                />
+              ))}
+            </div>
+
+            {footerLabel && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.5 }}
+                className="flex items-center justify-end gap-4"
+              >
+                <div className="relative h-[16px] w-60">
+                  <Image
+                    src="/images/icons/arrow-line.svg"
+                    alt=""
+                    fill
+                    className="object-contain"
+                  />
                 </div>
-              )}
-            </motion.div>
-          ))}
-
-          {footerLabel && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5 }}
-              className="col-span-2 mt-4 flex items-center justify-end gap-4 self-end md:col-start-3 md:col-span-2 md:row-start-3 md:mt-0"
-            >
-              <span className="h-px w-32 bg-light-primary" />
-              <svg width="12" height="10" viewBox="0 0 12 10" fill="none" aria-hidden="true" className="text-light-primary">
-                <path d="M0 5H10M10 5L6 1M10 5L6 9" stroke="currentColor" strokeWidth="1.2" />
-              </svg>
-              <span className="font-body text-sm font-semibold tracking-[0.2em] text-light-brand">
-                {footerLabel.toUpperCase()}
-              </span>
-            </motion.div>
-          )}
+                <span className="font-body text-sm font-semibold tracking-[0.2em] text-light-brand">
+                  {footerLabel.toUpperCase()}
+                </span>
+              </motion.div>
+            )}
+          </div>
         </div>
       </Container>
     </section>

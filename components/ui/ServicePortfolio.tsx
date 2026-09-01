@@ -22,8 +22,10 @@ export function ServicePortfolio({ headingLines, description, items }: ServicePo
     gridRows.push(rest.slice(i, i + 3));
   }
 
+  const lastRowIndex = gridRows.length - 1;
+
   return (
-    <section className="section-light py-20 md:py-28">
+    <section className="section-light py-20 md:py-28 bg-light-card">
       <Container>
         <SectionHeading
           decoration="/images/decorations/heart-orbit.png"
@@ -60,22 +62,27 @@ export function ServicePortfolio({ headingLines, description, items }: ServicePo
             </div>
           </div>
 
-          {/* Remaining rows: 3 across */}
-          {gridRows.map((row, rowIndex) => (
-            <div key={rowIndex} className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-              {row.map((item, itemIndex) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.5, delay: itemIndex * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <PortfolioCard {...item} span="third" />
-                </motion.div>
-              ))}
-            </div>
-          ))}
+          {/* Remaining rows: 3 across. The final row is reserved for
+              video reels — the card's aspect ratio is overridden to be
+              taller than the standard "third" (4:3) grid rows above it. */}
+          {gridRows.map((row, rowIndex) => {
+            const isReelRow = rowIndex === lastRowIndex;
+            return (
+              <div key={rowIndex} className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+                {row.map((item, itemIndex) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.5, delay: itemIndex * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                   <PortfolioCard {...item} span="third" className={isReelRow ? "aspect-[3/4]" : undefined} />
+                  </motion.div>
+                ))}
+              </div>
+            );
+          })}
         </div>
       </Container>
     </section>

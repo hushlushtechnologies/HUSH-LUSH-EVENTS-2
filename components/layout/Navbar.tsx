@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -9,7 +9,6 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { ServicesMegaMenu } from "@/components/layout/ServicesMegaMenu";
 import { primaryNav, ctaLink } from "@/data/navigation";
-import { services } from "@/data/services";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -42,62 +41,79 @@ export function SiteHeader() {
         {/* Desktop nav */}
         <nav className="hidden items-center gap-9 md:flex">
           {primaryNav.map((link) => {
-            const isActive = pathname === link.href;
-            const isServices = link.label === "Services";
+            const hasChildren = Boolean(link.children?.length);
+            const isActive = hasChildren
+              ? link.children!.some((child) => pathname === child.href)
+              : pathname === link.href;
+
+            const label = (
+              <span
+                className={`font-body flex items-center gap-1 font-medium text-sm tracking-wide transition-colors ${
+                  isActive
+                    ? "text-dark-secondary"
+                    : "text-light-text-primary group-hover:text-dark-secondary"
+                }`}
+              >
+                {/* Vertical rolling text: two stacked identical labels
+                    inside an overflow-hidden mask. On hover the stack
+                    translates up by exactly one line height, revealing
+                    the duplicate (accent-colored) label from below. */}
+                <span className="relative block h-[1em] overflow-hidden">
+                  <motion.span
+                    className="flex flex-col"
+                    initial={{ y: 0 }}
+                    whileHover={{ y: "-50%" }}
+                    transition={rollT}
+                  >
+                    <span className="block h-[1em] leading-[1em]">
+                      {link.label.toUpperCase()}
+                    </span>
+                    <span className="block h-[1em] leading-[1em] text-dark-secondary">
+                      {link.label.toUpperCase()}
+                    </span>
+                  </motion.span>
+                </span>
+
+                {hasChildren && (
+                  <motion.svg
+                    width="10"
+                    height="6"
+                    viewBox="0 0 10 6"
+                    fill="none"
+                    aria-hidden="true"
+                    animate={{ rotate: openDropdown === link.label ? 180 : 0 }}
+                    transition={t}
+                  >
+                    <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" />
+                  </motion.svg>
+                )}
+              </span>
+            );
 
             return (
               <div
-                key={link.href}
-                className="relative"
-                onMouseEnter={() => isServices && setOpenDropdown(link.label)}
-                onMouseLeave={() => isServices && setOpenDropdown(null)}
+                key={link.label}
+                className="group relative"
+                onMouseEnter={() => hasChildren && setOpenDropdown(link.label)}
+                onMouseLeave={() => hasChildren && setOpenDropdown(null)}
               >
-                <Link
-                  href={link.href}
-                  className={`font-body flex items-center gap-1 font-medium text-sm tracking-wide transition-colors ${
-                    isActive
-                      ? "text-dark-secondary"
-                      : "text-light-text-primary hover:text-dark-secondary"
-                  }`}
-                >
-                  {/* Vertical rolling text: two stacked identical labels
-                      inside an overflow-hidden mask. On hover the stack
-                      translates up by exactly one line height, revealing
-                      the duplicate (accent-colored) label from below. */}
-                  <span className="relative block h-[1em] overflow-hidden">
-                    <motion.span
-                      className="flex flex-col"
-                      initial={{ y: 0 }}
-                      whileHover={{ y: "-50%" }}
-                      transition={rollT}
-                    >
-                      <span className="block h-[1em] leading-[1em]">
-                        {link.label.toUpperCase()}
-                      </span>
-                      <span className="block h-[1em] leading-[1em] text-dark-secondary">
-                        {link.label.toUpperCase()}
-                      </span>
-                    </motion.span>
-                  </span>
-
-                  {isServices && (
-                    <motion.svg
-                      width="10"
-                      height="6"
-                      viewBox="0 0 10 6"
-                      fill="none"
-                      aria-hidden="true"
-                      animate={{ rotate: openDropdown === "Services" ? 180 : 0 }}
-                      transition={t}
-                    >
-                      <path
-                        d="M1 1L5 5L9 1"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      />
-                    </motion.svg>
-                  )}
-                </Link>
+                {link.href ? (
+                  <Link href={link.href}>{label}</Link>
+                ) : (
+                  // No page to navigate to (e.g. "Services") — the label
+                  // exists only to reveal the dropdown, so it's a button,
+                  // not a Link. Click also toggles it, for touch/keyboard
+                  // users who can't hover.
+                  <button
+                    type="button"
+                    aria-expanded={openDropdown === link.label}
+                    onClick={() =>
+                      setOpenDropdown((current) => (current === link.label ? null : link.label))
+                    }
+                  >
+                    {label}
+                  </button>
+                )}
 
                 {isActive && (
                   <motion.span
@@ -108,7 +124,7 @@ export function SiteHeader() {
                 )}
 
                 <AnimatePresence>
-                  {isServices && openDropdown === "Services" && <ServicesMegaMenu />}
+                  {hasChildren && openDropdown === link.label && <ServicesMegaMenu />}
                 </AnimatePresence>
               </div>
             );
@@ -117,7 +133,7 @@ export function SiteHeader() {
 
         {/* CTA */}
         <div className="hidden md:block">
-          <Button href={ctaLink.href} variant="outline">
+          <Button href={ctaLink.href!} variant="outline">
             {ctaLink.label}
           </Button>
         </div>
@@ -131,19 +147,11 @@ export function SiteHeader() {
         >
           {mobileOpen ? (
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M6 6L18 18M6 18L18 6"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              />
+              <path d="M6 6L18 18M6 18L18 6" stroke="currentColor" strokeWidth="1.5" />
             </svg>
           ) : (
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M3 6H21M3 12H21M3 18H21"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              />
+              <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" strokeWidth="1.5" />
             </svg>
           )}
         </button>
@@ -161,11 +169,11 @@ export function SiteHeader() {
           >
             <Container className="flex flex-col gap-1 py-4">
               {primaryNav.map((link) => {
-                const isServices = link.label === "Services";
+                const hasChildren = Boolean(link.children?.length);
 
-                if (isServices) {
+                if (hasChildren) {
                   return (
-                    <div key={link.href} className="border-b border-light/60 py-1">
+                    <div key={link.label} className="border-b border-light/60 py-1">
                       <button
                         className="font-body flex w-full items-center justify-between py-2 text-sm text-light-secondary"
                         aria-expanded={mobileServicesOpen}
@@ -181,11 +189,7 @@ export function SiteHeader() {
                           animate={{ rotate: mobileServicesOpen ? 180 : 0 }}
                           transition={t}
                         >
-                          <path
-                            d="M1 1L5 5L9 1"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                          />
+                          <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" />
                         </motion.svg>
                       </button>
 
@@ -198,14 +202,14 @@ export function SiteHeader() {
                             transition={t}
                             className="flex flex-col gap-1 overflow-hidden pb-2 pl-3"
                           >
-                            {services.map((service) => (
-                              <li key={service.id}>
+                            {link.children!.map((child) => (
+                              <li key={child.href}>
                                 <Link
-                                  href={service.href}
+                                  href={child.href!}
                                   onClick={() => setMobileOpen(false)}
                                   className="font-body block py-1.5 text-sm text-light-muted hover:text-light-brand"
                                 >
-                                  {service.label}
+                                  {child.label}
                                 </Link>
                               </li>
                             ))}
@@ -219,23 +223,17 @@ export function SiteHeader() {
                 return (
                   <Link
                     key={link.href}
-                    href={link.href}
+                    href={link.href!}
                     onClick={() => setMobileOpen(false)}
                     className={`font-body py-2 text-sm ${
-                      pathname === link.href
-                        ? "text-light-brand"
-                        : "text-light-secondary"
+                      pathname === link.href ? "text-light-brand" : "text-light-secondary"
                     }`}
                   >
                     {link.label}
                   </Link>
                 );
               })}
-              <Button
-                href={ctaLink.href}
-                variant="outline"
-                className="mt-3 w-full"
-              >
+              <Button href={ctaLink.href!} variant="outline" className="mt-3 w-full">
                 {ctaLink.label}
               </Button>
             </Container>

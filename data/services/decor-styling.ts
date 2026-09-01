@@ -47,115 +47,115 @@ export const decorStylingExperienceContent = {
     heartIcon: "",
     description:
       "We translate your personality, occasion and vision into a considered aesthetic—one that feels cohesive from the first impression to the smallest detail.",
-    avatarsImage: "/images/testimonials/avatars-group.png",
+    avatarsImage: "/images/icons/avatarsImage.svg",
     reviewLabel: "10K Reviews",
   },
 };
 
  
 
-// ── Features section content ──────────────────────────────────────
+  // ── Features section content ──────────────────────────────────────
 
-export const decorStylingFeaturesHeading = ["Set the Mood.", "Create the Moment."];
+  export const decorStylingFeaturesHeading = ["Set the Mood.", "Create the Moment."];
 
-export const decorStylingFeaturesFooterLabel = "Perfect Decor";
+  export const decorStylingFeaturesFooterLabel = "Perfect Decor";
 
-export const decorStylingFeatureItems: FeatureGridItem[] = [
-  // Column 1, rows 1–2 — tall image (reusing Concept & Creative's photo, no caption here)
-  {
-    id: "tall-visual",
-    image: "/images/services/decor-styling/feature-concept.jpg",
-    colStart: 1,
-    colSpan: 1,
-    rowStart: 1,
-    rowSpan: 2,
-  },
-  // Column 2, row 1 — no caption (reusing Floral Design's photo)
-  {
-    id: "uncaptioned-1",
-    image: "/images/services/decor-styling/feature-floral.jpg",
-    colStart: 2,
-    colSpan: 1,
-    rowStart: 1,
-    rowSpan: 1,
-  },
-  // Column 2, row 2 — no caption (reusing Stage & Backdrops' photo)
-  {
-    id: "uncaptioned-2",
-    image: "/images/services/decor-styling/feature-stage.jpg",
-    colStart: 2,
-    colSpan: 1,
-    rowStart: 2,
-    rowSpan: 1,
-  },
-  // Column 1, row 3 — Concept & Creative
-  {
-    id: "concept-creative",
-    image: "/images/services/decor-styling/feature-concept.jpg",
-    title: "Concept & Creative",
-    description: "Developing the overall direction, mood and personality of your celebration.",
-    colStart: 1,
-    colSpan: 1,
-    rowStart: 3,
-    rowSpan: 1,
-  },
-  // Column 2, row 3 — Floral Design
-  {
-    id: "floral-design",
-    image: "/images/services/decor-styling/feature-floral.jpg",
-    title: "Floral Design",
-    description:
-      "Creating floral arrangements, installations and botanical details that complement the concept.",
-    colStart: 2,
-    colSpan: 1,
-    rowStart: 3,
-    rowSpan: 1,
-  },
-  // Column 3, row 1 — Stage & Backdrops
-  {
-    id: "stage-backdrops",
-    image: "/images/services/decor-styling/feature-stage.jpg",
-    title: "Stage & Backdrops",
-    description: "Creating focal points, ceremony structures, stages and statement installations.",
-    colStart: 3,
-    colSpan: 1,
-    rowStart: 1,
-    rowSpan: 1,
-  },
-  // Column 4, row 1 — Lighting
-  {
-    id: "lighting",
-    image: "/images/services/decor-styling/feature-lighting.jpg",
-    title: "Lighting",
-    description: "Using ambient, architectural and decorative lighting to shape the atmosphere.",
-    colStart: 4,
-    colSpan: 1,
-    rowStart: 1,
-    rowSpan: 1,
-  },
-  // Column 3, row 2 — Venue Transformation
-  {
-    id: "venue-transformation",
-    image: "/images/services/decor-styling/feature-transformation.jpg",
-    title: "Venue Transformation",
-    description: "Turning existing spaces into environments that feel completely different.",
-    colStart: 3,
-    colSpan: 1,
-    rowStart: 2,
-    rowSpan: 1,
-  },
-  // Column 4, row 2 — Installation
-  {
-    id: "installation",
-    image: "/images/services/decor-styling/feature-installation.jpg",
-    title: "Installation",
-    description: "Managing the setup, placement and final styling of every visual element.",
-    colStart: 4,
-    colSpan: 1,
-    rowStart: 2,
-    rowSpan: 1,
-  },
-];
+  export const decorStylingFeatureItems: FeatureGridItem[] = [
+    // Column 1, rows 1–2 — tall image (reusing Concept & Creative's photo, no caption here)
+    {
+      id: "tall-visual",
+      image: "/images/services/decor-styling/feature-concept.jpg",
+      colStart: 1,
+      colSpan: 1,
+      rowStart: 1,
+      rowSpan: 2,
+    },
+    // Column 2, row 1 — no caption (reusing Floral Design's photo)
+    {
+      id: "uncaptioned-1",
+      image: "/images/services/decor-styling/feature-floral.jpg",
+      colStart: 2,
+      colSpan: 1,
+      rowStart: 1,
+      rowSpan: 1,
+    },
+    // Column 2, row 2 — no caption (reusing Stage & Backdrops' photo)
+    {
+      id: "uncaptioned-2",
+      image: "/images/services/decor-styling/feature-stage.jpg",
+      colStart: 2,
+      colSpan: 1,
+      rowStart: 2,
+      rowSpan: 1,
+    },
+    // Column 1, row 3 — Concept & Creative
+    {
+      id: "concept-creative",
+      image: "/images/services/decor-styling/feature-concepts.jpg",
+      title: "Concept & Creative",
+      description: "Developing the overall direction, mood and personality of your celebration.",
+      colStart: 1,
+      colSpan: 1,
+      rowStart: 3,
+      rowSpan: 1,
+    },
+    // Column 2, row 3 — Floral Design
+    {
+      id: "floral-design",
+      image: "/images/services/decor-styling/feature-floral.jpg",
+      title: "Floral Design",
+      description:
+        "Creating floral arrangements, installations and botanical details that complement the concept.",
+      colStart: 2,
+      colSpan: 1,
+      rowStart: 3,
+      rowSpan: 1,
+    },
+    // Column 3, row 1 — Stage & Backdrops
+    {
+      id: "stage-backdrops",
+      image: "/images/services/decor-styling/feature-stage.jpg",
+      title: "Stage & Backdrops",
+      description: "Creating focal points, ceremony structures, stages and statement installations.",
+      colStart: 3,
+      colSpan: 1,
+      rowStart: 1,
+      rowSpan: 1,
+    },
+    // Column 4, row 1 — Lighting
+    {
+      id: "lighting",
+      image: "/images/services/decor-styling/feature-lighting.jpg",
+      title: "Lighting",
+      description: "Using ambient, architectural and decorative lighting to shape the atmosphere.",
+      colStart: 4,
+      colSpan: 1,
+      rowStart: 1,
+      rowSpan: 1,
+    },
+    // Column 3, row 2 — Venue Transformation
+    {
+      id: "venue-transformation",
+      image: "/images/services/decor-styling/feature-transformation.jpg",
+      title: "Venue Transformation",
+      description: "Turning existing spaces into environments that feel completely different.",
+      colStart: 3,
+      colSpan: 1,
+      rowStart: 2,
+      rowSpan: 1,
+    },
+    // Column 4, row 2 — Installation
+    {
+      id: "installation",
+      image: "/images/services/decor-styling/feature-installation.jpg",
+      title: "Installation",
+      description: "Managing the setup, placement and final styling of every visual element.",
+      colStart: 4,
+      colSpan: 1,
+      rowStart: 2,
+      rowSpan: 1,
+    },
+  ];
 
  
 

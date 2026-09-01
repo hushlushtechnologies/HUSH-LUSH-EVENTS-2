@@ -25,7 +25,7 @@ export function JournalSidebar() {
   return (
     <aside className="flex flex-col gap-8">
       {/* Subscribe card */}
-      <div className="rounded-2xl border border-light-border p-6">
+      <div className="rounded-2xl   p-6">
         <div className="relative h-8 w-28">
           <Image src="/images/logo.svg" alt="Hush Lush Events" fill className="object-contain" />
         </div>
@@ -39,7 +39,7 @@ export function JournalSidebar() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Enter your Name"
-            className="font-body w-full rounded-lg border border-light-border bg-light-card px-4 py-2.5 text-sm text-light-primary placeholder:text-light-muted focus:border-light-primary/60 focus:outline-none"
+            className="font-body w-full rounded-2xl border border-light-border bg-light-card px-4 py-2.5 text-sm text-light-primary placeholder:text-light-muted focus:border-light-primary/60 focus:outline-none"
           />
           <input
             type="email"
@@ -47,11 +47,11 @@ export function JournalSidebar() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your Email"
-            className="font-body w-full rounded-lg border border-light-border bg-light-card px-4 py-2.5 text-sm text-light-primary placeholder:text-light-muted focus:border-light-primary/60 focus:outline-none"
+            className="font-body w-full rounded-2xl border border-light-border bg-light-card px-4 py-2.5 text-sm text-light-primary placeholder:text-light-muted focus:border-light-primary/60 focus:outline-none"
           />
           <button
             type="submit"
-            className="font-body mt-1 w-full rounded-full border border-light-primary/60 py-2.5 text-sm font-medium text-light-brand transition-colors hover:bg-light-primary hover:text-white"
+            className="font-body mt-1 w-full rounded-full border border-dark-secondary/60 py-2.5 text-sm font-medium text-dark-secondary transition-colors hover:bg-light-primary hover:text-white"
           >
             Subscribe
           </button>
@@ -65,52 +65,52 @@ export function JournalSidebar() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={social.label}
-              className="flex h-9 w-9 items-center justify-center rounded-lg bg-light-card text-light-primary transition-colors hover:bg-light-primary hover:text-white"
+              className="flex h-9 w-9 items-center justify-center rounded-lg bg-light-surface text-dark-background transition-colors hover:bg-light-primary hover:text-white"
             >
               <SocialIcon id={social.id} className="h-4 w-4" />
             </Link>
           ))}
         </div>
-        <p className="font-body mt-3 text-center text-xs font-semibold tracking-wide text-light-primary">
+        <p className="font-body mt-3 text-center text-xs font-semibold tracking-wide text-dark-background">
           {followLabel.toUpperCase()}
         </p>
       </div>
 
       {/* Telegram promo card */}
-      <div>
-        <div className="relative mx-auto h-28 w-28 overflow-hidden rounded-full">
-          <Image src={telegramImage} alt="" fill className="object-cover" sizes="112px" />
-        </div>
+  <div>
+  <div className="relative h-28 w-28 overflow-hidden rounded-full">
+    <Image src={telegramImage} alt="" fill className="object-cover" sizes="112px" />
+  </div>
 
-        <h3 className="font-display mt-5 text-center text-2xl leading-snug text-light-primary">
-          {telegramHeading}
-        </h3>
+  <h3 className="font-display mt-5 text-left text-2xl leading-snug text-dark-background">
+    {telegramHeading}
+  </h3>
 
-        <p className="font-body mt-3 text-center text-sm leading-relaxed text-light-secondary">
-          {telegramText}
-        </p>
+  <p className="font-body mt-3 text-left text-sm leading-relaxed text-light-secondary">
+    {telegramText}
+  </p>
 
-        <ul className="mt-3 flex flex-col gap-1">
-          {telegramBullets.map((bullet) => (
-            <li key={bullet} className="font-body flex items-center gap-2 text-sm text-light-primary">
-              <span className="h-1 w-1 rounded-full bg-light-primary" />
-              {bullet}
-            </li>
-          ))}
-        </ul>
+  <ul className="mt-3 flex flex-col gap-1">
+    {telegramBullets.map((bullet) => (
+      <li key={bullet} className="font-body flex items-center gap-2 text-sm  ">
+        <span className="h-1 w-1 rounded-full bg-dark" />
+        {bullet}
+      </li>
+    ))}
+  </ul>
 
-        <Link
-          href={telegramHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-body mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-light-primary/60 py-2.5 text-sm font-medium text-light-brand transition-colors hover:bg-light-primary hover:text-white"
-        >
-          {telegramCta}
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M2 7L12 2L8 12L6 8L2 7Z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" />
-          </svg>
-        </Link>
-      </div>
+  <Link
+    href={telegramHref}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="font-body mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-dark-secondary/60 py-2.5 text-sm font-medium text-dark-secondary transition-colors hover:bg-light-primary hover:text-white"
+  >
+    {telegramCta}
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+      <path d="M2 7L12 2L8 12L6 8L2 7Z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" />
+    </svg>
+  </Link>
+</div>
     </aside>
   );
 }

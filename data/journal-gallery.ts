@@ -22,9 +22,9 @@ export const galleryRowOne: GalleryImage[] = [
 ];
 
 export const galleryRowTwo: GalleryImage[] = [
-  { id: "r2-1", src: "/images/journal/gallery-6.jpg" },
-  { id: "r2-2", src: "/images/journal/gallery-7.jpg" },
-  { id: "r2-3", src: "/images/journal/gallery-8.jpg" },
-  { id: "r2-4", src: "/images/journal/gallery-9.jpg" },
-  { id: "r2-5", src: "/images/journal/gallery-10.jpg" },
+  { id: "r2-1", src: "/images/journal/gallery-1.jpg" },
+  { id: "r2-2", src: "/images/journal/gallery-2.jpg" },
+  { id: "r2-3", src: "/images/journal/gallery-3.jpg" },
+  { id: "r2-4", src: "/images/journal/gallery-4.jpg" },
+  { id: "r2-5", src: "/images/journal/gallery-5.jpg" },
 ];

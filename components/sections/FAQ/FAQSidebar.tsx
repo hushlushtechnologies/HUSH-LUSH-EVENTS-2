@@ -1,4 +1,4 @@
-import Image from "next/image";
+ import Image from "next/image";
 import Link from "next/link";
 import { SocialIcon } from "@/components/icons/SocialIcon";
 import { socialLinks } from "@/data/socials";
@@ -6,11 +6,14 @@ import { socialLinks } from "@/data/socials";
 export function FAQSidebar() {
   return (
     <div className="flex flex-col gap-8">
-      <div className="relative h-10 w-36">
+      <div className="relative h-14 w-44">
         <Image src="/images/logo-dark.svg" alt="Hush Lush Events" fill className="object-contain" />
       </div>
 
-      <div className="rounded-2xl border border-dark-border/40 bg-dark-card/60 p-3">
+      <div
+        className="rounded-2xl border border-dark-border/40 p-3"
+        style={{ background: "rgba(122, 70, 20, 0.1)" }}
+      >
         <ul className="flex flex-col gap-1">
           {socialLinks.map((social) => (
             <li key={social.id}>
