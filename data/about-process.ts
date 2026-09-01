@@ -52,4 +52,4 @@ export const extraSteps: ProcessStepItem[] = [
 ];
 
 export const verticalBadgeText = "HUSH LUSH EVENTS";
-export const verticalBadgeImage = "/images/about/process-florals.png";
+export const verticalBadgeImage = "/images/about/process.png";

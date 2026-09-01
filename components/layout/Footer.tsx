@@ -166,7 +166,7 @@ export function Footer() {
                     >
                       <SocialIcon id={social.id} className="h-3.5 w-3.5" />
                     </Link>
-                    <span className="font-body text-sm text-dark-text-primary">social_media</span>
+                    <span className="font-body text-sm text-dark-text-primary">{social.label}</span>
                   </li>
                 ))}
               </ul>

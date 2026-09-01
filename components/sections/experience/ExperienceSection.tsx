@@ -122,7 +122,7 @@ export function ExperienceSection({
           />
 
           {/* Testimonial card — overlaps lower-right corner of the frame */}
-          <div className="absolute bottom-[4%] -right-[6%] hidden max-w-[400px] rounded-lg border border-light bg-light-card p-3 shadow-md md:block">
+          <div className="absolute bottom-[4%] -right-[6%] hidden max-w-[400px] rounded-xl border border-light bg-light-card p-3 shadow-md md:block">
             <div className="flex items-start gap-2">
               <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full">
                 <Image src={testimonial.icon} alt="" width={28} height={28} />
@@ -136,7 +136,7 @@ export function ExperienceSection({
                   </p>
                 )}
                 <p
-                  className={`font-body text-[10px] leading-relaxed text-light-secondary ${
+                  className={`font-body text-[12px] leading-relaxed text-light-secondary ${
                     hasTestimonialHeading ? "mt-1" : ""
                   }`}
                 >

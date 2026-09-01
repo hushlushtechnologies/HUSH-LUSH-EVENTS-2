@@ -1,20 +1,44 @@
-"use client";
+ "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, LayoutGroup, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { ProcessStep } from "./ProcessStep";
 import { processSteps } from "@/data/process";
 
+const AUTOPLAY_INTERVAL = 2800;
+
 export function OurProcess() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const reducedMotion = useReducedMotion();
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    if (reducedMotion) return;
+
+    intervalRef.current = setInterval(() => {
+      setActiveIndex((current) => (current + 1) % processSteps.length);
+    }, AUTOPLAY_INTERVAL);
+
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [reducedMotion]);
+
+  const handleSelect = (index: number) => {
+    setActiveIndex(index);
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    if (!reducedMotion) {
+      intervalRef.current = setInterval(() => {
+        setActiveIndex((current) => (current + 1) % processSteps.length);
+      }, AUTOPLAY_INTERVAL);
+    }
+  };
 
   return (
     <section className="section-light py-20 md:py-28">
       <Container>
-        {/* Two-column header — same left-title/right-description pattern
-                as WhatWeCelebrate; no underline or decoration here. */}
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-start">
           <h2 className="font-display text-4xl leading-tight    md:text-5xl">
             <span className="block">We Believe Every</span>
@@ -43,16 +67,24 @@ export function OurProcess() {
           />
         </motion.div>
 
-        <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-          {processSteps.map((step, index) => (
-            <ProcessStep
-              key={step.number}
-              step={step}
-              isActive={index === activeIndex}
-              onSelect={() => setActiveIndex(index)}
-            />
-          ))}
-        </div>
+        {/* LayoutGroup + layout on each item lets Framer Motion smoothly
+            interpolate (FLIP-style) any size/position change a step
+            undergoes when it becomes active, instead of the change
+            snapping instantly regardless of what CSS transition
+            ProcessStep itself does or doesn't define. */}
+        <LayoutGroup>
+          <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+            {processSteps.map((step, index) => (
+              <motion.div key={step.number} layout transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
+                <ProcessStep
+                  step={step}
+                  isActive={index === activeIndex}
+                  onSelect={() => handleSelect(index)}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </LayoutGroup>
       </Container>
     </section>
   );

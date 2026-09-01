@@ -27,12 +27,12 @@ export default async function JournalArticlePage({ params }: PageProps) {
 
   return (
     <>
-      <section className="section-light py-16 md:py-24">
+      <section className="section-light py-10 sm:py-16 md:py-24">
         <Container>
           {/* Full width — direct child of Container, not inside the grid below */}
           <ArticleDetailHeader {...article} />
 
-          <div className="mt-12 grid grid-cols-1 gap-12  ">
+          <div className="mt-8 grid grid-cols-1 gap-8 sm:mt-10 sm:gap-10 md:mt-12 md:gap-12">
             <ArticleDetailBody {...article} />
           </div>
         </Container>
