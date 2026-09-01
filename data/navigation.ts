@@ -1,14 +1,15 @@
-import type { NavLink } from "@/types/navigation";
+ import type { NavLink } from "@/types/navigation";
+import { services } from "@/data/services";
 
 export const primaryNav: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   {
     label: "Services",
-    children: [
-      { label: "Weddings", href: "/services/weddings" },
-      { label: "Corporate Events", href: "/services/corporate-events" },
-    ],
+    children: services.map((service) => ({
+      label: service.label,
+      href: service.href,
+    })),
   },
   { label: "Our Work", href: "/our-work" },
   { label: "Journal", href: "/journal" },

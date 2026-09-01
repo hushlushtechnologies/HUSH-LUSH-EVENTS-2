@@ -4,7 +4,7 @@ import { WindowControls, CloseIcon, PlusIcon } from "./icons";
 
 export function BrowserTabs({ tabs }: { tabs: BrowserTab[] }) {
   return (
-    <div className="flex items-center gap-3 border-b border-light   px-3 py-2 sm:gap-4 sm:px-4 sm:py-2.5">
+    <div className="flex items-center gap-3 border-b border-light bg-white  px-3 py-2 sm:gap-4 sm:px-4 sm:py-2.5">
       <WindowControls />
 
       <div className="scrollbar-hide flex flex-1 items-center gap-1 overflow-x-auto">

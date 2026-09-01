@@ -45,19 +45,16 @@ const particles: Particle[] = [
 // LIGHT_BAR_WRAPPER_HEIGHT), not the whole section — each bar's "height"
 // is a percentage of "reaches down to the word," not "reaches down the
 // whole hero."
-const lightBars = [
-  { left: "26%", width: "50px", opacity: 0.08, height: "70%" },
-  { left: "31%", width: "50px", opacity: 0.05, height: "55%" },
-  { left: "36%", width: "50px", opacity: 0.1, height: "80%" },
-  { left: "41%", width: "50px", opacity: 0.06, height: "60%" },
-  { left: "46%", width: "50px", opacity: 0.12, height: "90%" },
-  { left: "50%", width: "50px", opacity: 0.14, height: "95%" },
-  { left: "54%", width: "50px", opacity: 0.12, height: "90%" },
-  { left: "59%", width: "50px", opacity: 0.06, height: "60%" },
-  { left: "64%", width: "50px", opacity: 0.1, height: "80%" },
-  { left: "69%", width: "50px", opacity: 0.05, height: "55%" },
-  { left: "74%", width: "50px", opacity: 0.08, height: "70%" },
-];
+ const LIGHT_BAR_WIDTH = "50px";
+const LIGHT_BAR_HEIGHT = "80%";
+const LIGHT_BAR_GAP = 5; // percentage points between each bar's `left`
+
+const lightBars = Array.from({ length: 9 }, (_, i) => ({
+  left: `${26 + i * LIGHT_BAR_GAP}%`,
+  width: LIGHT_BAR_WIDTH,
+  opacity: 0.1,
+  height: LIGHT_BAR_HEIGHT,
+}));
 
 // The word sits at top-[3%]; this is roughly how much vertical space its
 // glyphs occupy at text-[16vw] leading-none. Bars are clipped to this

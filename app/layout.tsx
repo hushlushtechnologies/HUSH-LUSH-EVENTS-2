@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
-import { Lora, Inter,Julee  } from "next/font/google";
+ import type { Metadata } from "next";
+import { Lora, Inter, Julee } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
- 
+import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 
 const lora = Lora({
   subsets: ["latin"],
@@ -69,7 +69,8 @@ export default function RootLayout({
       <body className="antialiased">
         <SiteHeader />
         <main>{children}</main>
-          <Footer/>
+        <Footer />
+        <FloatingWhatsApp />
       </body>
     </html>
   );

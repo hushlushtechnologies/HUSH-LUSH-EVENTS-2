@@ -21,7 +21,7 @@ export function SiteHeader() {
   const rollT = { duration: shouldReduceMotion ? 0 : 0.35, ease: [0.76, 0, 0.24, 1] as const };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-light bg-light">
+    <header className="sticky top-0 z-50  bg-light">
       <Container className="flex h-20 items-center justify-between">
         {/* Logo */}
         <Link
@@ -38,101 +38,91 @@ export function SiteHeader() {
           />
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-9 md:flex">
-          {primaryNav.map((link) => {
-            const hasChildren = Boolean(link.children?.length);
-            const isActive = hasChildren
-              ? link.children!.some((child) => pathname === child.href)
-              : pathname === link.href;
+        <div className="hidden items-center gap-12 md:flex">
+          <nav className="flex items-center gap-9">
+            {primaryNav.map((link) => {
+              const hasChildren = Boolean(link.children?.length);
+              const isActive = hasChildren
+                ? link.children!.some((child) => pathname === child.href)
+                : pathname === link.href;
 
-            const label = (
-              <span
-                className={`font-body flex items-center gap-1 font-medium text-sm tracking-wide transition-colors ${
-                  isActive
-                    ? "text-dark-secondary"
-                    : "text-light-text-primary group-hover:text-dark-secondary"
-                }`}
-              >
-                {/* Vertical rolling text: two stacked identical labels
-                    inside an overflow-hidden mask. On hover the stack
-                    translates up by exactly one line height, revealing
-                    the duplicate (accent-colored) label from below. */}
-                <span className="relative block h-[1em] overflow-hidden">
-                  <motion.span
-                    className="flex flex-col"
-                    initial={{ y: 0 }}
-                    whileHover={{ y: "-50%" }}
-                    transition={rollT}
-                  >
-                    <span className="block h-[1em] leading-[1em]">
-                      {link.label.toUpperCase()}
-                    </span>
-                    <span className="block h-[1em] leading-[1em] text-dark-secondary">
-                      {link.label.toUpperCase()}
-                    </span>
-                  </motion.span>
+              const label = (
+                <span
+                  className={`font-body flex items-center gap-1 font-medium text-sm tracking-wide transition-colors ${
+                    isActive
+                      ? "text-dark-secondary"
+                      : "text-light-text-primary group-hover:text-dark-secondary"
+                  }`}
+                >
+                  <span className="relative block h-[1em] overflow-hidden">
+                    <motion.span
+                      className="flex flex-col"
+                      initial={{ y: 0 }}
+                      whileHover={{ y: "-50%" }}
+                      transition={rollT}
+                    >
+                      <span className="block h-[1em] leading-[1em]">
+                        {link.label.toUpperCase()}
+                      </span>
+                      <span className="block h-[1em] leading-[1em] text-dark-secondary">
+                        {link.label.toUpperCase()}
+                      </span>
+                    </motion.span>
+                  </span>
+
+                  {hasChildren && (
+                    <motion.svg
+                      width="10"
+                      height="6"
+                      viewBox="0 0 10 6"
+                      fill="none"
+                      aria-hidden="true"
+                      animate={{ rotate: openDropdown === link.label ? 180 : 0 }}
+                      transition={t}
+                    >
+                      <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" />
+                    </motion.svg>
+                  )}
                 </span>
+              );
 
-                {hasChildren && (
-                  <motion.svg
-                    width="10"
-                    height="6"
-                    viewBox="0 0 10 6"
-                    fill="none"
-                    aria-hidden="true"
-                    animate={{ rotate: openDropdown === link.label ? 180 : 0 }}
-                    transition={t}
-                  >
-                    <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" />
-                  </motion.svg>
-                )}
-              </span>
-            );
+              return (
+                <div
+                  key={link.label}
+                  className="group relative"
+                  onMouseEnter={() => hasChildren && setOpenDropdown(link.label)}
+                  onMouseLeave={() => hasChildren && setOpenDropdown(null)}
+                >
+                  {link.href ? (
+                    <Link href={link.href}>{label}</Link>
+                  ) : (
+                    <button
+                      type="button"
+                      aria-expanded={openDropdown === link.label}
+                      onClick={() =>
+                        setOpenDropdown((current) => (current === link.label ? null : link.label))
+                      }
+                    >
+                      {label}
+                    </button>
+                  )}
 
-            return (
-              <div
-                key={link.label}
-                className="group relative"
-                onMouseEnter={() => hasChildren && setOpenDropdown(link.label)}
-                onMouseLeave={() => hasChildren && setOpenDropdown(null)}
-              >
-                {link.href ? (
-                  <Link href={link.href}>{label}</Link>
-                ) : (
-                  // No page to navigate to (e.g. "Services") — the label
-                  // exists only to reveal the dropdown, so it's a button,
-                  // not a Link. Click also toggles it, for touch/keyboard
-                  // users who can't hover.
-                  <button
-                    type="button"
-                    aria-expanded={openDropdown === link.label}
-                    onClick={() =>
-                      setOpenDropdown((current) => (current === link.label ? null : link.label))
-                    }
-                  >
-                    {label}
-                  </button>
-                )}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-underline"
+                      className="absolute -bottom-2 left-0 h-px w-full bg-dark-secondary"
+                      transition={t}
+                    />
+                  )}
 
-                {isActive && (
-                  <motion.span
-                    layoutId="nav-underline"
-                    className="absolute -bottom-2 left-0 h-px w-full bg-dark-secondary"
-                    transition={t}
-                  />
-                )}
+                  <AnimatePresence>
+                    {hasChildren && openDropdown === link.label && <ServicesMegaMenu />}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </nav>
 
-                <AnimatePresence>
-                  {hasChildren && openDropdown === link.label && <ServicesMegaMenu />}
-                </AnimatePresence>
-              </div>
-            );
-          })}
-        </nav>
-
-        {/* CTA */}
-        <div className="hidden md:block">
           <Button href={ctaLink.href!} variant="outline">
             {ctaLink.label}
           </Button>
@@ -161,6 +151,7 @@ export function SiteHeader() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            layout
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -196,6 +187,7 @@ export function SiteHeader() {
                       <AnimatePresence>
                         {mobileServicesOpen && (
                           <motion.ul
+                            layout
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}

@@ -5,6 +5,7 @@ import { Hero } from "@/components/sections/Hero/Hero";
 import { IntroVideo } from "@/components/sections/IntroVideo/IntroVideo";
 import { OurImpact } from "@/components/sections/OurImpact/OurImpact";
 import { OurProcess } from "@/components/sections/OurProcess/OurProcess";
+import { PromoBanner } from "@/components/sections/PromoBanner/PromoBanner";
 import { ServicesShowcase } from "@/components/sections/ServicesShowcase/ServicesShowcase";
 import { Testimonials } from "@/components/sections/Testimonials/Testimonials";
 import { WhatWeCelebrate } from "@/components/sections/WhatWeCelebrate/WhatWeCelebrate";
@@ -15,6 +16,7 @@ export default function Home() {
      <>
      <Hero/>
      <ExperienceSection  />
+     <PromoBanner />
       <WhatWeCelebrate />
       <OurImpact />
       <ServicesShowcase />

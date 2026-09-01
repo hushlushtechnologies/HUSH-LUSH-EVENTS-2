@@ -1,7 +1,7 @@
  import Link from "next/link";
 import { ButtonHTMLAttributes, ReactNode } from "react";
 
-type ButtonVariant = "solid" | "outline" | "light";
+type ButtonVariant = "solid" | "outline" | "light" | "white" ;
 
 interface BaseProps {
   children: ReactNode;
@@ -26,6 +26,7 @@ const variantStyles: Record<ButtonVariant, string> = {
   solid: "bg-light-primary text-white",
   outline: "border bg-white border-dark-secondary text-dark-secondary",
   light: "bg-light text-light-primary",
+  white:"bg-white text-dark"
 };
 
 // Roll-in duplicate's color once it slides into view — matches each
@@ -35,6 +36,8 @@ const rollHoverTextStyles: Record<ButtonVariant, string> = {
   solid: "text-white",
   outline: "text-dark-secondary",
   light: "text-light-primary",
+    white:"bg-white text-light-primary"
+ 
 };
 
 export function Button({ children, variant = "solid", className = "", ...props }: ButtonProps) {
