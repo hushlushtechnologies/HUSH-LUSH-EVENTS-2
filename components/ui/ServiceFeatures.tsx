@@ -42,13 +42,21 @@ function FeatureCard({
       }}
       className="flex flex-col"
       style={{
+        // This inline placement has NO responsive breakpoints — it
+        // applies at every screen width. It only actually takes effect
+        // when the parent is display:grid (from sm+ below); on mobile,
+        // the parent is display:flex, so grid-column/grid-row are
+        // simply ignored by the browser and this card just stacks
+        // normally in DOM order instead.
         gridColumn: `${item.colStart} / span ${item.colSpan}`,
         gridRow: `${item.rowStart} / span ${item.rowSpan}`,
       }}
     >
       <div
         className={`relative w-full overflow-hidden rounded-2xl ${
-          item.rowSpan > 1 ? "h-full" : (item.aspect ?? "aspect-square")
+          item.rowSpan > 1
+            ? "aspect-[3/4] sm:aspect-auto sm:h-full"
+            : (item.aspect ?? "aspect-square")
         }`}
       >
         <Image
@@ -56,7 +64,7 @@ function FeatureCard({
           alt={item.title ?? ""}
           fill
           className="object-cover"
-          sizes="(min-width: 768px) 320px, 45vw"
+          sizes="(min-width: 1024px) 320px, (min-width: 640px) 45vw, 90vw"
         />
       </div>
 
@@ -93,15 +101,18 @@ export function ServiceFeatures({
           underline
         />
 
-        <div className="mt-16 grid grid-cols-2 gap-6 lg:grid-cols-2">
-          <div className="grid grid-cols-2 gap-6">
+        <div className="mt-12 flex flex-col gap-10 sm:mt-16 lg:grid lg:grid-cols-2 lg:items-start lg:gap-6">
+          {/* display:flex below sm (NOT grid) — this is what makes the
+              cards' inline grid-column/grid-row placement inert on
+              mobile, so nothing can overlap. Becomes a real grid at sm+. */}
+          <div className="flex flex-col gap-6 sm:grid sm:grid-cols-2">
             {leftItems.map((item, index) => (
               <FeatureCard key={item.id} item={item} index={index} />
             ))}
           </div>
 
-          <div className="flex h-full flex-col justify-between">
-            <div className="grid grid-cols-2 gap-6">
+          <div className="flex h-full flex-col justify-between gap-10 sm:gap-6">
+            <div className="flex flex-col gap-6 sm:grid sm:grid-cols-2">
               {rightItems.map((item, index) => (
                 <FeatureCard
                   key={item.id}
@@ -117,9 +128,9 @@ export function ServiceFeatures({
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5 }}
-                className="flex items-center justify-end gap-4"
+                className="flex flex-wrap items-center justify-center gap-4 sm:justify-end"
               >
-                <div className="relative h-[16px] w-60">
+                <div className="relative h-[16px] w-40 sm:w-60">
                   <Image
                     src="/images/icons/arrow-line.svg"
                     alt=""
