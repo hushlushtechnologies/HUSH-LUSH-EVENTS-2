@@ -172,35 +172,35 @@ export const eventPlanningFaqItems: FAQItem[] = [
       "We plan and coordinate a wide range of events, including private celebrations, birthdays, weddings, corporate gatherings, gala nights, launches, and bespoke experiences.",
   },
   {
-    id: "manage-entire-event",
-    question: "Can Hush Lush manage my entire event from start to finish?",
-    answer:
-      "Yes — from the first conversation to the final celebration, our team handles planning, design, vendor coordination and on-the-day execution.",
-  },
-  {
-    id: "own-concept",
-    question: "Can you work with a concept or theme I already have?",
-    answer:
-      "Absolutely. We're happy to build on your existing vision, or refine it further with our own creative direction.",
-  },
-  {
-    id: "venue-vendor",
-    question: "Do you help with venue and vendor selection?",
-    answer:
-      "Yes, we help identify and coordinate the right venues and vendors to match your event's style, scale and budget.",
-  },
-  {
-    id: "how-early",
-    question: "How early should I contact Hush Lush?",
-    answer:
-      "We recommend reaching out as early as possible, ideally several months in advance, especially for larger events or peak-season dates.",
-  },
-  {
-    id: "specific-budget",
-    question: "Can you plan an event within a specific budget?",
-    answer:
-      "Yes — we work within a range of budgets and will always be transparent about what's achievable within yours.",
-  },
+  id: "manage-entire-event",
+  question: "Can Hush Lush manage my entire event from start to finish?",
+  answer:
+    "Absolutely. We can manage the complete journey—from concept and planning to vendor coordination, production, event-day management, and final execution.",
+},
+{
+  id: "own-concept",
+  question: "Can you work with a concept or theme I already have?",
+  answer:
+    "Yes. Whether you have a fully developed vision or just a starting idea, our team can refine it and turn it into a cohesive event experience.",
+},
+{
+  id: "venue-vendor",
+  question: "Do you help with venue and vendor selection?",
+  answer:
+    "Yes. We can help source and coordinate suitable venues, caterers, decorators, entertainment, photographers, production teams, and other event partners based on your requirements.",
+},
+{
+  id: "how-early",
+  question: "How early should I contact Hush Lush?",
+  answer:
+    "We recommend getting in touch as early as possible, especially for larger events or dates with high demand. This gives us more time to plan, source the right partners, and refine every detail.",
+},
+{
+  id: "specific-budget",
+  question: "Can you plan an event within a specific budget?",
+  answer:
+    "Yes. We work around your priorities and budget to create the best possible experience while keeping planning and spending transparent.",
+},
 ];
 
 // ── Process steps section content ──────────────────────────────────

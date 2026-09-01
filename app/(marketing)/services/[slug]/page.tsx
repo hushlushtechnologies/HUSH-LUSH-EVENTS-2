@@ -84,7 +84,29 @@ import {
 import { EntertainmentProductionHero } from "@/components/sections/ServiceDetail/heroes/EntertainmentProductionHero";
 import { InvitationPrintHero } from "@/components/sections/ServiceDetail/heroes/InvitationPrintHero";
 import { SpecialExperienceHero } from "@/components/sections/ServiceDetail/heroes/SpecialExperienceHero";
-import { invitationPrintFeatureItems, invitationPrintFeaturesFooterLabel, invitationPrintFeaturesHeading, invitationPrintProcessEyebrow, invitationPrintProcessHeading, invitationPrintProcessImage, invitationPrintProcessSteps } from "@/data/services/invitation-print";
+import {
+  invitationprintFaqItems,
+  invitationPrintFeatureItems,
+  invitationPrintFeaturesFooterLabel,
+  invitationPrintFeaturesHeading,
+  invitationPrintProcessEyebrow,
+  invitationPrintProcessHeading,
+  invitationPrintProcessImage,
+  invitationPrintProcessSteps,
+} from "@/data/services/invitation-print";
+import {
+  specialExperienceAddressText,
+  specialExperienceBrowserTabs,
+  specialExperienceContent,
+  specialExperienceFaqItems,
+  specialExperienceFeatureItems,
+  specialExperienceFeaturesFooterLabel,
+  specialExperienceFeaturesHeading,
+  specialExperienceProcessEyebrow,
+  specialExperienceProcessHeading,
+  specialExperienceProcessImage,
+  specialExperienceProcessSteps,
+} from "@/data/services/special-experience";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -193,7 +215,7 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         description={venueHospitalityPortfolioDescription}
         items={venueHospitalityPortfolioItems}
       />
-      <FAQSection items={weddingPlanningFaqItems} />
+      <FAQSection items={venueHospitalityFaqItems} />
       <ServiceProcessSteps
         image={weddingPlanningProcessImage}
         eyebrow={weddingPlanningProcessEyebrow}
@@ -243,30 +265,37 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         items={invitationPrintFeatureItems}
         footerLabel={invitationPrintFeaturesFooterLabel}
       />
-       <FAQSection items={corporateEventsFaqItems} />
-<ServiceProcessSteps
-  image={invitationPrintProcessImage}
-  eyebrow={invitationPrintProcessEyebrow}
-  heading={invitationPrintProcessHeading}
-  steps={invitationPrintProcessSteps}
-/>
+      <FAQSection items={invitationprintFaqItems} />
+      <ServiceProcessSteps
+        image={invitationPrintProcessImage}
+        eyebrow={invitationPrintProcessEyebrow}
+        heading={invitationPrintProcessHeading}
+        steps={invitationPrintProcessSteps}
+      />
     </>
   ),
   "special-experience": () => (
     <>
       <SpecialExperienceHero />
-      <ServiceFeatures
-        headingLines={invitationPrintFeaturesHeading}
-        items={invitationPrintFeatureItems}
-        footerLabel={invitationPrintFeaturesFooterLabel}
+
+      <ExperienceSection
+        tabs={specialExperienceBrowserTabs}
+        addressText={specialExperienceAddressText}
+        content={specialExperienceContent}
       />
-       <FAQSection items={corporateEventsFaqItems} />
-<ServiceProcessSteps
-  image={invitationPrintProcessImage}
-  eyebrow={invitationPrintProcessEyebrow}
-  heading={invitationPrintProcessHeading}
-  steps={invitationPrintProcessSteps}
-/>
+      <ServiceFeatures
+        headingLines={specialExperienceFeaturesHeading}
+        items={specialExperienceFeatureItems}
+        footerLabel={specialExperienceFeaturesFooterLabel}
+      />
+
+      <FAQSection items={specialExperienceFaqItems} />
+      <ServiceProcessSteps
+        image={specialExperienceProcessImage}
+        eyebrow={specialExperienceProcessEyebrow}
+        heading={specialExperienceProcessHeading}
+        steps={specialExperienceProcessSteps} 
+      />
     </>
   ),
 };

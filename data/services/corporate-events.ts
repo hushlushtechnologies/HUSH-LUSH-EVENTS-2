@@ -265,42 +265,42 @@ export const corporateEventsFaqItems: FAQItem[] = [
     answer:
       "We manage conferences, corporate gatherings, product launches, gala dinners, award ceremonies, team experiences, brand activations and corporate celebrations.",
   },
-  {
-    id: "manage-entire-event",
-    question: "Can you manage the entire corporate event?",
-    answer:
-      "Yes. We can coordinate the event from initial concept and planning through production, vendor management and on-site execution.",
-  },
-  {
-    id: "internal-teams",
-    question: "Can you work with our internal events or marketing team?",
-    answer:
-      "Absolutely. We can work alongside your internal team and take responsibility for specific areas or the complete event.",
-  },
-  {
-    id: "branding-design",
-    question: "Do you handle branding and event design?",
-    answer:
-      "Yes. We can coordinate event branding, creative direction, décor, signage, stage design and other visual elements.",
-  },
-  {
-    id: "conferences-speakers",
-    question: "Can you manage conferences and speakers?",
-    answer:
-      "Yes. We can coordinate stage requirements, speaker schedules, production, technical requirements and attendee flow.",
-  },
-  {
-    id: "av-production",
-    question: "Do you provide audio-visual and production support?",
-    answer:
-      "Yes. Production, lighting, sound, staging, screens and other technical requirements can be incorporated into the event plan.",
-  },
-  {
-    id: "large-guest-numbers",
-    question: "Can you organise events for large numbers of guests?",
-    answer:
-      "Yes. We can plan and coordinate events across different scales, from intimate executive gatherings to large corporate experiences.",
-  },
+   {
+  id: "manage-entire-event",
+  question: "Can you manage the entire corporate event?",
+  answer:
+    "Yes. We can coordinate the event from initial concept and planning through production, vendor management and on-site execution.",
+},
+{
+  id: "internal-teams",
+  question: "Can you work with our internal events or marketing team?",
+  answer:
+    "Absolutely. We can work alongside your internal team and take responsibility for specific areas or the complete event.",
+},
+{
+  id: "branding-design",
+  question: "Do you handle branding and event design?",
+  answer:
+    "Yes. We can coordinate event branding, creative direction, décor, signage, stage design and other visual elements.",
+},
+{
+  id: "conferences-speakers",
+  question: "Can you manage conferences and speakers?",
+  answer:
+    "Yes. We can coordinate stage requirements, speaker schedules, production, technical requirements and attendee flow.",
+},
+{
+  id: "av-production",
+  question: "Do you provide audio-visual and production support?",
+  answer:
+    "Yes. Production, lighting, sound, staging, screens and other technical requirements can be incorporated into the event plan.",
+},
+{
+  id: "large-guest-numbers",
+  question: "Can you organise events for large numbers of guests?",
+  answer:
+    "Yes. We can plan and coordinate events across different scales, from intimate executive gatherings to large corporate experiences.",
+},
 ];
 
 

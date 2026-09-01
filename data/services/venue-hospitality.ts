@@ -1,8 +1,8 @@
 import type { BrowserTab } from "@/data/browser-mockup";
 import type { FeatureGridItem } from "@/components/ui/ServiceFeatures";
 import type { PortfolioItem } from "@/data/portfolio";
-import type { FAQItem } from "@/data/faq";
 import type { ProcessStep } from "@/components/ui/ServiceProcessSteps";
+import type { FAQItem } from "@/data/faq";
  
 export const venueHospitalityHero = {
   number: "02",
@@ -242,40 +242,46 @@ export const venueHospitalityPortfolioItems: PortfolioItem[] = [
 
 export const venueHospitalityFaqItems: FAQItem[] = [
   {
-    id: "find-right-venue",
-    question: "Can Hush Lush help us find the right venue?",
+    id: "complete-event-decoration",
+    question: "Do you provide complete event decoration?",
     answer:
-      "Yes. We help you discover venues that match your event type, guest count, style, location, budget, and overall vision.",
-  },
-  {
-    id: "venue-visits",
-    question: "Do you arrange venue visits?",
-    answer:
-      "Yes, we coordinate site visits so you can evaluate the space, layout, facilities and overall feel before deciding.",
-  },
-  {
-    id: "catering-menu",
-    question: "Can you help with catering and menu selection?",
-    answer:
-      "Absolutely — we coordinate menus and catering experiences that complement your event and guest preferences.",
+      "Yes. We can manage the creative direction, styling, sourcing, installation and final setup depending on the scope of the project.",
   },
   {
     id: "existing-venue",
-    question: "Can you work with a venue we have already selected?",
+    question: "Can you work with an existing venue?",
     answer:
-      "Yes, we're happy to work with a venue you've chosen and help coordinate everything around it.",
+      "Absolutely. We design around the architecture and character of the existing space while transforming it to match the event concept.",
   },
   {
-    id: "guest-hospitality",
-    question: "Do you manage guest hospitality during the event?",
+    id: "floral-arrangements",
+    question: "Do you provide floral arrangements?",
     answer:
-      "Yes, we coordinate on-site hospitality teams to make sure every guest feels welcomed and taken care of throughout.",
+      "Yes. Floral design can be integrated into the overall styling concept, from personal arrangements to large-scale installations.",
   },
   {
-    id: "transform-venue",
-    question: "Can you transform an existing venue to match our vision?",
+    id: "custom-theme",
+    question: "Can you create a custom theme?",
     answer:
-      "Yes — through decor, styling and thoughtful design, we can transform an existing space to reflect your vision.",
+      "Yes. We develop custom visual concepts based on the occasion, personality, venue and desired atmosphere.",
+  },
+  {
+    id: "furniture-props",
+    question: "Do you provide furniture and props?",
+    answer:
+      "We can coordinate furniture, props and decorative elements as part of the overall styling direction.",
+  },
+  {
+    id: "event-lighting",
+    question: "Can you handle lighting as well?",
+    answer:
+      "Yes. Lighting can be incorporated into the creative concept to enhance the atmosphere and highlight key areas.",
+  },
+  {
+    id: "installation-dismantling",
+    question: "Do you handle installation and dismantling?",
+    answer:
+      "Yes. Our team can coordinate the on-site installation, styling and dismantling of the décor elements.",
   },
 ];
 
@@ -311,3 +317,6 @@ export const venueHospitalityProcessSteps: ProcessStep[] = [
     description: "Ending the experience with the same attention it began with.",
   },
 ];
+
+
+ 

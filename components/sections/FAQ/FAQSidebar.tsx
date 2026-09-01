@@ -26,7 +26,7 @@ export function FAQSidebar() {
                 <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-dark-border/50 text-dark-text-primary">
                   <SocialIcon id={social.id} className="h-4 w-4" />
                 </span>
-                <span className="font-body text-sm text-dark-text-primary">social_media</span>
+                <span className="font-body text-sm text-dark-text-primary">{social.label}</span>
               </Link>
             </li>
           ))}

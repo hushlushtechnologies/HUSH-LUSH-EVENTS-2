@@ -241,35 +241,41 @@ export const weddingPlanningFaqItems: FAQItem[] = [
       "We can support everything from initial planning and vendor coordination to timelines, guest experience and on-day management, depending on the scope of your wedding.",
   },
   {
-    id: "start-to-finish",
-    question: "Can Hush Lush plan the entire wedding from start to finish?",
-    answer:
-      "Yes — from the first conversation to the final dance, we can manage every part of the planning and coordination process.",
-  },
-  {
-    id: "choosing-vendors",
-    question: "Do you help with choosing wedding vendors?",
-    answer:
-      "Yes, we help identify and coordinate trusted vendors that match your style, budget and vision.",
-  },
-  {
-    id: "existing-vendors",
-    question: "Can you work with vendors we have already selected?",
-    answer:
-      "Absolutely — we're happy to work alongside vendors you've already chosen and coordinate everything together.",
-  },
-  {
-    id: "wedding-budgets",
-    question: "Do you help with wedding budgets?",
-    answer:
-      "Yes, we help structure priorities, allocations and decisions around your wedding investment from the start.",
-  },
-  {
-    id: "destination-weddings",
-    question: "Can you help with destination or multi-day weddings?",
-    answer:
-      "Yes — we support destination and multi-day weddings, coordinating logistics, timelines and details across every part of the celebration.",
-  },
+  id: "start-to-finish",
+  question: "Can Hush Lush plan the entire wedding from start to finish?",
+  answer:
+    "Yes. We can provide full-service wedding planning, bringing together the major elements of your celebration under one coordinated plan.",
+},
+{
+  id: "choosing-vendors",
+  question: "Do you help with choosing wedding vendors?",
+  answer:
+    "Yes. We can help identify, evaluate and coordinate suitable vendors based on your requirements, style and budget.",
+},
+{
+  id: "existing-vendors",
+  question: "Can you work with vendors we have already selected?",
+  answer:
+    "Absolutely. We can integrate your existing vendors into the overall wedding plan and coordinate them with the wider team.",
+},
+{
+  id: "wedding-budgets",
+  question: "Do you help with wedding budgets?",
+  answer:
+    "Yes. We help structure your priorities and allocate your budget across the different elements of the wedding.",
+},
+{
+  id: "destination-weddings",
+  question: "Can you help with destination or multi-day weddings?",
+  answer:
+    "Yes. We can coordinate multi-day celebrations and manage the different venues, vendors, schedules and guest requirements involved.",
+},
+{
+  id: "wedding-day-coordination",
+  question: "Do you handle wedding-day coordination?",
+  answer:
+    "Yes. Our team can manage timelines, vendors, logistics and behind-the-scenes coordination so you can focus on enjoying your wedding.",
+},
 ];
 
 // ── Process steps section content ──────────────────────────────────

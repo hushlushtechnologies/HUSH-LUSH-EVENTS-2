@@ -1,5 +1,6 @@
 import type { FeatureGridItem } from "@/components/ui/ServiceFeatures";
 import type { ProcessStep } from "@/components/ui/ServiceProcessSteps";
+import { FAQItem } from "../faq";
 
 
 export const invitationPrintHero = {
@@ -164,4 +165,44 @@ export const invitationPrintProcessSteps: ProcessStep[] = [
     title: "Packaging",
     description: "Envelopes, ribbons, seals, boxes and presentation that complete the reveal.",
   },
+];
+
+
+export const invitationprintFaqItems: FAQItem[] = [
+   {
+  id: "custom-invitations",
+  question: "Do you design custom invitations?",
+  answer:
+    "Yes. Every invitation can be developed around the event's personality, theme, colours, typography and overall creative direction.",
+},
+{
+  id: "digital-printed-invitations",
+  question: "Do you provide both digital and printed invitations?",
+  answer:
+    "Yes. We can create digital invitations as well as fully printed invitation suites.",
+},
+{
+  id: "complete-wedding-stationery",
+  question: "Can you design the complete wedding stationery?",
+  answer:
+    "Yes. We can create a coordinated stationery system including invitations, menus, place cards, table numbers, programs, thank-you cards and other pieces.",
+},
+{
+  id: "printing-and-design",
+  question: "Do you provide printing as well as design?",
+  answer:
+    "Yes. We can coordinate the complete process from design through printing, finishing and final delivery.",
+},
+{
+  id: "printing-finishes",
+  question: "What printing finishes can you provide?",
+  answer:
+    "Depending on the project, options can include foil, embossing, letterpress, die-cutting, textured papers and other premium finishing techniques.",
+},
+{
+  id: "envelopes-packaging",
+  question: "Can you create matching envelopes and packaging?",
+  answer:
+    "Yes. Envelopes, liners, ribbons, seals, boxes, tags and other presentation elements can be designed as part of the invitation suite.",
+},
 ];
