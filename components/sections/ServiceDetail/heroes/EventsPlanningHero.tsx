@@ -22,11 +22,6 @@ const columnOffsets = [
   { marginTop: "0px", translateX: "0px" },
 ];
 
-// direction: 1 = DOWN (new images enter above, exit below)
-//            -1 = UP (new images enter below, exit above)
-// speedPxPerSec: how fast the track travels — kept different per
-// column for the parallax feel, expressed as speed rather than a
-// fixed duration since the ticker approach doesn't loop on a timer.
 const columnMotion = [
   { direction: 1 as const, speedPxPerSec: 18 },
   { direction: -1 as const, speedPxPerSec: 22 },
@@ -63,13 +58,6 @@ function MarqueeColumn({ images, colIndex, reducedMotion }: MarqueeColumnProps) 
     return () => observer.disconnect();
   }, []);
 
-  // How many full copies of the image list to stack in the track.
-  // Must be enough that at ANY point in the wrap cycle, the viewport
-  // is fully covered both above and below — the wrap range is one
-  // singleListHeight wide, so the track needs to be at least
-  // viewportHeight + (2 x singleListHeight) tall to guarantee that
-  // with margin. Generous default before measurement settles so the
-  // very first frame is already fully populated, not a short flash.
   const repeatCount =
     singleListHeight && viewportHeight
       ? Math.max(4, Math.ceil(viewportHeight / singleListHeight) + 2)
@@ -80,13 +68,9 @@ function MarqueeColumn({ images, colIndex, reducedMotion }: MarqueeColumnProps) 
       if (reducedMotion || !trackRef.current || !singleListHeight) return;
 
       const { direction, speedPxPerSec } = columnMotion[colIndex];
-      const distance = singleListHeight; // one full sequence = one wrap period
+      const distance = singleListHeight;
       const wrap = gsap.utils.wrap(-distance, 0);
 
-      // Start already offset by one full sequence, so the viewport's
-      // top edge sits partway INTO the track from the very first
-      // frame — content already extends past both edges immediately,
-      // with no empty region above/below on initial load.
       let progress = direction === 1 ? -distance : 0;
       gsap.set(trackRef.current, { y: progress });
 
@@ -125,8 +109,6 @@ function MarqueeColumn({ images, colIndex, reducedMotion }: MarqueeColumnProps) 
         )}
       </div>
 
-      {/* Hidden, single-pass copy used purely to measure one list's
-          natural height — not part of the visible/animated track. */}
       <div ref={measureRef} className="pointer-events-none absolute left-0 top-0 -z-10 flex w-full flex-col gap-5 opacity-0">
         {images.map((src, i) => renderCard(src, `measure-${src}-${i}`))}
       </div>
@@ -150,7 +132,7 @@ export function EventsPlanningHero() {
   const columns = splitIntoColumns(images, 3);
 
   return (
-    <section className="relative isolate overflow-hidden bg-light-card py-20 md:py-28">
+  <section className="relative isolate overflow-hidden bg-light-card py-32 md:py-44">
       <Container>
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
           <motion.div
@@ -194,10 +176,17 @@ export function EventsPlanningHero() {
             </div>
           </motion.div>
 
-          <div className="relative hidden h-[640px] lg:block">
-            <div className="pointer-events-none absolute -left-4 top-0 flex h-full w-16 items-center justify-center">
+          {/* No fixed height here at all — same technique as PromoBanner.
+              This zero-height box gets centered at the row's vertical
+              midpoint by the parent grid's items-center, and the
+              collage/vertical-word below self-center against THEIR OWN
+              height via top-1/2 -translate-y-1/2, not against this
+              parent. No need to hand-calculate a container tall enough
+              to fit the rotated bounding box. */}
+          <div className="relative hidden lg:block">
+            <div className="pointer-events-none absolute -left-4 top-1/2 flex h-[920px] w-16 -translate-y-1/2 items-center justify-center">
               <span
-                className="font-display w-[640px] -rotate-90 whitespace-nowrap text-center text-7xl font-bold uppercase tracking-widest opacity-90"
+                className="font-display w-[920px] -rotate-90 whitespace-nowrap text-center text-6xl font-bold uppercase tracking-widest opacity-90"
                 style={{ WebkitTextStroke: "1.5px var(--color-light-border)", color: "transparent" }}
                 aria-hidden="true"
               >
@@ -207,9 +196,9 @@ export function EventsPlanningHero() {
 
             <motion.div
               initial={{ opacity: 0, rotate: -16, scale: 0.95 }}
-              animate={{ opacity: 1, rotate: 20, scale: 1 }}
+              animate={{ opacity: 1, rotate: 15, scale: 1 }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute left-[24%] -top-20 flex h-[920px] w-[720px] origin-center items-stretch gap-5"
+              className="absolute left-[24%] top-1/2 flex h-[920px] w-[720px] -translate-y-1/2 origin-center items-stretch gap-5"
             >
               {columns.map((columnImages, colIndex) => {
                 const offset = columnOffsets[colIndex];

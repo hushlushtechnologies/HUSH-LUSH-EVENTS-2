@@ -30,15 +30,15 @@ export function EntertainmentProductionHero() {
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
   >
-    <h1 className="font-display leading-[1.1] text-white">
-      <span className="flex items-center  gap-4 text-5xl md:text-8xl ">
-        {headingLine1}
-        <span className="relative inline-block h-10 w-10 md:h-14 md:w-14">
-          <Image src="/images/logo-mark.svg" alt="" fill className="object-contain" />
-        </span>
-      </span>
-      <span className="block text-6xl md:text-8xl">{headingLine2}</span>
-    </h1>
+ <h1 className="font-display leading-[1.1] text-white">
+  <span className="flex items-center  gap-4 text-5xl md:text-8xl ">
+    {headingLine1}
+    <span className="relative inline-block h-14 w-14 md:h-20 md:w-20">
+      <Image src="/images/logo-mark.svg" alt="" fill className="object-contain" />
+    </span>
+  </span>
+  <span className="block text-6xl md:text-8xl">{headingLine2}</span>
+</h1>
 
     <p className="font-body mx-auto mt-8 max-w-xl text-sm leading-relaxed text-white/90 md:text-base">
       {description}

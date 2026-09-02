@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { useState } from "react";
 import { locationOptions } from "@/data/plan-your-event";
@@ -57,21 +57,26 @@ export function ContactForm() {
 
         <div>
           <label className="font-body block text-sm text-dark-text-primary">Location</label>
-          <select
-            required
-            value={form.location}
-            onChange={update("location")}
-            className={`${inputClasses} mt-2 appearance-none`}
-          >
-            <option value="" disabled>
-              Pick a Location
-            </option>
-            {locationOptions.map((loc) => (
-              <option key={loc} value={loc}>
-                {loc}
-              </option>
-            ))}
-          </select>
+  
+<select
+  required
+  value={form.location}
+  onChange={update("location")}
+  className={`${inputClasses} mt-2 appearance-none bg-[length:12px] bg-[right_1.25rem_center] bg-no-repeat pr-10`}
+  style={{
+    backgroundImage:
+      "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23F5F0EC' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\")",
+  }}
+>
+  <option value="" disabled className="bg-dark-card text-dark-text-muted">
+    Pick a Location
+  </option>
+  {locationOptions.map((loc) => (
+    <option key={loc} value={loc} className="bg-dark-card text-dark-text-primary">
+      {loc}
+    </option>
+  ))}
+</select>
         </div>
 
         <div>
@@ -146,12 +151,13 @@ export function ContactForm() {
 
         <div>
           <label className="font-body block text-sm text-dark-text-primary">Event Date</label>
+         
           <input
             type="date"
             required
             value={form.eventDate}
             onChange={update("eventDate")}
-            className={`${inputClasses} mt-2`}
+            className={`${inputClasses} mt-2 [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:brightness-200 [&::-webkit-calendar-picker-indicator]:cursor-pointer`}
           />
         </div>
       </div>

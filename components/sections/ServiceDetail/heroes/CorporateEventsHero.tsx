@@ -62,7 +62,7 @@ function MarqueeColumn({ images, colIndex, reducedMotion }: MarqueeColumnProps) 
 
   const repeatCount =
     singleListHeight && viewportHeight
-      ? Math.max(3, Math.ceil((viewportHeight * 3) / singleListHeight))
+      ? Math.max(4, Math.ceil(viewportHeight / singleListHeight) + 2)
       : 6;
 
   useGSAP(
@@ -105,7 +105,7 @@ function MarqueeColumn({ images, colIndex, reducedMotion }: MarqueeColumnProps) 
 
   return (
     <div ref={containerRef} className="relative h-full min-h-0 overflow-hidden">
-      <div ref={trackRef} className="flex flex-col gap-5" style={{ minHeight: "100%" }}>
+      <div ref={trackRef} className="flex flex-col gap-5">
         {Array.from({ length: repeatCount }).flatMap((_, setIndex) =>
           images.map((src, i) => renderCard(src, `${src}-set${setIndex}-${i}`))
         )}
@@ -126,7 +126,7 @@ export function CorporateEventsHero() {
   const columns = splitIntoColumns(images, 3);
 
   return (
-    <section className="relative isolate overflow-hidden bg-light py-20 md:py-28 bg-light-card">
+    <section className="relative isolate overflow-hidden bg-light py-32 md:py-44 bg-light-card">
       <Container>
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
           {/* Left column */}
@@ -168,11 +168,16 @@ export function CorporateEventsHero() {
             </div>
           </motion.div>
 
-          {/* Right column: vertical outlined text + staggered marquee collage */}
-          <div className="relative hidden h-[640px] lg:block">
-            <div className="pointer-events-none absolute -left-4 top-0 flex h-full w-16 items-center justify-center">
+          {/* Right column: vertical outlined text + staggered marquee
+              collage. Zero-height outer wrapper (same technique as
+              EventsPlanningHero/PromoBanner) — centers at the grid
+              row's midpoint via items-center; the vertical word and
+              collage below self-center against their OWN heights via
+              top-1/2 -translate-y-1/2, not this parent. */}
+          <div className="relative hidden lg:block">
+            <div className="pointer-events-none absolute -left-4 top-1/2 flex h-[920px] w-16 -translate-y-1/2 items-center justify-center">
               <span
-                className="font-display w-[640px] -rotate-90 whitespace-nowrap text-center text-7xl font-bold uppercase tracking-widest opacity-90"
+                className="font-display w-[920px] -rotate-90 whitespace-nowrap text-center text-6xl font-bold uppercase tracking-widest opacity-90"
                 style={{ WebkitTextStroke: "1.5px var(--color-light-border)", color: "transparent" }}
                 aria-hidden="true"
               >
@@ -182,9 +187,9 @@ export function CorporateEventsHero() {
 
             <motion.div
               initial={{ opacity: 0, rotate: -16, scale: 0.95 }}
-              animate={{ opacity: 1, rotate: 20, scale: 1 }}
+              animate={{ opacity: 1, rotate: 15, scale: 1 }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute left-[24%] -top-20 flex h-[920px] w-[720px] origin-center items-stretch gap-5"
+              className="absolute left-[24%] top-1/2 flex h-[920px] w-[720px] -translate-y-1/2 origin-center items-stretch gap-5"
             >
               {columns.map((columnImages, colIndex) => {
                 const offset = columnOffsets[colIndex];

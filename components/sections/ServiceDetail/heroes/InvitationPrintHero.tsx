@@ -1,14 +1,17 @@
  "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { invitationPrintHero } from "@/data/services/invitation-print";
 
+const ORBIT_DURATION_SECONDS = 40;
+
 export function InvitationPrintHero() {
   const { number, label, headingHighlight, headingRest, description, primaryCta, secondaryCta, images } =
     invitationPrintHero;
+  const reducedMotion = useReducedMotion();
 
   return (
     <section className="relative isolate overflow-hidden bg-light py-14 sm:py-20 md:py-28 bg-light-card">
@@ -55,9 +58,22 @@ export function InvitationPrintHero() {
 
         {/* Circular invitation-card arrangement — hidden below sm, same
             reasoning as VenueHospitalityHero: a scaled-down fixed-pixel
-            absolute arrangement reads as cluttered on small screens. */}
-        <div className="relative mx-auto mt-10 hidden aspect-square w-full max-w-3xl overflow-hidden sm:mt-16 sm:block">
-          <div className="absolute inset-0 origin-center scale-[0.65] md:scale-[0.85] lg:scale-100">
+            absolute arrangement reads as cluttered on small screens. No
+            overflow-hidden on this wrapper — was hard-clipping cards at
+            the composition's edges. */}
+        <div className="relative mx-auto mt-10 hidden aspect-square w-full max-w-3xl sm:mt-16 sm:block">
+          {/* Whole group (rings + logo excluded, cards included) orbits
+              continuously — same pattern locked in on VenueHospitalityHero. */}
+          <motion.div
+            className="absolute inset-0 origin-center scale-[0.65] md:scale-[0.85] lg:scale-100"
+            initial={{ rotate: 0 }}
+            animate={reducedMotion ? { rotate: 0 } : { rotate: 360 }}
+            transition={
+              reducedMotion
+                ? { duration: 0 }
+                : { duration: ORBIT_DURATION_SECONDS, repeat: Infinity, ease: "linear" }
+            }
+          >
             <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
               <svg viewBox="0 0 700 700" className="h-full w-full" fill="none" aria-hidden="true">
                 <circle cx="350" cy="350" r="340" stroke="var(--color-light-border)" strokeWidth="1" opacity="0.5" />
@@ -66,24 +82,37 @@ export function InvitationPrintHero() {
               </svg>
             </div>
 
-            {/* Center logo mark — full color, no ring wrapper */}
-            <div className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2">
-              <Image src="/images/logo-mark.svg" alt="" fill className="object-contain" />
-            </div>
-
             {images.map((img, index) => (
               <motion.div
                 key={img.id}
+                className="absolute rounded-xl  "
+                style={{ top: img.top, left: img.left, width: img.width, height: img.height }}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute overflow-hidden rounded-xl shadow-lg"
-                style={{ top: img.top, left: img.left, width: img.width, height: img.height }}
               >
-                <Image src={img.src} alt="" fill className="object-cover" sizes="160px" />
+                {/* Counter-rotates against the parent's spin — keeps the
+                    card image itself upright while it orbits. */}
+                <motion.div
+                  className="relative h-full w-full overflow-hidden rounded-xl"
+                  initial={{ rotate: 0 }}
+                  animate={reducedMotion ? { rotate: 0 } : { rotate: -360 }}
+                  transition={
+                    reducedMotion
+                      ? { duration: 0 }
+                      : { duration: ORBIT_DURATION_SECONDS, repeat: Infinity, ease: "linear" }
+                  }
+                >
+                  <Image src={img.src} alt="" fill className="object-cover" sizes="160px" />
+                </motion.div>
               </motion.div>
             ))}
+          </motion.div>
+
+          {/* Center logo mark — outside the rotating group, stays fixed */}
+          <div className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2">
+            <Image src="/images/logo-mark.svg" alt="" fill className="object-contain" />
           </div>
         </div>
       </Container>
