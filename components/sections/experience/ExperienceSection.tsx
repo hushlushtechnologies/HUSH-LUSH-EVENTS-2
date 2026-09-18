@@ -23,18 +23,8 @@ interface ExperienceSectionProps {
   addressText?: string;
   content?: typeof defaultContent;
   bgColor?: string;
-  /** Reuses the Footer's exact background treatment (concentric rings +
-      floating dots) behind the heading/content. Defaults to false, so
-      every existing usage of this section is unaffected. */
   decorative?: boolean;
-  /** Heading/description text color. Defaults to "dark" (white text)
-      when `decorative` is true, "light" (dark text) otherwise — since
-      `decorative` implies a dark background. Override if a future page
-      needs a different combination. */
   headingTone?: "light" | "dark";
-  /** Whether SectionHeading shows its small heart-orbit icon. Defaults
-      to false when `decorative` is true (the rings already provide
-      decoration, the icon would be redundant), true otherwise. */
   showHeadingDecoration?: boolean;
 }
 
@@ -59,7 +49,7 @@ export function ExperienceSection({
   showHeadingDecoration,
 }: ExperienceSectionProps) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const { headingLines, description, videoPoster, testimonial } = content;
+  const { headingLines, description, videoPoster, youtubeId, testimonial } = content;
   const hasTestimonialHeading = Boolean(testimonial.prefix || testimonial.highlight || testimonial.suffix);
 
   const isKnownClass = KNOWN_BG_CLASSES.has(bgColor);
@@ -96,7 +86,6 @@ export function ExperienceSection({
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="relative mx-auto mt-16 max-w-6xl"
         >
-          {/* Social toolbar — outside the frame, left side */}
           <div className="absolute left-[13%] top-1/4 z-20 hidden -translate-x-full -translate-y-1/2 items-center gap-4 rounded-xl border border-white/40 bg-white/10 p-2 shadow-lg backdrop-blur-md md:flex">
             {socialLinks.map((social) => (
               <Link
@@ -116,12 +105,12 @@ export function ExperienceSection({
             tabs={tabs}
             addressText={addressText}
             image={videoPoster}
+            youtubeId={youtubeId}
             imageAlt="Event venue decorated with floral chandelier and draped ceiling"
             isPlaying={isPlaying}
             onPlay={() => setIsPlaying(true)}
           />
 
-          {/* Testimonial card — overlaps lower-right corner of the frame */}
           <div className="absolute bottom-[4%] -right-[6%] hidden max-w-[400px] rounded-xl border border-light bg-light-card p-3 shadow-md md:block">
             <div className="flex items-start gap-2">
               <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full">

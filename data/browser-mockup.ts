@@ -12,11 +12,31 @@ export const browserTabs: BrowserTab[] = [
 
 export const addressBarText = "Search Hush Lush Events or type a URL";
 
- export const experienceContent = {
+export interface ExperienceContent {
+  headingLines: string[];
+  description: string;
+  videoPoster: string;
+  youtubeId?: string;
+  video?: string;
+  testimonial: {
+    icon: string;
+    prefix: string;
+    highlight: string;
+    suffix: string;
+    avatarsImage: string;
+    description: string;
+    reviewLabel: string;
+  };
+}
+
+export const experienceContent: ExperienceContent = {
   headingLines: ["An event lasts a day.", "An experience stays with you."],
   description:
     "At Hush Lush, we bring together creativity, elegance and precise planning to turn your vision into moments worth remembering.",
-  videoPoster: "/images/intro/video-poster.jpg",
+  videoPoster: "/images/intro/video-posters.jpg",
+  // Placeholder — Big Buck Bunny (open-source, safe filler footage).
+  // Swap for the real Hush Lush video's YouTube ID once uploaded.
+  youtubeId: "aqz-KE-bpKQ",
   testimonial: {
     icon: "/images/icons/brand-mark.svg",
     prefix: "Loved by the",

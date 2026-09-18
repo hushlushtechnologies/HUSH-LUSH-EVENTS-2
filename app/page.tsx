@@ -1,4 +1,3 @@
- 
 import { ExperienceSection } from "@/components/sections/experience/ExperienceSection";
 import { GalleryShowcase } from "@/components/sections/GalleryShowcase/GalleryShowcase";
 import { Hero } from "@/components/sections/Hero/Hero";
@@ -13,17 +12,16 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-     <>
-     <Hero/>
-     <ExperienceSection  />
-     <PromoBanner />
+    <>
+      <Hero />
+      <ExperienceSection />
+      <PromoBanner />
       <WhatWeCelebrate />
       <OurImpact />
       <ServicesShowcase />
       <OurProcess />
       <Testimonials />
-       <GalleryShowcase />
-      
-     </>
+      <GalleryShowcase />
+    </>
   );
 }

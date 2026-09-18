@@ -1,7 +1,6 @@
- "use client";
+"use client";
 
-import { useRef, useState } from "react";
-import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
@@ -34,9 +33,38 @@ const contentItemVariants: Variants = {
 export function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType | null>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const prefersReducedMotion = useReducedMotion();
   const slide = heroSlides[activeIndex];
   const total = heroSlides.length;
+
+  // Only the active slide's video plays; every other one stays paused
+  // so three background videos never compete for bandwidth/decode time
+  // at once. Reduced-motion users never trigger playback — their video
+  // elements simply sit paused at their first frame, which itself
+  // satisfies "no motion" (a still frame, not a moving image), without
+  // needing a separate poster asset.
+  useEffect(() => {
+    videoRefs.current.forEach((videoEl, i) => {
+      if (!videoEl) return;
+
+      if (prefersReducedMotion) {
+        videoEl.pause();
+        return;
+      }
+
+      if (i === activeIndex) {
+        videoEl.currentTime = 0;
+        videoEl.play().catch(() => {
+          // Autoplay can be blocked in rare cases; the video still
+          // shows its first loaded frame while paused, so this fails
+          // silently rather than leaving a broken/blank element.
+        });
+      } else {
+        videoEl.pause();
+      }
+    });
+  }, [activeIndex, prefersReducedMotion]);
 
   return (
     <section className="relative h-screen h-[100dvh] min-h-[560px] w-full overflow-hidden">
@@ -59,16 +87,19 @@ export function Hero() {
         onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
         className="h-full w-full"
       >
-        {heroSlides.map((s) => (
+        {heroSlides.map((s, index) => (
           <SwiperSlide key={s.id}>
             <div className="relative h-full w-full">
-              <Image
-                src={s.image}
-                alt={s.headingLines.join(" ")}
-                fill
-                priority
-                className="object-cover"
-                sizes="100vw"
+              <video
+                ref={(el) => {
+                  videoRefs.current[index] = el;
+                }}
+                src={s.video}
+                muted
+                loop
+                playsInline
+                preload={index === activeIndex ? "auto" : "metadata"}
+                className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-white/10 to-transparent" />
             </div>
@@ -123,18 +154,8 @@ export function Hero() {
             <Button href="/plan-your-event" variant="solid">
               <span className="flex items-center gap-2">
                 Plan your Events
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M3 11L11 3M11 3H4M11 3V10"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  />
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M3 11L11 3M11 3H4M11 3V10" stroke="currentColor" strokeWidth="1.5" />
                 </svg>
               </span>
             </Button>
@@ -145,12 +166,8 @@ export function Hero() {
 
           <div className="flex items-center gap-3">
             <span className="font-display flex items-baseline gap-1 text-light-brand">
-              <span className="text-2xl">
-                {String(activeIndex + 1).padStart(2, "0")}
-              </span>
-              <span className="text-sm text-light-muted">
-                / {String(total).padStart(2, "0")}
-              </span>
+              <span className="text-2xl">{String(activeIndex + 1).padStart(2, "0")}</span>
+              <span className="text-sm text-light-muted">/ {String(total).padStart(2, "0")}</span>
             </span>
 
             <div className="flex items-center gap-2">

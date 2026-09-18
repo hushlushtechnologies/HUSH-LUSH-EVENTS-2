@@ -23,35 +23,35 @@ export const galleryClusters: GalleryCluster[] = [
   {
     id: "nw",
     images: [
-      { src: "/images/gallery/wedding-arch.jpg", className: "left-[4%] top-[15%] h-44 w-32 rounded-2xl" },
-      { src: "/images/gallery/wedding-hall.jpg", className: "left-[10%] top-[5%] h-26 w-26 rounded-xl" },
-      { src: "/images/gallery/gala-crowd.jpg", className: "left-[22%] top-[5%] h-36 w-28 rounded-xl" },
-      { src: "/images/gallery/couple-sunset.jpg", className: "left-[13%] top-[20%] h-56 w-40 rounded-2xl" },
+      { src: "/images/gallery/wedding-archs.jpg", className: "left-[4%] top-[15%] h-44 w-32 rounded-2xl" },
+      { src: "/images/gallery/wedding-halls.jpg", className: "left-[10%] top-[5%] h-26 w-26 rounded-xl" },
+      { src: "/images/gallery/gala-crowds.jpg", className: "left-[22%] top-[5%] h-36 w-28 rounded-xl" },
+      { src: "/images/gallery/couple-sunsets.jpg", className: "left-[13%] top-[20%] h-56 w-40 rounded-2xl" },
     ],
   },
   {
     id: "ne",
     images: [
-      { src: "/images/gallery/florals.jpg", className: "right-[22%] top-[7%] h-40 w-32 rounded-2xl" },
-      { src: "/images/gallery/dance-floor.jpg", className: "right-[10%] top-[9%] h-26 w-26 rounded-xl" },
-      { src: "/images/gallery/tent-lights.jpg", className: "right-[0%] top-[18%] h-34 w-26 rounded-2xl" },
-      { src: "/images/gallery/reception-hall.jpg", className: "right-[10%] top-[24%] h-50 w-40 rounded-2xl" },
+      { src: "/images/gallery/floralss.jpg", className: "right-[22%] top-[7%] h-40 w-32 rounded-2xl" },
+      { src: "/images/gallery/dance-floors.jpg", className: "right-[10%] top-[9%] h-26 w-26 rounded-xl" },
+      { src: "/images/gallery/tent-lightss.jpg", className: "right-[0%] top-[18%] h-34 w-26 rounded-2xl" },
+      { src: "/images/gallery/reception-halls.jpg", className: "right-[10%] top-[24%] h-50 w-40 rounded-2xl" },
     ],
   },
  {
   id: "sw",
   images: [
-    { src: "/images/gallery/cake-fireworks.jpg", className: "left-[5%] top-[64%] h-39 w-30 rounded-2xl" },
-    { src: "/images/gallery/party-balloons.jpg", className: "left-[30%] top-[68%] h-36 w-30 rounded-2xl", zIndex: 5 },
-    { src: "/images/gallery/party-guests.jpg", className: "left-[23%] top-[64%] h-34 w-32 rounded-xl" },
+    { src: "/images/gallery/cake-fireworkss.jpg", className: "left-[5%] top-[64%] h-39 w-30 rounded-2xl" },
+    { src: "/images/gallery/party-balloonss.jpg", className: "left-[30%] top-[68%] h-36 w-30 rounded-2xl", zIndex: 5 },
+    { src: "/images/gallery/party-guestss.jpg", className: "left-[23%] top-[64%] h-34 w-32 rounded-xl" },
   ],
 },
 {
   id: "se",
   images: [
-    { src: "/images/gallery/floral-table.jpg", className: "right-[5%] top-[64%] h-39 w-30 rounded-2xl" },
-    { src: "/images/gallery/chandelier-table.jpg", className: "right-[28%] top-[68%] h-36 w-30 rounded-2xl", zIndex: 5 },
-    { src: "/images/gallery/tent-dance.jpg", className: "right-[23%] top-[64%] h-34 w-32 rounded-xl" },
+    { src: "/images/gallery/floral-tables.jpg", className: "right-[5%] top-[64%] h-39 w-30 rounded-2xl" },
+    { src: "/images/gallery/chandelier-tables.jpg", className: "right-[28%] top-[68%] h-36 w-30 rounded-2xl", zIndex: 5 },
+    { src: "/images/gallery/tent-dances.jpg", className: "right-[23%] top-[64%] h-34 w-32 rounded-xl" },
   ],
 },
 ];
