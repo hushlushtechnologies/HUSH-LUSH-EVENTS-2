@@ -27,11 +27,14 @@ export const weddingPlanningBrowserTabs: BrowserTab[] = [
 
 export const weddingPlanningAddressText = "Search Hush Lush Events or type a URL";
 
-export const weddingPlanningExperienceContent = {
+ export const weddingPlanningExperienceContent = {
   headingLines: ["More Than a Day", "A Story Worth Telling"],
   description:
     "Every wedding has its own rhythm, personality and meaning. The people you bring together, the traditions you carry, the places that matter and the moments you want to remember all shape the celebration.",
-  videoPoster: "/images/services/wedding-planning/experience-video-poster.jpg",
+  videoPoster: "/images/services/wedding-planning/experience-video-posters.jpg",
+  // Placeholder — Big Buck Bunny (open-source, safe filler footage).
+  // Swap for the real Wedding Planning video's YouTube ID once uploaded.
+  youtubeId: "u9MHTM6Caok",
   testimonial: {
     icon: "/images/icons/brand-mark.svg",
     prefix: "",
@@ -44,7 +47,6 @@ export const weddingPlanningExperienceContent = {
     reviewLabel: "10K Reviews",
   },
 };
-
 // ── Features section content ──────────────────────────────────────
 
 export const weddingPlanningFeaturesHeading = ["From the First", "Idea to the Last Dance"];

@@ -13,12 +13,12 @@ export const invitationPrintHero = {
   primaryCta: "Create your Invitation",
   secondaryCta: "Explore our Work",
   images: [
-    { id: "v1", src: "/images/services/venue-hospitality/photo-3.jpg", top: "8%", left: "28%", width: "150px", height: "190px" },
-    { id: "v2", src: "/images/services/venue-hospitality/photo-2.jpg", top: "20%", left: "58%", width: "150px", height: "190px" },
-    { id: "v3", src: "/images/services/venue-hospitality/photo-1.jpg", top: "38%", left: "0%", width: "150px", height: "190px" },
-    { id: "v4", src: "/images/services/venue-hospitality/photo-5.jpg", top: "50%", left: "90%", width: "150px", height: "190px" },
-    { id: "v5", src: "/images/services/venue-hospitality/photo-4.jpg", top: "68%", left: "24%", width: "150px", height: "190px" },
-    { id: "v6", src: "/images/services/venue-hospitality/photo-6.jpg", top: "72%", left: "62%", width: "150px", height: "190px" },
+    { id: "v1", src: "/images/services/invitation-print/photo-1.png", top: "8%", left: "28%", width: "150px", height: "190px" },
+    { id: "v2", src: "/images/services/invitation-print/photo-2.png", top: "20%", left: "58%", width: "150px", height: "190px" },
+    { id: "v3", src: "/images/services/invitation-print/photo-3.png", top: "38%", left: "0%", width: "150px", height: "190px" },
+    { id: "v4", src: "/images/services/invitation-print/photo-4.png", top: "50%", left: "90%", width: "150px", height: "190px" },
+    { id: "v5", src: "/images/services/invitation-print/photo-5.png", top: "68%", left: "24%", width: "150px", height: "190px" },
+    { id: "v6", src: "/images/services/invitation-print/photo-6.png", top: "72%", left: "62%", width: "150px", height: "190px" },
   ],
 };
 

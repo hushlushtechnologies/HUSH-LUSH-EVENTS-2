@@ -20,12 +20,12 @@ export const entertainmentBrowserTabs: BrowserTab[] = [
 ];
 
 export const entertainmentAddressText = "Search Hush Lush Events or type a URL";
-
-export const entertainmentExperienceContent = {
+ export const entertainmentExperienceContent = {
   headingLines: ["Some Moments", "Should be Felt"],
   description:
     "Entertainment has the power to change the energy of a room. The right performance can create anticipation, bring people together, surprise an audience or turn an ordinary moment into the highlight of the night.",
   videoPoster: "/images/services/entertainment-production/experience-confetti.jpg",
+  video: "/videos/services/entertainment-production/experience-video.mp4",
   testimonial: {
     icon: "/images/icons/brand-mark.svg",
     prefix: "",
@@ -38,7 +38,6 @@ export const entertainmentExperienceContent = {
     reviewLabel: "10K Reviews",
   },
 };
-
 
 
 // ── Features section content ──────────────────────────────────────

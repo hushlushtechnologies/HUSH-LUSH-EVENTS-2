@@ -21,6 +21,6 @@ export const serviceLinks: FooterLink[] = [
 
 export const contactInfo = {
   phone: "+971 50 495 6725",
-  email: "info@afaqalmanzilproperties.com",
+  email: "info@hushlushevents.com",
   address: "Office No. 501 Al Zarouni Business center Al Barsha 1, Sheikh Zayed Road, Dubai",
 };

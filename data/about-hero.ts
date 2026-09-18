@@ -1,6 +1,6 @@
 export interface GalleryVideo {
   id: string;
-  thumbnail: string;
+  video: string;
 }
 
 export const aboutHeroContent = {
@@ -11,8 +11,8 @@ export const aboutHeroContent = {
   galleryLabel: "Short Gallery",
   galleryDescription: "A glimpse into the moments, details, and creativity behind Hush Lush.",
   galleryVideos: [
-    { id: "gallery-1", thumbnail: "/images/about/gallery-thumb-1.jpg" },
-    { id: "gallery-2", thumbnail: "/images/about/gallery-thumb-2.jpg" },
+    { id: "gallery-1", video: "/videos/journal/gallery-8.mp4" },
+    { id: "gallery-2", video: "/videos/journal/gallery-3.mp4" },
   ] satisfies GalleryVideo[],
   testimonial: {
     prefix: "Loved by the",

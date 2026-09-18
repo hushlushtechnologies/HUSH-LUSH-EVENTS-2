@@ -10,6 +10,8 @@ import { Testimonials } from "@/components/sections/Testimonials/Testimonials";
 import { WhatWeCelebrate } from "@/components/sections/WhatWeCelebrate/WhatWeCelebrate";
 import Image from "next/image";
 
+
+
 export default function Home() {
   return (
     <>

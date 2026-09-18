@@ -49,7 +49,7 @@ export function ExperienceSection({
   showHeadingDecoration,
 }: ExperienceSectionProps) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const { headingLines, description, videoPoster, youtubeId, testimonial } = content;
+  const { headingLines, description, videoPoster, video, youtubeId, testimonial } = content;
   const hasTestimonialHeading = Boolean(testimonial.prefix || testimonial.highlight || testimonial.suffix);
 
   const isKnownClass = KNOWN_BG_CLASSES.has(bgColor);
@@ -105,6 +105,7 @@ export function ExperienceSection({
             tabs={tabs}
             addressText={addressText}
             image={videoPoster}
+            video={video}
             youtubeId={youtubeId}
             imageAlt="Event venue decorated with floral chandelier and draped ceiling"
             isPlaying={isPlaying}

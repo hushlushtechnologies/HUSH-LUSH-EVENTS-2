@@ -39,11 +39,14 @@ export const eventPlanningBrowserTabs: BrowserTab[] = [
 
 export const eventPlanningAddressText = "Search Hush Lush Events or type a URL";
 
-export const eventPlanningExperienceContent = {
+ export const eventPlanningExperienceContent = {
   headingLines: ["You Bring the Vision", "We Build the Experience"],
   description:
     "An unforgettable event doesn't happen by accident. It begins with understanding what you want to create and carefully turning that vision into a clear, achievable plan.",
-  videoPoster: "/images/services/event-planning/experience-video-poster.jpg",
+  videoPoster: "/images/services/event-planning/experience-video-posters.jpg",
+  // Placeholder — Big Buck Bunny (open-source, safe filler footage).
+  // Swap for the real Event Planning video's YouTube ID once uploaded.
+  youtubeId: "PrPlrxKNKoo",
   testimonial: {
     icon: "/images/icons/brand-mark.svg",
     prefix: "",

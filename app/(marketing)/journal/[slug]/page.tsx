@@ -1,4 +1,5 @@
- import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { ArticleDetailHeader } from "@/components/sections/JournalArticleDetail/ArticleDetailHeader";
 import { ArticleDetailBody } from "@/components/sections/JournalArticleDetail/ArticleDetailBody";
@@ -12,6 +13,36 @@ interface PageProps {
 
 export function generateStaticParams() {
   return articleDetails.map((article) => ({ slug: article.slug }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const article = getArticleBySlug(slug);
+
+  if (!article) {
+    return { title: "Article Not Found" };
+  }
+
+  const description = `Read "${article.title}" on the Hush Lush Events journal.`;
+
+  return {
+    title: article.title,
+    description,
+    alternates: {
+      canonical: `/journal/${slug}`,
+    },
+    openGraph: {
+      title: article.title,
+      description,
+      url: `https://www.hushlushevents.com/journal/${slug}`,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description,
+    },
+  };
 }
 
 export default async function JournalArticlePage({ params }: PageProps) {

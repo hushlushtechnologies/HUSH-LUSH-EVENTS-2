@@ -1,9 +1,11 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { EventsPlanningHero } from "@/components/sections/ServiceDetail/heroes/EventsPlanningHero";
 import { ExperienceSection } from "@/components/sections/experience/ExperienceSection";
 import { ServiceFeatures } from "@/components/ui/ServiceFeatures";
 import { FAQSection } from "@/components/sections/FAQ/FAQSection";
 import { ServiceProcessSteps } from "@/components/ui/ServiceProcessSteps";
+import { services } from "@/data/services";
 import {
   eventPlanningBrowserTabs,
   eventPlanningAddressText,
@@ -107,11 +109,35 @@ import {
   specialExperienceProcessImage,
   specialExperienceProcessSteps,
 } from "@/data/services/special-experience";
-import { entertainmentAddressText, entertainmentBrowserTabs, entertainmentExperienceContent, entertainmentFeatureItems, entertainmentFeaturesFooterLabel, entertainmentFeaturesHeading } from "@/data/services/entertainment-production";
+import { portfolioItems } from "@/data/portfolio";
+import {
+  entertainmentAddressText,
+  entertainmentBrowserTabs,
+  entertainmentExperienceContent,
+  entertainmentFeatureItems,
+  entertainmentFeaturesFooterLabel,
+  entertainmentFeaturesHeading,
+} from "@/data/services/entertainment-production";
+import { PromoBanner } from "@/components/sections/PromoBanner/PromoBanner";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
+
+const weddingPortfolioItems = portfolioItems.filter((item) =>
+  item.categories.includes("wedding"),
+);
+
+const specialPortfolioItems = portfolioItems.filter((item) =>
+  item.categories.includes("special"),
+);
+const corporatePortfolioItems = portfolioItems.filter((item) =>
+  item.categories.includes("corporate"),
+);
+
+const decorPortfolioItems = portfolioItems.filter((item) =>
+  item.categories.includes("decor-styling")
+);
 
 const pageBySlug: Record<string, () => React.ReactNode> = {
   "event-planning": () => (
@@ -129,9 +155,9 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         footerLabel={eventPlanningFeaturesFooterLabel}
       />
       <ServicePortfolio
-        headingLines={venueHospitalityPortfolioHeading}
-        description={venueHospitalityPortfolioDescription}
-        items={venueHospitalityPortfolioItems}
+        headingLines={["Our Work"]}
+        description="A curated selection of celebrations, gatherings, and moments we've brought to life with intention, creativity, and a little Hush Lush magic."
+        items={weddingPortfolioItems}
       />
       <FAQSection items={eventPlanningFaqItems} />
       <ServiceProcessSteps
@@ -151,6 +177,7 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         content={venueHospitalityExperienceContent}
         bgColor="bg-light-card"
       />
+        <PromoBanner/>
       <ServiceFeatures
         headingLines={venueHospitalityFeaturesHeading}
         items={venueHospitalityFeatureItems}
@@ -178,15 +205,16 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         addressText={weddingPlanningAddressText}
         content={weddingPlanningExperienceContent}
       />
+        <PromoBanner/>
       <ServiceFeatures
         headingLines={weddingPlanningFeaturesHeading}
         items={weddingPlanningFeatureItems}
         footerLabel={weddingPlanningFeaturesFooterLabel}
       />
       <ServicePortfolio
-        headingLines={venueHospitalityPortfolioHeading}
-        description={venueHospitalityPortfolioDescription}
-        items={venueHospitalityPortfolioItems}
+        headingLines={["Our Work"]}
+        description="A curated selection of celebrations, gatherings, and moments we've brought to life with intention, creativity, and a little Hush Lush magic."
+        items={weddingPortfolioItems}
       />
       <FAQSection items={weddingPlanningFaqItems} />
       <ServiceProcessSteps
@@ -206,15 +234,16 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         content={decorStylingExperienceContent}
         bgColor="bg-light-card"
       />
+      <PromoBanner/>
       <ServiceFeatures
         headingLines={decorStylingFeaturesHeading}
         items={decorStylingFeatureItems}
         footerLabel={decorStylingFeaturesFooterLabel}
       />
-      <ServicePortfolio
-        headingLines={venueHospitalityPortfolioHeading}
-        description={venueHospitalityPortfolioDescription}
-        items={venueHospitalityPortfolioItems}
+         <ServicePortfolio
+        headingLines={["Our Work"]}
+        description="A curated selection of celebrations, gatherings, and moments we've brought to life with intention, creativity, and a little Hush Lush magic."
+        items={decorPortfolioItems}
       />
       <FAQSection items={venueHospitalityFaqItems} />
       <ServiceProcessSteps
@@ -234,15 +263,16 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         content={corporateEventsExperienceContent}
         bgColor="bg-light-card"
       />
+      <PromoBanner/>
       <ServiceFeatures
         headingLines={corporateEventsFeaturesHeading}
         items={corporateEventsFeatureItems}
         footerLabel={corporateEventsFeaturesFooterLabel}
       />
-      <ServicePortfolio
-        headingLines={venueHospitalityPortfolioHeading}
-        description={venueHospitalityPortfolioDescription}
-        items={venueHospitalityPortfolioItems}
+       <ServicePortfolio
+        headingLines={["Our Work"]}
+        description="A curated selection of celebrations, gatherings, and moments we've brought to life with intention, creativity, and a little Hush Lush magic."
+        items={corporatePortfolioItems}
       />
       <FAQSection items={corporateEventsFaqItems} />
       <ServiceProcessSteps
@@ -257,23 +287,25 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
     <>
       <EntertainmentProductionHero />
       <ExperienceSection
-  tabs={entertainmentBrowserTabs}
-  addressText={entertainmentAddressText}
-  content={entertainmentExperienceContent}
-  bgColor="bg-dark"
-  decorative
-/>
-<ServiceFeatures
-  headingLines={entertainmentFeaturesHeading}
-  items={entertainmentFeatureItems}
-  footerLabel={entertainmentFeaturesFooterLabel}
-  tone="dark"
-/>
+        tabs={entertainmentBrowserTabs}
+        addressText={entertainmentAddressText}
+        content={entertainmentExperienceContent}
+        bgColor="bg-dark"
+        decorative
+      />
+        <PromoBanner />
+      <ServiceFeatures
+        headingLines={entertainmentFeaturesHeading}
+        items={entertainmentFeatureItems}
+        footerLabel={entertainmentFeaturesFooterLabel}
+        tone="dark"
+      />
     </>
   ),
   "invitation-print": () => (
     <>
       <InvitationPrintHero />
+        <PromoBanner />
       <ServiceFeatures
         headingLines={invitationPrintFeaturesHeading}
         items={invitationPrintFeatureItems}
@@ -297,18 +329,23 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         addressText={specialExperienceAddressText}
         content={specialExperienceContent}
       />
+      <PromoBanner />
       <ServiceFeatures
         headingLines={specialExperienceFeaturesHeading}
         items={specialExperienceFeatureItems}
         footerLabel={specialExperienceFeaturesFooterLabel}
       />
-
+      <ServicePortfolio
+        headingLines={["Our Work"]}
+        description="A curated selection of celebrations, gatherings, and moments we've brought to life with intention, creativity, and a little Hush Lush magic."
+        items={specialPortfolioItems}
+      />
       <FAQSection items={specialExperienceFaqItems} />
       <ServiceProcessSteps
         image={specialExperienceProcessImage}
         eyebrow={specialExperienceProcessEyebrow}
         heading={specialExperienceProcessHeading}
-        steps={specialExperienceProcessSteps} 
+        steps={specialExperienceProcessSteps}
       />
     </>
   ),
@@ -316,6 +353,35 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
 
 export function generateStaticParams() {
   return Object.keys(pageBySlug).map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const service = services.find((s) => s.id === slug);
+
+  if (!service) {
+    return { title: "Service Not Found" };
+  }
+
+  const description = `Discover how Hush Lush Events approaches ${service.label.toLowerCase()} — from first concept to flawless execution.`;
+
+  return {
+    title: service.label,
+    description,
+    alternates: {
+      canonical: `/services/${slug}`,
+    },
+    openGraph: {
+      title: service.label,
+      description,
+      url: `https://www.hushlushevents.com/services/${slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: service.label,
+      description,
+    },
+  };
 }
 
 export default async function ServiceDetailPage({ params }: PageProps) {

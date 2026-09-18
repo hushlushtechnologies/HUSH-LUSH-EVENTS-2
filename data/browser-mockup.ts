@@ -36,7 +36,7 @@ export const experienceContent: ExperienceContent = {
   videoPoster: "/images/intro/video-posters.jpg",
   // Placeholder — Big Buck Bunny (open-source, safe filler footage).
   // Swap for the real Hush Lush video's YouTube ID once uploaded.
-  youtubeId: "aqz-KE-bpKQ",
+  youtubeId: "5FyFIhOdm7A",
   testimonial: {
     icon: "/images/icons/brand-mark.svg",
     prefix: "Loved by the",

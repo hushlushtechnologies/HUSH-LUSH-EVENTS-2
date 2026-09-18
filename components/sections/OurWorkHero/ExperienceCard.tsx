@@ -1,28 +1,39 @@
-"use client";
+ "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import type { ExperienceCard as ExperienceCardType } from "@/data/our-work-hero";
 
 export function ExperienceCard({ thumbnail, video, youtubeId }: ExperienceCardType) {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const hasPlayableMedia = Boolean(video || youtubeId);
+
+  const handlePlay = () => {
+    setIsPlaying(true);
+    videoRef.current?.play().catch(() => {});
+  };
+
+  const handlePause = () => {
+    setIsPlaying(false);
+    videoRef.current?.pause();
+  };
 
   return (
     <div
       className="h-[330px] w-[180px] shrink-0 rounded-t-full p-[1px]"
       style={{ background: "linear-gradient(90deg, #EBE411 0%, #D68306 100%)" }}
     >
-      <div className="relative h-full w-full overflow-hidden rounded-t-full">
+      <div className="group relative h-full w-full overflow-hidden rounded-t-full">
         {isPlaying && video ? (
-          // Local file — plain <video>, no third-party chrome/branding
-          // of any kind, full control over crop/loop/controls.
+          // Local file — custom pause control, no native controls (they
+          // would visually clash with the custom hover-pause button).
           <video
+            ref={videoRef}
             src={video}
             autoPlay
             muted
             loop
-            controls
             playsInline
             className="absolute inset-0 h-full w-full object-cover"
           />
@@ -41,14 +52,35 @@ export function ExperienceCard({ thumbnail, video, youtubeId }: ExperienceCardTy
         {!isPlaying && hasPlayableMedia && (
           <button
             type="button"
-            onClick={() => setIsPlaying(true)}
+            onClick={handlePlay}
             aria-label="Play video"
-            className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-dark-button-gradient shadow-md transition-transform hover:scale-110"
+            className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-dark-button-gradient shadow-md transition-transform hover:scale-110"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
               <path d="M4 3L11 7L4 11V3Z" fill="var(--color-dark-bg)" />
             </svg>
           </button>
+        )}
+
+        {/* Pause control — local video only. The YouTube iframe is a
+            third-party embedded player we don't control, so a custom
+            pause button can't reach into it; that case just plays
+            through with the embed's own (hidden) controls. */}
+        {isPlaying && video && (
+          <>
+            <div className="absolute inset-0 bg-black/0 transition-colors duration-200 group-hover:bg-black/30" />
+            <button
+              type="button"
+              onClick={handlePause}
+              aria-label="Pause video"
+              className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-dark-button-gradient opacity-0 shadow-md transition-all duration-200 hover:scale-110 group-hover:opacity-100"
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <rect x="3" y="2" width="3" height="10" fill="var(--color-dark-bg)" />
+                <rect x="8" y="2" width="3" height="10" fill="var(--color-dark-bg)" />
+              </svg>
+            </button>
+          </>
         )}
       </div>
     </div>
