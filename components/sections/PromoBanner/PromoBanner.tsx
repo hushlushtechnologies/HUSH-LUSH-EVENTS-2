@@ -14,11 +14,6 @@ import {
 
 interface PromoBannerProps extends Partial<PromoBannerContent> {}
 
-// Scattered accent dots, now spread across the FULL banner card as a
-// background layer (see -z-10 on the wrapper below) instead of being
-// confined to the right-side collage. Positions redistributed across
-// the entire 0-100% card area rather than the narrower collage region
-// they were originally tuned for.
 const dots = [
   { top: "10%", left: "8%", size: 10, color: "var(--color-dark-secondary)" },
   { top: "18%", left: "28%", size: 9, color: "#B5657A" },
@@ -40,8 +35,6 @@ function splitIntoColumns<T>(items: T[], columnCount: number): T[][] {
   return columns;
 }
 
-// direction: 1 = down (new images enter above, exit below)
-//           -1 = up (new images enter below, exit above)
 const columnConfig = [
   { direction: 1 as const, speedPxPerSec: 16, aspectRatio: "1 / 1.1" },
   { direction: -1 as const, speedPxPerSec: 20, aspectRatio: "1 / 1.4" },
@@ -81,7 +74,7 @@ function RollingColumn({ images, colIndex, reducedMotion }: RollingColumnProps) 
 
   const repeatCount =
     singleListHeight && viewportHeight
-      ? Math.max(3, Math.ceil((viewportHeight * 3) / singleListHeight))
+      ? Math.max(4, Math.ceil(viewportHeight / singleListHeight) + 2)
       : 6;
 
   useGSAP(
@@ -128,16 +121,13 @@ function RollingColumn({ images, colIndex, reducedMotion }: RollingColumnProps) 
 
   return (
     <div ref={containerRef} className="relative h-full min-h-0 overflow-hidden">
-      <div ref={trackRef} className="flex flex-col gap-4" style={{ minHeight: "100%" }}>
+      <div ref={trackRef} className="flex flex-col gap-4">
         {Array.from({ length: repeatCount }).flatMap((_, setIndex) =>
           images.map((src, i) => renderCard(src, `${src}-set${setIndex}-${i}`))
         )}
       </div>
 
-      <div
-        ref={measureRef}
-        className="pointer-events-none absolute left-0 top-0 -z-10 flex w-full flex-col gap-4 opacity-0"
-      >
+      <div ref={measureRef} className="pointer-events-none absolute left-0 top-0 -z-10 flex w-full flex-col gap-4 opacity-0">
         {images.map((src, i) => renderCard(src, `measure-${src}-${i}`))}
       </div>
     </div>
@@ -174,9 +164,6 @@ export function PromoBanner(props: PromoBannerProps) {
           <div className="absolute left-[10%] top-[70%] h-[220px] w-[220px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-gold opacity-40 blur-[90px]" />
           <div className="absolute left-[50%] top-[10%] h-[220px] w-[220px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-gold opacity-40 blur-[90px]" />
 
-          {/* Dots — now a full-card background layer, behind the badge/
-              heading/collage grid (which all sit at z-0/z-10 by default
-              or explicitly), not confined to the right-side collage. */}
           {!reducedMotion && (
             <div className="pointer-events-none absolute inset-0 -z-10">
               {dots.map((dot, i) => (
@@ -202,7 +189,6 @@ export function PromoBanner(props: PromoBannerProps) {
           )}
 
           <div className="grid grid-cols-1 items-center gap-10 px-8 py-12 md:grid-cols-2 md:px-14 md:py-14">
-            {/* Left — copy */}
             <div className="relative z-10">
               <span
                 className="font-body inline-block rounded-lg border border-brand-gold/40 bg-dark-card/60 px-4 py-2 text-xs font-medium text-brand-gold sm:text-sm"
@@ -254,25 +240,25 @@ export function PromoBanner(props: PromoBannerProps) {
                 {description}
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Button href={secondaryCta.href} variant="white">
+              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+                <Button
+                  href={secondaryCta.href}
+                  variant="white"
+                  className="w-full sm:w-auto sm:flex-none"
+                >
                   {secondaryCta.label}
                 </Button>
                 <Button
                   href={primaryCta.href}
                   variant="solid"
-                  className="!bg-dark-button-gradient !text-dark-bg"
+                  className="!bg-dark-button-gradient !text-dark-bg w-full sm:w-auto sm:flex-none"
                 >
                   {primaryCta.label}
                 </Button>
               </div>
             </div>
 
-            {/* Right — tilted, independently-rolling 3-column collage.
-                Split into 3 flex columns via splitIntoColumns (round-robin,
-                same as the hero collages), each an independent
-                RollingColumn instead of a static grid. */}
-            <div className="relative z-10 hidden   md:block">
+            <div className="relative z-10 hidden md:block">
               <motion.div
                 initial={{ opacity: 0, rotate: -6, scale: 0.95 }}
                 whileInView={{ opacity: 1, rotate: 10, scale: 1 }}

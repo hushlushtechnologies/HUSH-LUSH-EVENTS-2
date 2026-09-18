@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -38,12 +38,6 @@ export function Hero() {
   const slide = heroSlides[activeIndex];
   const total = heroSlides.length;
 
-  // Only the active slide's video plays; every other one stays paused
-  // so three background videos never compete for bandwidth/decode time
-  // at once. Reduced-motion users never trigger playback — their video
-  // elements simply sit paused at their first frame, which itself
-  // satisfies "no motion" (a still frame, not a moving image), without
-  // needing a separate poster asset.
   useEffect(() => {
     videoRefs.current.forEach((videoEl, i) => {
       if (!videoEl) return;
@@ -55,11 +49,7 @@ export function Hero() {
 
       if (i === activeIndex) {
         videoEl.currentTime = 0;
-        videoEl.play().catch(() => {
-          // Autoplay can be blocked in rare cases; the video still
-          // shows its first loaded frame while paused, so this fails
-          // silently rather than leaving a broken/blank element.
-        });
+        videoEl.play().catch(() => {});
       } else {
         videoEl.pause();
       }
@@ -150,16 +140,19 @@ export function Hero() {
             </motion.div>
           </AnimatePresence>
 
-          <div className="pointer-events-auto mb-12 flex flex-wrap items-center gap-4">
-            <Button href="/plan-your-event" variant="solid">
-              <span className="flex items-center gap-2">
+          {/* Mobile: centered, both buttons full-width/equal-width via
+              flex-1 (stacked column). From sm+: reverts to the original
+              left-aligned, content-sized, side-by-side row. */}
+          <div className="pointer-events-auto mb-12 flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+            <Button href="/plan-your-event" variant="solid" className="w-full sm:w-auto sm:flex-none">
+              <span className="flex items-center justify-center gap-2">
                 Plan your Events
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                   <path d="M3 11L11 3M11 3H4M11 3V10" stroke="currentColor" strokeWidth="1.5" />
                 </svg>
               </span>
             </Button>
-            <Button href="/our-work" variant="outline">
+            <Button href="/our-work" variant="outline" className="w-full sm:w-auto sm:flex-none">
               Explore our Work
             </Button>
           </div>
