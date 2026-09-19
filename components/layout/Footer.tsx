@@ -107,7 +107,7 @@ export function Footer() {
               </p>
             </div>
 
-            <div className="w-full max-w-sm">
+            {/* <div className="w-full max-w-sm">
               <p className="font-display text-lg text-light-brand">Subscribe</p>
               <form onSubmit={(e) => e.preventDefault()} className="mt-3 flex overflow-hidden rounded-full border border-dark-border/40">
                 <input
@@ -122,7 +122,7 @@ export function Footer() {
                   Subscribe
                 </button>
               </form>
-            </div>
+            </div> */}
           </div>
 
           <div className="mt-16 grid grid-cols-2 gap-8 sm:grid-cols-4">

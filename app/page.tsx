@@ -22,7 +22,7 @@ export default function Home() {
       <OurImpact />
       <ServicesShowcase />
       <OurProcess />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <GalleryShowcase />
     </>
   );

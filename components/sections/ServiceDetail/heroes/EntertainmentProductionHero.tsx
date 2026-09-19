@@ -44,14 +44,18 @@ export function EntertainmentProductionHero() {
       {description}
     </p>
 
-    <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-      <Button href="/plan-your-event" variant="solid" className="!bg-dark-button-gradient !text-dark-bg">
-        {primaryCta}
-      </Button>
-      <Button href="/our-work" variant="light">
-        {secondaryCta}
-      </Button>
-    </div>
+  <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
+  <Button
+    href="/plan-your-event"
+    variant="solid"
+    className="!bg-dark-button-gradient !text-dark-bg w-full sm:w-auto sm:flex-none"
+  >
+    {primaryCta}
+  </Button>
+  <Button href="/our-work" variant="light" className="w-full sm:w-auto sm:flex-none">
+    {secondaryCta}
+  </Button>
+</div>
   </motion.div>
 </Container>
     </section>

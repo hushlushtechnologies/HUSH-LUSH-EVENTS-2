@@ -41,19 +41,19 @@ export function InvitationPrintHero() {
             {description}
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-            <Button href="/plan-your-event" variant="solid">
-              <span className="flex items-center gap-2">
-                {primaryCta}
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M3 11L11 3M11 3H4M11 3V10" stroke="currentColor" strokeWidth="1.5" />
-                </svg>
-              </span>
-            </Button>
-            <Button href="/our-work" variant="outline">
-              {secondaryCta}
-            </Button>
-          </div>
+  <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
+  <Button href="/plan-your-event" variant="solid" className="w-full sm:w-auto sm:flex-none">
+    <span className="flex items-center justify-center gap-2">
+      {primaryCta}
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <path d="M3 11L11 3M11 3H4M11 3V10" stroke="currentColor" strokeWidth="1.5" />
+      </svg>
+    </span>
+  </Button>
+  <Button href="/our-work" variant="outline" className="w-full sm:w-auto sm:flex-none">
+    {secondaryCta}
+  </Button>
+</div>
         </motion.div>
 
         {/* Circular invitation-card arrangement — hidden below sm, same

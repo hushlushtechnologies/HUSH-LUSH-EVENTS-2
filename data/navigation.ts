@@ -12,7 +12,7 @@ export const primaryNav: NavLink[] = [
     })),
   },
   { label: "Our Work", href: "/our-work" },
-  { label: "Journal", href: "/journal" },
+  // { label: "Journal", href: "/journal" },
 ];
 
 export const ctaLink: NavLink = {
