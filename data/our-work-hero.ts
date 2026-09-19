@@ -1,6 +1,5 @@
- export interface ExperienceCard {
+export interface ExperienceCard {
   id: string;
-  thumbnail: string;
   /** Local video file — takes priority over youtubeId when both are present. */
   video?: string;
   youtubeId?: string;
@@ -18,10 +17,10 @@ export const ourWorkHeroContent = {
   dancerImage: "/images/our-work/hero-dancer.png",
   experienceLabel: "Some Experience",
   experienceCards: [
-    { id: "exp-1", thumbnail: "/images/our-work/experiences-1.jpg", video: "/videos/our-work/experiences-1.mp4" },
-    { id: "exp-2", thumbnail: "/images/our-work/experiences-2.jpg",  video: "/videos/our-work/experiences-2.mp4"  },
-    { id: "exp-3", thumbnail: "/images/our-work/experiences-3.jpg", video: "/videos/our-work/experiences-3.mp4" },
-    { id: "exp-4", thumbnail: "/images/our-work/experiences-4.jpg",video: "/videos/our-work/experiences-4.mp4" },
-    { id: "exp-5", thumbnail: "/images/our-work/experiences-5.jpg", video: "/videos/our-work/experiences-5.mp4" },
+    { id: "exp-1", video: "/videos/our-work/experiences-1.mp4" },
+    { id: "exp-2", video: "/videos/our-work/experiences-2.mp4" },
+    { id: "exp-3", video: "/videos/our-work/experiences-3.mp4" },
+    { id: "exp-4", video: "/videos/our-work/experiences-4.mp4" },
+    { id: "exp-5", video: "/videos/our-work/experiences-5.mp4" },
   ] satisfies ExperienceCard[],
 };

@@ -1,13 +1,27 @@
  "use client";
 
-import { useRef, useState } from "react";
-import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import type { ExperienceCard as ExperienceCardType } from "@/data/our-work-hero";
 
-export function ExperienceCard({ thumbnail, video, youtubeId }: ExperienceCardType) {
+export function ExperienceCard({ video, youtubeId }: ExperienceCardType) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const hasPlayableMedia = Boolean(video || youtubeId);
+
+  // Local video only: nudge to a tiny nonzero timestamp once metadata
+  // loads, so the browser paints a real frame as the resting
+  // "thumbnail" instead of a blank/black box — no separate thumbnail
+  // image needed. Same technique as ArchImageCard/GalleryThumb.
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el || !video) return;
+
+    const handleLoadedMetadata = () => {
+      el.currentTime = 0.1;
+    };
+    el.addEventListener("loadedmetadata", handleLoadedMetadata);
+    return () => el.removeEventListener("loadedmetadata", handleLoadedMetadata);
+  }, [video]);
 
   const handlePlay = () => {
     setIsPlaying(true);
@@ -25,16 +39,17 @@ export function ExperienceCard({ thumbnail, video, youtubeId }: ExperienceCardTy
       style={{ background: "linear-gradient(90deg, #EBE411 0%, #D68306 100%)" }}
     >
       <div className="group relative h-full w-full overflow-hidden rounded-t-full">
-        {isPlaying && video ? (
-          // Local file — custom pause control, no native controls (they
-          // would visually clash with the custom hover-pause button).
+        {video ? (
+          // Local file — its own frame IS the thumbnail. One persistent
+          // <video> element handles both the resting state and actual
+          // playback; nothing swaps out on click.
           <video
             ref={videoRef}
             src={video}
-            autoPlay
-            muted
+            muted={!isPlaying}
             loop
             playsInline
+            preload="metadata"
             className="absolute inset-0 h-full w-full object-cover"
           />
         ) : isPlaying && youtubeId ? (
@@ -45,9 +60,7 @@ export function ExperienceCard({ thumbnail, video, youtubeId }: ExperienceCardTy
             allowFullScreen
             className="absolute inset-0 h-full w-full border-0"
           />
-        ) : (
-          <Image src={thumbnail} alt="" fill className="object-cover" sizes="220px" />
-        )}
+        ) : null}
 
         {!isPlaying && hasPlayableMedia && (
           <button
@@ -62,10 +75,6 @@ export function ExperienceCard({ thumbnail, video, youtubeId }: ExperienceCardTy
           </button>
         )}
 
-        {/* Pause control — local video only. The YouTube iframe is a
-            third-party embedded player we don't control, so a custom
-            pause button can't reach into it; that case just plays
-            through with the embed's own (hidden) controls. */}
         {isPlaying && video && (
           <>
             <div className="absolute inset-0 bg-black/0 transition-colors duration-200 group-hover:bg-black/30" />

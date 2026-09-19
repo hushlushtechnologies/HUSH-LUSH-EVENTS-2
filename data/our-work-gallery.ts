@@ -18,7 +18,7 @@ export const galleryIntro = {
 // matches the scattered mosaic layout in the reference. Canvas width
 // is intentionally wider than the viewport so dragging reveals more.
 export const galleryTiles: GalleryTile[] = [
-  { id: "t1", src: "/images/our-work/gallerys-1.jpg", top: "20.1%", left: "55.9%", width: "304px", height: "128px", aspectRatio: "304 / 128" },
+  { id: "t1", src: "/images/our-work/gallerys-10.jpg", top: "20.1%", left: "55.9%", width: "304px", height: "128px", aspectRatio: "304 / 128" },
   { id: "t2", src: "/images/our-work/gallerys-2.jpg", top: "30.9%", left: "36.9%", width: "304px", height: "287px", aspectRatio: "304 / 287" },
   { id: "t4", src: "/images/our-work/gallerys-4.jpg", top: "24.1%", left: "75.9%", width: "303px", height: "291px", aspectRatio: "303 / 291" },
   { id: "t5", src: "/images/our-work/gallerys-5.jpg", top: "35.7%", left: "60.1%", width: "400px", height: "316px", aspectRatio: "400 / 316" },

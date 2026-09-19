@@ -6,12 +6,12 @@ export interface PortfolioFilter {
 export const portfolioFilters: PortfolioFilter[] = [
   { id: "all", label: "All" },
   { id: "events", label: "Events" },
-  { id: "venue", label: "Venue" },
+  // { id: "venue", label: "Venue" }, — hidden for now, no images yet (count: 0)
   { id: "wedding", label: "Wedding" },
   { id: "decor-styling", label: "Decor & Styling" },
   { id: "corporate", label: "Corporate" },
-  { id: "entertainment", label: "Entertainment" },
-  { id: "invitation", label: "Invitation" },
+  // { id: "entertainment", label: "Entertainment" }, — hidden for now, no images yet (count: 0)
+  // { id: "invitation", label: "Invitation" }, — hidden for now, no images yet (count: 0)
   { id: "special", label: "Special" },
 ];
 
@@ -48,10 +48,6 @@ const PORTFOLIO_CATEGORIES: CategoryDef[] = [
   { id: "special", label: "Special", count: 9 },
 ];
 
-// Exported so OurWorkPortfolio can reassign spans by final display
-// position (e.g. after interleaving categories for the "All" filter)
-// rather than relying on each item's originally-generated span, which
-// only makes sense in its original per-category order.
 export const SPAN_PATTERN: PortfolioSpan[] = [
   "large", "stacked", "stacked",
   "third", "third", "third",

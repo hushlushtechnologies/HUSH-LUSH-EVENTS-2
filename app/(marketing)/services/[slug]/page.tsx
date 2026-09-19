@@ -183,11 +183,11 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         items={venueHospitalityFeatureItems}
         footerLabel={venueHospitalityFeaturesFooterLabel}
       />
-      <ServicePortfolio
+      {/* <ServicePortfolio
         headingLines={venueHospitalityPortfolioHeading}
         description={venueHospitalityPortfolioDescription}
         items={venueHospitalityPortfolioItems}
-      />
+      /> */}
       <FAQSection items={venueHospitalityFaqItems} />
       <ServiceProcessSteps
         image={venueHospitalityProcessImage}
