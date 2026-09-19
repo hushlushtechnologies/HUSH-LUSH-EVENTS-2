@@ -17,7 +17,7 @@ export default function Home() {
     <>
       <Hero />
       <ExperienceSection />
-      <PromoBanner />
+      {/* <PromoBanner /> */}
       <WhatWeCelebrate />
       <OurImpact />
       <ServicesShowcase />

@@ -24,7 +24,7 @@ export default function OurWorkPage() {
     <>
       <OurWorkHero />
       <OurWorkGallery />
-      <PromoBanner />
+      {/* <PromoBanner /> */}
       <OurWorkPortfolio />
     </>
   );

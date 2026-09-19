@@ -177,7 +177,7 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         content={venueHospitalityExperienceContent}
         bgColor="bg-light-card"
       />
-        <PromoBanner/>
+        {/* <PromoBanner/> */}
       <ServiceFeatures
         headingLines={venueHospitalityFeaturesHeading}
         items={venueHospitalityFeatureItems}
@@ -205,7 +205,7 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         addressText={weddingPlanningAddressText}
         content={weddingPlanningExperienceContent}
       />
-        <PromoBanner/>
+        {/* <PromoBanner/> */}
       <ServiceFeatures
         headingLines={weddingPlanningFeaturesHeading}
         items={weddingPlanningFeatureItems}
@@ -234,7 +234,7 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         content={decorStylingExperienceContent}
         bgColor="bg-light-card"
       />
-      <PromoBanner/>
+      {/* <PromoBanner/> */}
       <ServiceFeatures
         headingLines={decorStylingFeaturesHeading}
         items={decorStylingFeatureItems}
@@ -263,7 +263,7 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         content={corporateEventsExperienceContent}
         bgColor="bg-light-card"
       />
-      <PromoBanner/>
+      {/* <PromoBanner/> */}
       <ServiceFeatures
         headingLines={corporateEventsFeaturesHeading}
         items={corporateEventsFeatureItems}
@@ -293,7 +293,7 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         bgColor="bg-dark"
         decorative
       />
-        <PromoBanner />
+        {/* <PromoBanner /> */}
       <ServiceFeatures
         headingLines={entertainmentFeaturesHeading}
         items={entertainmentFeatureItems}
@@ -305,7 +305,7 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
   "invitation-print": () => (
     <>
       <InvitationPrintHero />
-        <PromoBanner />
+        {/* <PromoBanner /> */}
       <ServiceFeatures
         headingLines={invitationPrintFeaturesHeading}
         items={invitationPrintFeatureItems}
@@ -329,7 +329,7 @@ const pageBySlug: Record<string, () => React.ReactNode> = {
         addressText={specialExperienceAddressText}
         content={specialExperienceContent}
       />
-      <PromoBanner />
+      {/* <PromoBanner /> */}
       <ServiceFeatures
         headingLines={specialExperienceFeaturesHeading}
         items={specialExperienceFeatureItems}

@@ -31,7 +31,7 @@ export default function AboutPage() {
       <AboutHero />
       <AboutStatsCard />
       <AboutStory />
-      <PromoBanner />
+      {/* <PromoBanner /> */}
        <AboutBeliefs />
       <AboutProcess />
         <AboutPhilosophy />
