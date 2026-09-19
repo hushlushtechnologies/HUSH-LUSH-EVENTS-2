@@ -102,15 +102,16 @@ export function ExperienceSection({
           </div>
 
           <BrowserMockup
-            tabs={tabs}
-            addressText={addressText}
-            image={videoPoster}
-            video={video}
-            youtubeId={youtubeId}
-            imageAlt="Event venue decorated with floral chandelier and draped ceiling"
-            isPlaying={isPlaying}
-            onPlay={() => setIsPlaying(true)}
-          />
+  tabs={tabs}
+  addressText={addressText}
+  image={videoPoster}
+  video={video}
+  youtubeId={youtubeId}
+  imageAlt="Event venue decorated with floral chandelier and draped ceiling"
+  isPlaying={isPlaying}
+  onPlay={() => setIsPlaying(true)}
+  onPause={() => setIsPlaying(false)}
+/>
 
           <div className="absolute bottom-[4%] -right-[6%] hidden max-w-[400px] rounded-xl border border-light bg-light-card p-3 shadow-md md:block">
             <div className="flex items-start gap-2">

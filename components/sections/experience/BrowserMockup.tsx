@@ -1,4 +1,4 @@
- import type { BrowserTab } from "@/data/browser-mockup";
+import type { BrowserTab } from "@/data/browser-mockup";
 import { BrowserTabs } from "./BrowserTabs";
 import { BrowserToolbar } from "./BrowserToolbar";
 import { BrowserContent } from "./BrowserContent";
@@ -14,6 +14,7 @@ interface BrowserMockupProps {
   imageAlt: string;
   isPlaying: boolean;
   onPlay: () => void;
+  onPause: () => void;
   tone?: BrowserTone;
 }
 
@@ -32,13 +33,23 @@ export function BrowserMockup({
   imageAlt,
   isPlaying,
   onPlay,
+  onPause,
   tone = "light",
 }: BrowserMockupProps) {
   return (
     <div className={`overflow-hidden rounded-xl border-2 shadow-lg ${FRAME_BORDER[tone]}`}>
       <BrowserTabs tabs={tabs} />
       <BrowserToolbar addressText={addressText} />
-      <BrowserContent image={image} video={video} youtubeId={youtubeId} alt={imageAlt} isPlaying={isPlaying} onPlay={onPlay} tone={tone} />
+      <BrowserContent
+        image={image}
+        video={video}
+        youtubeId={youtubeId}
+        alt={imageAlt}
+        isPlaying={isPlaying}
+        onPlay={onPlay}
+        onPause={onPause}
+        tone={tone}
+      />
     </div>
   );
 }

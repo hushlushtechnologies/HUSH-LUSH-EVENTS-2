@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import { services } from "@/data/services";
 
 export function ServicesMegaMenu() {
   const shouldReduceMotion = useReducedMotion();
+  const pathname = usePathname();
 
   return (
     <motion.div
@@ -31,16 +33,21 @@ export function ServicesMegaMenu() {
             <li className="font-display mb-1 text-sm font-bold text-light-muted">
               Service
             </li>
-            {services.map((service) => (
-              <li key={service.id}>
-                <Link
-                  href={service.href}
-                  className="font-body text-base font-medium  transition-colors hover:text-light-brand"
-                >
-                  {service.label}
-                </Link>
-              </li>
-            ))}
+            {services.map((service) => {
+              const isActive = pathname === service.href;
+              return (
+                <li key={service.id}>
+                  <Link
+                    href={service.href}
+                    className={`font-body text-base font-medium transition-colors hover:text-light-brand ${
+                      isActive ? "text-light-brand" : ""
+                    }`}
+                  >
+                    {service.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

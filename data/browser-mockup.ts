@@ -1,4 +1,4 @@
-export interface BrowserTab {
+ export interface BrowserTab {
   title: string;
   favicon: string;
   active: boolean;
@@ -33,10 +33,8 @@ export const experienceContent: ExperienceContent = {
   headingLines: ["An event lasts a day.", "An experience stays with you."],
   description:
     "At Hush Lush, we bring together creativity, elegance and precise planning to turn your vision into moments worth remembering.",
-  videoPoster: "/images/intro/video-posters.jpg",
-  // Placeholder — Big Buck Bunny (open-source, safe filler footage).
-  // Swap for the real Hush Lush video's YouTube ID once uploaded.
-  youtubeId: "5FyFIhOdm7A",
+  videoPoster: "/images/intro/video-poster.jpg",
+  video: "/videos/intro/experience-video.mp4",
   testimonial: {
     icon: "/images/icons/brand-mark.svg",
     prefix: "Loved by the",

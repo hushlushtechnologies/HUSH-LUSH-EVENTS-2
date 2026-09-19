@@ -1,11 +1,12 @@
- "use client";
+"use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { ServicesMegaMenu } from "@/components/layout/ServicesMegaMenu";
 import { primaryNav, ctaLink } from "@/data/navigation";
 import type { NavLink } from "@/types/navigation";
 
@@ -18,6 +19,15 @@ export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+
+  // Whenever the route actually changes (e.g. clicking a service link
+  // inside the mega menu), close whatever dropdown/drawer is open —
+  // navigation itself isn't a signal the menu currently reacts to.
+  useEffect(() => {
+    setOpenDropdown(null);
+    setMobileOpen(false);
+    setMobileServicesOpen(false);
+  }, [pathname]);
 
   const closeMobile = () => {
     setMobileOpen(false);
@@ -32,7 +42,7 @@ export function SiteHeader() {
           <Image src="/images/logo.svg" alt="Hush Lush Events" width={160} height={48} priority />
         </Link>
 
-        {/* Desktop nav — unchanged */}
+        {/* Desktop nav */}
         <div className="hidden items-center gap-12 md:flex">
           <nav className="flex items-center gap-9">
             {primaryNav.map((link) => {
@@ -107,6 +117,10 @@ export function SiteHeader() {
                       transition={t}
                     />
                   )}
+
+                  <AnimatePresence>
+                    {hasChildren && openDropdown === link.label && <ServicesMegaMenu />}
+                  </AnimatePresence>
                 </div>
               );
             })}
@@ -130,8 +144,7 @@ export function SiteHeader() {
         </button>
       </div>
 
-      {/* Mobile drawer — slides in from the right, dark backdrop over
-          the page content on the left, matching the reference design. */}
+      {/* Mobile drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -152,7 +165,6 @@ export function SiteHeader() {
               transition={{ duration: shouldReduceMotion ? 0.15 : 0.35, ease: [0.22, 1, 0.36, 1] }}
               className="fixed right-0 top-0 z-50 flex h-full w-[80%] max-w-[380px] flex-col bg-light md:hidden"
             >
-              {/* Drawer header — logo + close */}
               <div className="flex items-center justify-between border-b border-light px-6 py-5">
                 <Link href="/" onClick={closeMobile}>
                   <Image src="/images/logo.svg" alt="Hush Lush Events" width={130} height={40} />
@@ -169,7 +181,6 @@ export function SiteHeader() {
                 </button>
               </div>
 
-              {/* Nav list — one row per link, divider between each */}
               <nav className="flex flex-1 flex-col overflow-y-auto px-6">
                 {primaryNav.map((link) => {
                   const hasChildren = Boolean(link.children?.length);
@@ -242,7 +253,6 @@ export function SiteHeader() {
                 })}
               </nav>
 
-              {/* CTA pinned at the bottom of the drawer */}
               <div className="border-t border-light p-6">
                 <Button href={ctaLink.href!} variant="solid" className="w-full">
                   {ctaLink.label}

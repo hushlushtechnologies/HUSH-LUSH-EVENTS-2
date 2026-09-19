@@ -13,6 +13,7 @@ interface BrowserContentProps {
   alt: string;
   isPlaying: boolean;
   onPlay: () => void;
+  onPause: () => void;
   tone?: BrowserTone;
 }
 
@@ -22,22 +23,25 @@ const PLAY_BUTTON: Record<BrowserTone, string> = {
   vibrant: "bg-gradient-to-br from-fuchsia-500 to-dark-secondary",
 };
 
-export function BrowserContent({ image, video, youtubeId, alt, isPlaying, onPlay, tone = "light" }: BrowserContentProps) {
+export function BrowserContent({
+  image,
+  video,
+  youtubeId,
+  alt,
+  isPlaying,
+  onPlay,
+  onPause,
+  tone = "light",
+}: BrowserContentProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [hasNudged, setHasNudged] = useState(false);
   const hasPlayableMedia = Boolean(video || youtubeId);
 
-  // Local video only: nudge to a tiny nonzero timestamp once metadata
-  // loads, so the browser paints a real frame as the resting
-  // "thumbnail" instead of a blank/black box — no separate poster
-  // image needed for this case.
   useEffect(() => {
     const el = videoRef.current;
     if (!el || !video) return;
 
     const handleLoadedMetadata = () => {
       el.currentTime = 0.1;
-      setHasNudged(true);
     };
     el.addEventListener("loadedmetadata", handleLoadedMetadata);
     return () => el.removeEventListener("loadedmetadata", handleLoadedMetadata);
@@ -48,6 +52,11 @@ export function BrowserContent({ image, video, youtubeId, alt, isPlaying, onPlay
     videoRef.current?.play().catch(() => {});
   };
 
+  const handlePause = () => {
+    onPause();
+    videoRef.current?.pause();
+  };
+
   if (video) {
     return (
       <div className="group relative aspect-[16/9] max-h-[680px] w-full overflow-hidden">
@@ -55,7 +64,6 @@ export function BrowserContent({ image, video, youtubeId, alt, isPlaying, onPlay
           ref={videoRef}
           src={video}
           muted={!isPlaying}
-          controls={isPlaying}
           playsInline
           preload="metadata"
           className="absolute inset-0 h-full w-full object-cover"
@@ -66,12 +74,27 @@ export function BrowserContent({ image, video, youtubeId, alt, isPlaying, onPlay
             type="button"
             onClick={handlePlay}
             aria-label="Play video"
-            className={`absolute left-1/2 top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full shadow-md transition-transform hover:scale-110 sm:h-11 sm:w-11 ${PLAY_BUTTON[tone]} ${
-              hasNudged ? "opacity-100" : "opacity-0"
-            } transition-opacity duration-300`}
+            className={`absolute cursor-pointer left-1/2 top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full shadow-md transition-transform hover:scale-110 sm:h-11 sm:w-11 ${PLAY_BUTTON[tone]}`}
           >
             <PlayIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
           </button>
+        )}
+
+        {isPlaying && (
+          <>
+            <div className="absolute inset-0 bg-black/0 transition-colors duration-200 group-hover:bg-black/30" />
+            <button
+              type="button"
+              onClick={handlePause}
+              aria-label="Pause video"
+              className={`absolute cursor-pointer left-1/2 top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full opacity-0 shadow-md transition-all duration-200 hover:scale-110 group-hover:opacity-100 sm:h-11 sm:w-11 ${PLAY_BUTTON[tone]}`}
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <rect x="3" y="2" width="3" height="10" fill="var(--color-dark-bg)" />
+                <rect x="8" y="2" width="3" height="10" fill="var(--color-dark-bg)" />
+              </svg>
+            </button>
+          </>
         )}
       </div>
     );
