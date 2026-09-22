@@ -7,8 +7,9 @@ const iconMap: Record<SocialLink["id"], ComponentType<{ className?: string }>> =
   facebook: FaFacebookF,
   whatsapp: FaWhatsapp,
   youtube: FaYoutube,
-  telegram: FaTelegramPlane,
+  
 };
+// telegram: FaTelegramPlane,
 
 export function SocialIcon({ id, className }: { id: SocialLink["id"]; className?: string }) {
   const Icon = iconMap[id];

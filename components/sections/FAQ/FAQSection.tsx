@@ -21,10 +21,11 @@ export function FAQSection({ items = defaultFaqItems }: FAQSectionProps) {
         aria-hidden="true"
         className="pointer-events-none absolute left-[10%] top-[40%] -z-10 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-gold opacity-40 blur-[140px]"
       />
-          <div
-  className="absolute bottom-[25%] right-[3%] h-[380px] w-[380px] rounded-full opacity-60 blur-[140px]"
-  style={{ background: "rgba(255, 155, 119, 0.4)" }}
-/>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-[25%] right-[3%] -z-10 h-[380px] w-[380px] rounded-full opacity-60 blur-[140px]"
+        style={{ background: "rgba(255, 155, 119, 0.4)" }}
+      />
       <Container>
         {/* Full width — direct child of Container, not inside the grid below */}
         <SectionHeading

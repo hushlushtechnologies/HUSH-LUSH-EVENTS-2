@@ -20,7 +20,7 @@ export const serviceLinks: FooterLink[] = [
 ];
 
 export const contactInfo = {
-  phone: "+971 50 495 6725",
+  phone: "+971 54 244 0905",
   email: "info@hushlushevents.com",
   address: "Office No. 501 Al Zarouni Business center Al Barsha 1, Sheikh Zayed Road, Dubai",
 };

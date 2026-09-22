@@ -1,9 +1,11 @@
-"use client";
+ "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PortfolioCard } from "@/components/sections/OurWorkPortfolio/PortfolioCard";
+import { Lightbox } from "@/components/sections/OurWorkPortfolio/Lightbox";
 import type { PortfolioItem } from "@/data/portfolio";
 
 interface ServicePortfolioProps {
@@ -13,6 +15,8 @@ interface ServicePortfolioProps {
 }
 
 export function ServicePortfolio({ headingLines, description, items }: ServicePortfolioProps) {
+  const [activeItem, setActiveItem] = useState<PortfolioItem | null>(null);
+
   // First 3 items form the large+stacked row, remaining items split into
   // 3-across rows — matches the fixed reference layout for this section.
   const [large, stackedA, stackedB, ...rest] = items;
@@ -41,7 +45,8 @@ export function ServicePortfolio({ headingLines, description, items }: ServicePo
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="lg:col-span-2"
+              className="cursor-pointer lg:col-span-2"
+              onClick={() => setActiveItem(large)}
             >
               <PortfolioCard {...large} />
             </motion.div>
@@ -50,11 +55,12 @@ export function ServicePortfolio({ headingLines, description, items }: ServicePo
               {[stackedA, stackedB].map((item, i) => (
                 <motion.div
                   key={item.id}
-                  className="flex-1"
+                  className="flex-1 cursor-pointer"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                  onClick={() => setActiveItem(item)}
                 >
                   <PortfolioCard {...item} span="stacked" />
                 </motion.div>
@@ -72,12 +78,14 @@ export function ServicePortfolio({ headingLines, description, items }: ServicePo
                 {row.map((item, itemIndex) => (
                   <motion.div
                     key={item.id}
+                    className="cursor-pointer"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.5, delay: itemIndex * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                    onClick={() => setActiveItem(item)}
                   >
-                   <PortfolioCard {...item} span="third" className={isReelRow ? "aspect-[3/4]" : undefined} />
+                    <PortfolioCard {...item} span="third" className={isReelRow ? "aspect-[3/4]" : undefined} />
                   </motion.div>
                 ))}
               </div>
@@ -85,6 +93,8 @@ export function ServicePortfolio({ headingLines, description, items }: ServicePo
           })}
         </div>
       </Container>
+
+      <Lightbox item={activeItem} onClose={() => setActiveItem(null)} />
     </section>
   );
 }

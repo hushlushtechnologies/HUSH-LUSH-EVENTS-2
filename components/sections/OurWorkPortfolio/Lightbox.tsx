@@ -59,10 +59,10 @@ export function Lightbox({ item, onClose }: LightboxProps) {
               />
             </div>
 
-            <div className="mt-4 text-center">
+            {/* <div className="mt-4 text-center">
               <p className="font-display text-xl text-white">{item.title}</p>
               <p className="font-body text-sm text-white/70">{item.subtitle}</p>
-            </div>
+            </div> */}
 
             <button
               type="button"

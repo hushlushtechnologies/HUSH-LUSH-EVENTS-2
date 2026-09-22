@@ -4,6 +4,7 @@ import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { locationOptions } from "@/data/plan-your-event";
 import { FormStatusPanel } from "./FormStatusPanel";
+import { DatePicker } from "@/components/ui/DatePicker";
 
 const inputClasses =
   "font-body w-full rounded-full border border-dark-border/50 bg-transparent px-5 py-3 text-sm text-dark-text-primary placeholder:text-dark-text-muted focus:border-dark-primary/60 focus:outline-none";
@@ -42,29 +43,36 @@ type SubmitStatus = "idle" | "sending" | "success" | "error";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_PATTERN = /^[+\d][\d\s\-().]{6,}$/;
 const NAME_PATTERN = /^[a-zA-Z\s'-]+$/;
+const UAE_PHONE_PATTERN = /^5\d{8}$/;
 
 function todayISODate() {
   return new Date().toISOString().split("T")[0];
 }
 
-function validateField(field: keyof FormState, value: string): string | undefined {
+function validateField(
+  field: keyof FormState,
+  value: string,
+): string | undefined {
   const trimmed = value.trim();
 
   switch (field) {
     case "name":
       if (!trimmed) return "Please enter your name.";
       if (trimmed.length < 2) return "Name must be at least 2 characters.";
-      if (!NAME_PATTERN.test(trimmed)) return "Name can only contain letters, spaces and hyphens.";
+      if (!NAME_PATTERN.test(trimmed))
+        return "Name can only contain letters, spaces and hyphens.";
       return undefined;
 
     case "email":
       if (!trimmed) return "Please enter your email address.";
-      if (!EMAIL_PATTERN.test(trimmed)) return "Please enter a valid email address.";
+      if (!EMAIL_PATTERN.test(trimmed))
+        return "Please enter a valid email address.";
       return undefined;
 
     case "phone":
       if (!trimmed) return "Please enter your phone number.";
-      if (!PHONE_PATTERN.test(trimmed)) return "Please enter a valid phone number.";
+      if (!PHONE_PATTERN.test(trimmed))
+        return "Please enter a valid phone number.";
       return undefined;
 
     case "location":
@@ -77,11 +85,22 @@ function validateField(field: keyof FormState, value: string): string | undefine
       return undefined;
 
     case "budget":
-      if (trimmed && !/^[\d,]+$/.test(trimmed)) return "Budget should be a number (e.g. 15000).";
+      if (trimmed && !/^[\d,]+$/.test(trimmed))
+        return "Budget should be a number (e.g. 15000).";
       return undefined;
 
+    case "phone": {
+      const digitsOnly = trimmed.replace(/\D/g, "");
+      if (!digitsOnly) return "Please enter your phone number.";
+      if (!UAE_PHONE_PATTERN.test(digitsOnly)) {
+        return "Enter a valid UAE mobile number (e.g. 5XXXXXXXX).";
+      }
+      return undefined;
+    }
+
     case "message":
-      if (trimmed && trimmed.length < 10) return "Message should be at least 10 characters, or left blank.";
+      if (trimmed && trimmed.length < 10)
+        return "Message should be at least 10 characters, or left blank.";
       return undefined;
 
     default:
@@ -92,7 +111,8 @@ function validateField(field: keyof FormState, value: string): string | undefine
 function validateForm(form: FormState): FormErrors {
   const errors: FormErrors = {};
   (Object.keys(form) as (keyof FormState)[]).forEach((field) => {
-    if (field === "company" || field === "subject" || field === "eventType") return;
+    if (field === "company" || field === "subject" || field === "eventType")
+      return;
     const error = validateField(field, form[field]);
     if (error) errors[field] = error;
   });
@@ -102,22 +122,34 @@ function validateForm(form: FormState): FormErrors {
 export function ContactForm() {
   const [form, setForm] = useState<FormState>(initialState);
   const [errors, setErrors] = useState<FormErrors>({});
-  const [touched, setTouched] = useState<Partial<Record<keyof FormState, boolean>>>({});
+  const [touched, setTouched] = useState<
+    Partial<Record<keyof FormState, boolean>>
+  >({});
   const [status, setStatus] = useState<SubmitStatus>("idle");
 
-  const update = (field: keyof FormState) => (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    const value = e.target.value;
-    setForm((prev) => ({ ...prev, [field]: value }));
-    if (touched[field]) {
-      setErrors((prev) => ({ ...prev, [field]: validateField(field, value) }));
-    }
-  };
+  const update =
+    (field: keyof FormState) =>
+    (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+      >,
+    ) => {
+      const value = e.target.value;
+      setForm((prev) => ({ ...prev, [field]: value }));
+      if (touched[field]) {
+        setErrors((prev) => ({
+          ...prev,
+          [field]: validateField(field, value),
+        }));
+      }
+    };
 
   const handleBlur = (field: keyof FormState) => () => {
     setTouched((prev) => ({ ...prev, [field]: true }));
-    setErrors((prev) => ({ ...prev, [field]: validateField(field, form[field]) }));
+    setErrors((prev) => ({
+      ...prev,
+      [field]: validateField(field, form[field]),
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -164,7 +196,7 @@ export function ContactForm() {
           event_date: form.eventDate,
           message: form.message.trim(),
         },
-        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
+        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! },
       );
 
       setStatus("success");
@@ -177,7 +209,8 @@ export function ContactForm() {
     }
   };
 
-  const fieldError = (field: keyof FormState) => (touched[field] ? errors[field] : undefined);
+  const fieldError = (field: keyof FormState) =>
+    touched[field] ? errors[field] : undefined;
 
   if (status === "success") {
     return (
@@ -226,7 +259,10 @@ export function ContactForm() {
 
       <div className="grid grid-cols-1 gap-x-8 gap-y-6 md:grid-cols-2">
         <div>
-          <label htmlFor="name" className="font-body block text-sm text-dark-text-primary">
+          <label
+            htmlFor="name"
+            className="font-body block text-sm text-dark-text-primary"
+          >
             Name <span className="text-red-400">*</span>
           </label>
           <input
@@ -242,14 +278,21 @@ export function ContactForm() {
             className={`${inputClasses} mt-2 ${fieldError("name") ? errorInputClasses : ""}`}
           />
           {fieldError("name") && (
-            <p id="name-error" role="alert" className="font-body mt-1.5 text-xs text-red-400">
+            <p
+              id="name-error"
+              role="alert"
+              className="font-body mt-1.5 text-xs text-red-400"
+            >
               {fieldError("name")}
             </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="location" className="font-body block text-sm text-dark-text-primary">
+          <label
+            htmlFor="location"
+            className="font-body block text-sm text-dark-text-primary"
+          >
             Location <span className="text-red-400">*</span>
           </label>
 
@@ -260,7 +303,9 @@ export function ContactForm() {
             onChange={update("location")}
             onBlur={handleBlur("location")}
             aria-invalid={Boolean(fieldError("location"))}
-            aria-describedby={fieldError("location") ? "location-error" : undefined}
+            aria-describedby={
+              fieldError("location") ? "location-error" : undefined
+            }
             className={`${inputClasses} mt-2 appearance-none bg-[length:12px] bg-[right_1.25rem_center] bg-no-repeat pr-10 ${
               fieldError("location") ? errorInputClasses : ""
             }`}
@@ -269,24 +314,39 @@ export function ContactForm() {
                 "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23F5F0EC' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\")",
             }}
           >
-            <option value="" disabled className="bg-dark-card text-dark-text-muted">
+            <option
+              value=""
+              disabled
+              className="bg-dark-card text-dark-text-muted"
+            >
               Pick a Location
             </option>
             {locationOptions.map((loc) => (
-              <option key={loc} value={loc} className="bg-dark-card text-dark-text-primary">
+              <option
+                key={loc}
+                value={loc}
+                className="bg-dark-card text-dark-text-primary"
+              >
                 {loc}
               </option>
             ))}
           </select>
           {fieldError("location") && (
-            <p id="location-error" role="alert" className="font-body mt-1.5 text-xs text-red-400">
+            <p
+              id="location-error"
+              role="alert"
+              className="font-body mt-1.5 text-xs text-red-400"
+            >
               {fieldError("location")}
             </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="email" className="font-body block text-sm text-dark-text-primary">
+          <label
+            htmlFor="email"
+            className="font-body block text-sm text-dark-text-primary"
+          >
             Email <span className="text-red-400">*</span>
           </label>
           <input
@@ -302,14 +362,21 @@ export function ContactForm() {
             className={`${inputClasses} mt-2 ${fieldError("email") ? errorInputClasses : ""}`}
           />
           {fieldError("email") && (
-            <p id="email-error" role="alert" className="font-body mt-1.5 text-xs text-red-400">
+            <p
+              id="email-error"
+              role="alert"
+              className="font-body mt-1.5 text-xs text-red-400"
+            >
               {fieldError("email")}
             </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="budget" className="font-body block text-sm text-dark-text-primary">
+          <label
+            htmlFor="budget"
+            className="font-body block text-sm text-dark-text-primary"
+          >
             Approx Budget in your Mind
           </label>
           <input
@@ -326,28 +393,49 @@ export function ContactForm() {
             className={`${inputClasses} mt-2 ${fieldError("budget") ? errorInputClasses : ""}`}
           />
           {fieldError("budget") && (
-            <p id="budget-error" role="alert" className="font-body mt-1.5 text-xs text-red-400">
+            <p
+              id="budget-error"
+              role="alert"
+              className="font-body mt-1.5 text-xs text-red-400"
+            >
               {fieldError("budget")}
             </p>
           )}
         </div>
 
-        <div>
+                <div>
           <label htmlFor="phone" className="font-body block text-sm text-dark-text-primary">
             Phone <span className="text-red-400">*</span>
           </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={form.phone}
-            onChange={update("phone")}
-            onBlur={handleBlur("phone")}
-            placeholder="Enter your Phone Number"
-            aria-invalid={Boolean(fieldError("phone"))}
-            aria-describedby={fieldError("phone") ? "phone-error" : undefined}
-            className={`${inputClasses} mt-2 ${fieldError("phone") ? errorInputClasses : ""}`}
-          />
+          <div
+            className={`mt-2 flex items-center overflow-hidden rounded-full border border-dark-border/50 bg-transparent focus-within:border-dark-primary/60 ${
+              fieldError("phone") ? errorInputClasses : ""
+            }`}
+          >
+            <span className="font-body select-none border-r border-dark-border/50 px-4 py-3 text-sm text-dark-text-secondary">
+              +971
+            </span>
+            <input
+              type="tel"
+              inputMode="numeric"
+              id="phone"
+              name="phone"
+              value={form.phone}
+              onChange={(e) => {
+                const digits = e.target.value.replace(/\D/g, "").slice(0, 9);
+                setForm((prev) => ({ ...prev, phone: digits }));
+                if (touched.phone) {
+                  setErrors((prev) => ({ ...prev, phone: validateField("phone", digits) }));
+                }
+              }}
+              onBlur={handleBlur("phone")}
+              placeholder="5X XXX XXXX"
+              maxLength={9}
+              aria-invalid={Boolean(fieldError("phone"))}
+              aria-describedby={fieldError("phone") ? "phone-error" : undefined}
+              className="font-body w-full bg-transparent px-4 py-3 text-sm text-dark-text-primary placeholder:text-dark-text-muted focus:outline-none"
+            />
+          </div>
           {fieldError("phone") && (
             <p id="phone-error" role="alert" className="font-body mt-1.5 text-xs text-red-400">
               {fieldError("phone")}
@@ -356,7 +444,10 @@ export function ContactForm() {
         </div>
 
         <div>
-          <label htmlFor="subject" className="font-body block text-sm text-dark-text-primary">
+          <label
+            htmlFor="subject"
+            className="font-body block text-sm text-dark-text-primary"
+          >
             Subject
           </label>
           <input
@@ -371,7 +462,10 @@ export function ContactForm() {
         </div>
 
         <div>
-          <label htmlFor="eventType" className="font-body block text-sm text-dark-text-primary">
+          <label
+            htmlFor="eventType"
+            className="font-body block text-sm text-dark-text-primary"
+          >
             Events Looking for
           </label>
           <input
@@ -386,7 +480,10 @@ export function ContactForm() {
         </div>
 
         <div className="md:row-span-2">
-          <label htmlFor="message" className="font-body block text-sm text-dark-text-primary">
+          <label
+            htmlFor="message"
+            className="font-body block text-sm text-dark-text-primary"
+          >
             Message
           </label>
           <textarea
@@ -398,35 +495,42 @@ export function ContactForm() {
             placeholder="Write Something..."
             rows={5}
             aria-invalid={Boolean(fieldError("message"))}
-            aria-describedby={fieldError("message") ? "message-error" : undefined}
+            aria-describedby={
+              fieldError("message") ? "message-error" : undefined
+            }
             className={`${inputClasses} mt-2 rounded-xl ${fieldError("message") ? errorInputClasses : ""}`}
           />
           {fieldError("message") && (
-            <p id="message-error" role="alert" className="font-body mt-1.5 text-xs text-red-400">
+            <p
+              id="message-error"
+              role="alert"
+              className="font-body mt-1.5 text-xs text-red-400"
+            >
               {fieldError("message")}
             </p>
           )}
         </div>
 
-        <div>
+             <div>
           <label htmlFor="eventDate" className="font-body block text-sm text-dark-text-primary">
             Event Date <span className="text-red-400">*</span>
           </label>
-
-          <input
-            type="date"
-            id="eventDate"
-            name="eventDate"
-            min={todayISODate()}
-            value={form.eventDate}
-            onChange={update("eventDate")}
-            onBlur={handleBlur("eventDate")}
-            aria-invalid={Boolean(fieldError("eventDate"))}
-            aria-describedby={fieldError("eventDate") ? "eventDate-error" : undefined}
-            className={`${inputClasses} mt-2 [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:brightness-200 [&::-webkit-calendar-picker-indicator]:cursor-pointer ${
-              fieldError("eventDate") ? errorInputClasses : ""
-            }`}
-          />
+          <div className="mt-2">
+            <DatePicker
+              id="eventDate"
+              name="eventDate"
+              value={form.eventDate}
+              onChange={(iso) => {
+                setForm((prev) => ({ ...prev, eventDate: iso }));
+                if (touched.eventDate) {
+                  setErrors((prev) => ({ ...prev, eventDate: validateField("eventDate", iso) }));
+                }
+              }}
+              onBlur={handleBlur("eventDate")}
+              hasError={Boolean(fieldError("eventDate"))}
+              minDate={new Date()}
+            />
+          </div>
           {fieldError("eventDate") && (
             <p id="eventDate-error" role="alert" className="font-body mt-1.5 text-xs text-red-400">
               {fieldError("eventDate")}
@@ -438,7 +542,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="font-body mt-8 w-full rounded-full bg-dark-button-gradient py-3.5 text-sm font-semibold text-dark-bg transition-transform hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60"
+        className="cursor-pointer font-body mt-8 w-full rounded-full bg-dark-button-gradient py-3.5 text-sm font-semibold text-dark-bg transition-transform hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {status === "sending" ? "Sending..." : "Submit"}
       </button>
