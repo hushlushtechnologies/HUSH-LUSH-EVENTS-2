@@ -45,17 +45,14 @@ const particles: Particle[] = [
 // LIGHT_BAR_WRAPPER_HEIGHT), not the whole section — each bar's "height"
 // is a percentage of "reaches down to the word," not "reaches down the
 // whole hero."
-const LIGHT_BAR_WIDTH = "clamp(16px, 4vw, 50px)";
+const LIGHT_BAR_WIDTH = "50px";
 const LIGHT_BAR_HEIGHT = "80%";
-const LIGHT_BAR_GAP = 5; // percentage points between each bar's `left`
 
-const lightBars = Array.from({ length: 9 }, (_, i) => ({
-  left: `${26 + i * LIGHT_BAR_GAP}%`,
+const lightBars = Array.from({ length: 9 }, () => ({
   width: LIGHT_BAR_WIDTH,
   opacity: 0.1,
   height: LIGHT_BAR_HEIGHT,
 }));
-
 // The word sits at top-[3%]; this is roughly how much vertical space its
 // glyphs occupy at text-[16vw] leading-none. Bars are clipped to this
 // band so they read as light falling onto the word from above, then
@@ -126,16 +123,15 @@ export function CinematicBackdrop({ word }: { word: string }) {
           (not visible past that point), instead of running the bars
           the full height of the section. z-0 (implicit) keeps this
           layer below the word. */}
-      <div
-        className="absolute inset-x-0 top-0 overflow-hidden"
+   <div
+        className="absolute inset-x-0 top-0 flex items-start justify-center gap-3 overflow-hidden sm:gap-4 md:gap-5"
         style={{ height: LIGHT_BAR_WRAPPER_HEIGHT }}
       >
         {lightBars.map((bar, i) => (
           <div
             key={i}
-            className="absolute top-0 bg-gradient-to-b from-brand-gold to-transparent"
+            className="shrink-0 bg-gradient-to-b from-brand-gold to-transparent"
             style={{
-              left: bar.left,
               width: bar.width,
               height: bar.height,
               opacity: bar.opacity,
