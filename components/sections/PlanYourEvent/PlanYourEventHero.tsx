@@ -71,7 +71,7 @@ export function PlanYourEventHero() {
           </p>
         </motion.div>
 
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -81,6 +81,36 @@ export function PlanYourEventHero() {
           {contactInfo.map((info) => (
             <ContactInfoCard key={info.id} label={info.label} value={info.value} icon={icons[info.id]} />
           ))}
+        </motion.div> */}
+
+                <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="mx-auto mt-14 grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-3"
+        >
+          {contactInfo.map((info) => {
+            const href =
+              info.id === "email"
+                ? `mailto:${info.value}`
+                : info.id === "call"
+                  ? `tel:${info.value.replace(/[^\d+]/g, "")}`
+                  : info.id === "visit"
+                    ? `https://maps.app.goo.gl/E6rTGpXKbGgcsA3x5`
+                    : undefined;
+
+            return (
+              <ContactInfoCard
+                key={info.id}
+                label={info.label}
+                value={info.value}
+                icon={icons[info.id]}
+                href={href}
+                external={info.id === "visit"}
+              />
+            );
+          })}
         </motion.div>
 
         <motion.div

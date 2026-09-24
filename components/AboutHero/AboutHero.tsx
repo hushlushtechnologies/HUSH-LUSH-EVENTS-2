@@ -98,7 +98,7 @@ export function AboutHero() {
 
           {/* Center image */}
          
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -128,7 +128,40 @@ export function AboutHero() {
             </div>
 
             <CircularBadge />
-          </motion.div>
+          </motion.div> */}
+
+          {/* Center image */}
+<motion.div
+  initial={{ opacity: 0, scale: 0.95 }}
+  whileInView={{ opacity: 1, scale: 1 }}
+  viewport={{ once: true, amount: 0.3 }}
+  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+  className="relative isolate mx-auto aspect-[17/28] w-[62vw] max-w-[220px] xs:max-w-[260px] sm:w-[280px] sm:max-w-none md:w-[300px] lg:w-[340px]"
+>
+  <div
+    aria-hidden="true"
+    className="pointer-events-none absolute left-1/2 top-[90%] z-10 h-[112%] w-[112%] -translate-x-1/2 -translate-y-1/2"
+  >
+    <Image
+      src="/images/decorations/heart-orbit.png"
+      alt=""
+      fill
+      className="object-contain"
+    />
+  </div>
+
+  <div className="relative h-full w-full overflow-hidden rounded-[999px] border-2 border-light-primary">
+    <Image
+      src={heroImage}
+      alt="Wedding fountain decorated with florals"
+      fill
+      className="object-cover"
+      sizes="(min-width: 1024px) 340px, (min-width: 640px) 300px, 62vw"
+    />
+  </div>
+
+  <CircularBadge />
+</motion.div>
 
           {/* Right column */}
           <motion.div

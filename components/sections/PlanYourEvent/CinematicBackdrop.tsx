@@ -45,7 +45,7 @@ const particles: Particle[] = [
 // LIGHT_BAR_WRAPPER_HEIGHT), not the whole section — each bar's "height"
 // is a percentage of "reaches down to the word," not "reaches down the
 // whole hero."
- const LIGHT_BAR_WIDTH = "50px";
+const LIGHT_BAR_WIDTH = "clamp(16px, 4vw, 50px)";
 const LIGHT_BAR_HEIGHT = "80%";
 const LIGHT_BAR_GAP = 5; // percentage points between each bar's `left`
 
@@ -110,6 +110,12 @@ export function CinematicBackdrop({ word }: { word: string }) {
 
       {/* Radial atmospheric glow, upper-center — same blur-blob technique
           and gold token used in the Footer's ConcentricRings */}
+      {/* <div
+        className="absolute left-1/2 top-[10%] h-[600px] w-[900px] -translate-x-1/2 rounded-full opacity-60 blur-[160px]"
+        // style={{ background: "var(--color-brand-gold)" }}
+      /> */}
+       {/* Radial atmospheric glow, upper-center — same blur-blob technique
+          and gold token used in the Footer's ConcentricRings */}
       <div
         className="absolute left-1/2 top-[10%] h-[600px] w-[900px] -translate-x-1/2 rounded-full opacity-60 blur-[160px]"
         // style={{ background: "var(--color-brand-gold)" }}
@@ -140,9 +146,22 @@ export function CinematicBackdrop({ word }: { word: string }) {
 
       {/* Oversized ghost typography — explicit z-10 so it always sits
           above the light bars regardless of DOM order changes later */}
-      <div className="absolute left-0 top-[3%] z-10 w-full select-none overflow-hidden text-center">
+      {/* <div className="absolute left-0 top-[3%] z-10 w-full select-none overflow-hidden text-center">
         <span
           className="font-display bg-clip-text text-[16vw] font-bold leading-none text-transparent opacity-90"
+          style={{
+            backgroundImage:
+              "linear-gradient(180deg, #3a2f1a 0%, #0a0805 100%)",
+          }}
+        >
+          {word}
+        </span>
+      </div> */}
+      {/* Oversized ghost typography — explicit z-10 so it always sits
+          above the light bars regardless of DOM order changes later */}
+      <div className="absolute left-0 top-[8%] z-10 w-full select-none text-center">
+        <span
+          className="font-display bg-clip-text text-[16vw] font-bold leading-[1.15] text-transparent opacity-90"
           style={{
             backgroundImage:
               "linear-gradient(180deg, #3a2f1a 0%, #0a0805 100%)",

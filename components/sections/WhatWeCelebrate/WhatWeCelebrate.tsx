@@ -70,7 +70,10 @@ export function WhatWeCelebrate() {
           Arrow buttons sit on top of the row, at its left/right edges,
           and only render when there's actually somewhere to scroll to. */}
       <div className="relative mt-12">
-        <div ref={scrollerRef} className="overflow-x-auto pb-2 scrollbar-hide">
+        <div
+  ref={scrollerRef}
+  className="overflow-x-auto overflow-y-visible pb-2 scrollbar-hide [touch-action:pan-x]"
+>
           <div className="flex items-stretch gap-6 pl-6 md:pl-10 lg:pl-[max(2.5rem,calc((100vw-1400px)/2))]">
             {celebrations.map((celebration, index) => (
               <motion.div
