@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 import { Preloader } from "@/components/layout/Preloader";
+import Script from "next/script";
 
 const lora = Lora({
   subsets: ["latin"],
@@ -99,6 +100,12 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
         <FloatingWhatsApp />
+
+            <Script
+          src="//code.tidio.co/nmvquwavffqjr5enihpxm8ebeqw6bmdn.js"
+          strategy="lazyOnload"
+        />
+
       </body>
     </html>
   );

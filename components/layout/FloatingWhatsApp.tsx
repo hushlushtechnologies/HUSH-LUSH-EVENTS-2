@@ -11,8 +11,6 @@ export function FloatingWhatsApp() {
   const [isHovered, setIsHovered] = useState(false);
   const [hasEntered, setHasEntered] = useState(false);
 
-  // Small delay before it appears, so it doesn't compete with the
-  // page's own entrance animations on first load.
   useEffect(() => {
     const timer = setTimeout(() => setHasEntered(true), 1200);
     return () => clearTimeout(timer);
@@ -27,25 +25,10 @@ export function FloatingWhatsApp() {
           initial={{ opacity: 0, scale: 0.5, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-3"
+          className="fixed bottom-6 left-6 z-50 flex items-center gap-3"
           onHoverStart={() => setIsHovered(true)}
           onHoverEnd={() => setIsHovered(false)}
         >
-          {/* Tooltip — slides in from the right, only on hover */}
-          <AnimatePresence>
-            {isHovered && !reducedMotion && (
-              <motion.div
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 10 }}
-                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="font-body whitespace-nowrap rounded-full bg-dark-bg px-4 py-2 text-xs font-medium text-white shadow-lg"
-              >
-                Chat with us
-              </motion.div>
-            )}
-          </AnimatePresence>
-
           <Link
             href={whatsapp.href}
             target="_blank"
@@ -60,7 +43,6 @@ export function FloatingWhatsApp() {
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.95 }}
             >
-              {/* Pulsing ring */}
               {!reducedMotion && (
                 <motion.span
                   className="absolute inset-0 rounded-full bg-[#25D366]"
@@ -85,6 +67,21 @@ export function FloatingWhatsApp() {
               </svg>
             </motion.div>
           </Link>
+
+          {/* Tooltip — slides in from the left, only on hover */}
+          <AnimatePresence>
+            {isHovered && !reducedMotion && (
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="font-body whitespace-nowrap rounded-full bg-dark-bg px-4 py-2 text-xs font-medium text-white shadow-lg"
+              >
+                Chat with us
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       )}
     </AnimatePresence>
