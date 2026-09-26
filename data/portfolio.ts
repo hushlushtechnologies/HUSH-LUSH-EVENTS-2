@@ -100,7 +100,7 @@ export interface PortfolioItem {
   image: string;
   categories: string[];
   span: PortfolioSpan;
-  orientation: PortfolioOrientation;
+  orientation?: PortfolioOrientation; // optional — defaults to "landscape" when omitted (see PortfolioCard)
 }
 
 export const portfolioIntro = {
