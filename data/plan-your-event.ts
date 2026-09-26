@@ -15,7 +15,7 @@ export const planYourEventContent = {
 
 export const contactInfo: ContactInfo[] = [
   { id: "email", label: "Email", value: "info@hushlushevents.com" },
-  { id: "call", label: "Call Us", value: "+971 50 495 6725" },
+  { id: "call", label: "Call Us", value: "+971 54 244 0905" },
   {
     id: "visit",
     label: "Visit Us",

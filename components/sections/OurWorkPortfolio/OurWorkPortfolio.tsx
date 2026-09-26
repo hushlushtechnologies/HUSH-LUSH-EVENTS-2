@@ -6,24 +6,15 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FilterPills } from "./FilterPills";
 import { PortfolioCard } from "./PortfolioCard";
+import { MasonryGrid } from "./MasonryGrid";
 import { Lightbox } from "./Lightbox";
-import { portfolioIntro, portfolioItems, SPAN_PATTERN, type PortfolioItem } from "@/data/portfolio";
+import { portfolioIntro, portfolioItems, type PortfolioItem } from "@/data/portfolio";
 
-function withPositionalSpans(items: PortfolioItem[]): PortfolioItem[] {
+function withHeroSpan(items: PortfolioItem[]): PortfolioItem[] {
   return items.map((item, i) => ({
     ...item,
-    span: SPAN_PATTERN[i % SPAN_PATTERN.length],
+    span: i === 0 ? "large" : i === 1 || i === 2 ? "stacked" : "third",
   }));
-}
-
-function chunkIntoRows(items: PortfolioItem[]) {
-  const rows: PortfolioItem[][] = [];
-  let i = 0;
-  while (i < items.length) {
-    rows.push(items.slice(i, i + 3));
-    i += 3;
-  }
-  return rows;
 }
 
 interface OurWorkPortfolioProps {
@@ -38,14 +29,15 @@ export function OurWorkPortfolio({ categoryFilter }: OurWorkPortfolioProps) {
 
   const filteredItems = useMemo(() => {
     if (filterId === "all") {
-      return withPositionalSpans(portfolioItems);
+      return withHeroSpan(portfolioItems);
     }
     const matched = portfolioItems.filter((item) => item.categories.includes(filterId));
-    return withPositionalSpans(matched);
+    return withHeroSpan(matched);
   }, [filterId]);
 
-  const rows = useMemo(() => chunkIntoRows(filteredItems), [filteredItems]);
   const isEmpty = filteredItems.length === 0;
+  const heroRow = filteredItems.slice(0, 3);
+  const masonryItems = filteredItems.slice(3);
 
   return (
     <section className="section-light py-20 md:py-28 bg-light-card">
@@ -62,9 +54,6 @@ export function OurWorkPortfolio({ categoryFilter }: OurWorkPortfolioProps) {
           </div>
         )}
 
-        {/* Keyed on filterId — AnimatePresence crossfades the whole grid
-            out and the new one in whenever the active filter changes,
-            instead of items snapping instantly between states. */}
         <AnimatePresence mode="wait">
           <motion.div
             key={filterId}
@@ -91,59 +80,35 @@ export function OurWorkPortfolio({ categoryFilter }: OurWorkPortfolioProps) {
               </div>
             ) : (
               <div className="mt-10 flex flex-col gap-6">
-                {rows.map((row, rowIndex) => {
-                  const firstSpan = row[0]?.span;
-                  const gridClass =
-                    firstSpan === "large"
-                      ? "grid grid-cols-1 items-stretch gap-6 lg:grid-cols-3"
-                      : "grid grid-cols-1 gap-6 sm:grid-cols-3";
-
-                  return (
-                    <div key={rowIndex} className={gridClass}>
-                      {row.map((item, itemIndex) => {
-                        const isLargeRow = firstSpan === "large";
-                        const wrapperClass =
-                          isLargeRow && itemIndex === 0
-                            ? "lg:col-span-2"
-                            : isLargeRow
-                              ? "flex flex-col gap-6"
-                              : "";
-
-                        if (isLargeRow && itemIndex > 0) {
-                          if (itemIndex === 2) return null;
-                          const stackedPair = row.slice(1, 3);
-                          return (
-                            <div key={item.id} className="flex h-full flex-col gap-6">
-                              {stackedPair.map((stackedItem, i) => (
-                                <motion.div
-                                  key={stackedItem.id}
-                                  className="flex-1"
-                                  initial={{ opacity: 0, y: 16 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{ duration: 0.4, delay: 0.05 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                                >
-                                  <PortfolioCard {...stackedItem} onClick={() => setSelectedItem(stackedItem)} />
-                                </motion.div>
-                              ))}
-                            </div>
-                          );
-                        }
-
-                        return (
-                          <motion.div
-                            key={item.id}
-                            className={wrapperClass}
-                            initial={{ opacity: 0, y: 16 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: 0.05 + itemIndex * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                          >
-                            <PortfolioCard {...item} onClick={() => setSelectedItem(item)} />
-                          </motion.div>
-                        );
-                      })}
+                {heroRow.length === 3 && (
+                  <div className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-3">
+                    <motion.div
+                      className="lg:col-span-2"
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <PortfolioCard {...heroRow[0]} onClick={() => setSelectedItem(heroRow[0])} />
+                    </motion.div>
+                    <div className="flex h-full flex-col gap-6">
+                      {heroRow.slice(1, 3).map((item, i) => (
+                        <motion.div
+                          key={item.id}
+                          className="flex-1"
+                          initial={{ opacity: 0, y: 16 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.4, delay: 0.05 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                          <PortfolioCard {...item} onClick={() => setSelectedItem(item)} />
+                        </motion.div>
+                      ))}
                     </div>
-                  );
-                })}
+                  </div>
+                )}
+
+                {masonryItems.length > 0 && (
+                  <MasonryGrid items={masonryItems} onSelect={setSelectedItem} />
+                )}
               </div>
             )}
           </motion.div>
